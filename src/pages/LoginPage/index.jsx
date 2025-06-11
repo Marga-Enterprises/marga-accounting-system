@@ -68,7 +68,7 @@ const Page = () => {
     <Box sx={styles.root}>
       <Container sx={styles.brandingContainer}>
         <Typography variant="h2" textAlign="center" sx={styles.title}>
-          Marga Accounting System TEST CI CD
+          Marga Accounting System
         </Typography>
         <Typography variant="h5" textAlign="center" sx={styles.subtitle}>
           Please login to continue
