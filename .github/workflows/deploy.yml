@@ -39,6 +39,6 @@ jobs:
 
             echo "🐳 Rebuilding Docker containers..."
             docker compose -f docker-compose.prod.yml down
-            docker-compose -f docker-compose.prod.yml up -d --build   # Rebuilds and runs containers in detached mode
+            docker compose -f docker-compose.prod.yml up -d --build   # Rebuilds and runs containers in detached mode
             
             echo "🚀 Deployed!"
