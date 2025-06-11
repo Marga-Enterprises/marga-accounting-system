@@ -1,0 +1,9 @@
+// AUTHENTICATION
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const SET_USER_DETAILS = 'SET_USER_DETAILS';
+
+export const USER_LOGOUT = 'USER_LOGOUT';
+
+

@@ -1,0 +1,20 @@
+/* ✅ Keep this if you're using Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+/* ✅ Minimal reset */
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: 'Inter', sans-serif;
+  background-color: #f5f5f5; /* optional */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ✅ Optional dark mode helper */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+}
