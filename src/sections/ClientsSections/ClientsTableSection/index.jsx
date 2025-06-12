@@ -1,5 +1,6 @@
 // react
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 // mui
 import {
@@ -15,6 +16,7 @@ import {
   Pagination,
   Select,
   MenuItem,
+  Button,
 } from '@mui/material';
 
 // styles
@@ -41,6 +43,7 @@ const ClientsTableSection = ({
             <TableRow>
               <TableCell sx={styles.tableHeadCell}>Client Name</TableCell>
               <TableCell sx={styles.tableHeadCell}>Status</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Actions</TableCell>
             </TableRow>
           </TableHead>
 
@@ -74,11 +77,34 @@ const ClientsTableSection = ({
                       />
                     </Stack>
                   </TableCell>
+
+                  <TableCell>
+                    <Stack direction="row" spacing={1}>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        color="primary"
+                        component={RouterLink}
+                        to={`/client/branches/${client.id}`}
+                      >
+                        View Branches
+                      </Button>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="primary"
+                        component={RouterLink}
+                        to={`/client/departments/${client.id}`}
+                      >
+                        View Departments
+                      </Button>
+                    </Stack>
+                  </TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={2} align="center">
+                <TableCell colSpan={3} align="center">
                   No clients found.
                 </TableCell>
               </TableRow>
