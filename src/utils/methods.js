@@ -14,5 +14,12 @@ export const convertQueryString = (params) => {
     .join('&');
 };
 
-
+/**
+ * capitalize the first letter of a string
+ * @param {string} str
+ */
+export const capitalizeFirstLetter = (str) => {
+  if (typeof str !== 'string' || str.length === 0) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 

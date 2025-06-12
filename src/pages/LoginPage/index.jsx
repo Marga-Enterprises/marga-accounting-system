@@ -20,7 +20,7 @@ import {
 } from '@mui/material';
 
 // styles
-import styles from './style';
+import styles from './styles';
 import '@fontsource/orbitron';
 
 const Page = () => {

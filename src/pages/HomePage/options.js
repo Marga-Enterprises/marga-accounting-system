@@ -8,7 +8,7 @@ const options = [
     label: 'Clients',
     icon: GroupIcon, // just the component reference
     color: '#1976d2',
-    path: '#',
+    path: '/clients',
   },
   {
     label: 'Collection',

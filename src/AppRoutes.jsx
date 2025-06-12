@@ -8,7 +8,10 @@ import NonAuthRouter from '@routers/NonAuthRouter';
 // pages
 import LoginPage from '@pages/LoginPage';
 import HomePage from '@pages/HomePage';
-import DefaultPage from '@pages/DefaultPage'; // This can be used for 404 or default content
+import DefaultPage from '@pages/DefaultPage';
+import ClientsPage from '@pages/ClientsPage';
+import ClientBranchesPage from '@pages/ClientBranchesPage';
+import ClientDepartmentsPage from '@pages/ClientDepartmentsPage';
 
 // layout
 import MainLayout from '@components/layout/MainLayout';
@@ -16,7 +19,8 @@ import MainLayout from '@components/layout/MainLayout';
 function AppRoutes() {
   return (
     <Routes>
-      {/* Login route (outside MainLayout) */}
+      {/* Non Authenticated route (outside MainLayout) */}
+      {/* LoginPage Route */}
       <Route
         path="/login"
         element={
@@ -27,6 +31,7 @@ function AppRoutes() {
       />
 
       {/* Authenticated routes (inside MainLayout) */}
+      {/* HomePage Route */}
       <Route
         path="/"
         element={
@@ -37,7 +42,43 @@ function AppRoutes() {
       >
         <Route index element={<HomePage />} />
       </Route>
-      
+
+      {/* ClientsPage Route */}
+      <Route
+        path="/clients"
+        element={
+          <AuthRouter>
+            <MainLayout />
+          </AuthRouter>
+        }
+      >
+        <Route index element={<ClientsPage />} />
+      </Route>
+
+      {/* ClientBranchesPage Route */}
+      <Route
+        path="/client/branches/:id"
+        element={
+          <AuthRouter>
+            <MainLayout />
+          </AuthRouter>
+        }
+      >
+        <Route index element={<ClientBranchesPage />} />
+      </Route>
+
+      {/* ClientDepartmentsPage Route */}
+      <Route
+        path="/client/departments/:id"
+        element={
+          <AuthRouter>
+            <MainLayout />
+          </AuthRouter>
+        }
+      >
+        <Route index element={<ClientDepartmentsPage />} />
+      </Route>
+
       {/* 404 fallback – must be outside layout */}
       <Route path="*" element={<DefaultPage />} />
     </Routes>

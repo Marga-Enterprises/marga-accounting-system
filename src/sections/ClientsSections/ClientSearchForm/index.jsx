@@ -1,0 +1,39 @@
+import React, { useState } from 'react';
+import { Box, TextField, Button, Stack } from '@mui/material';
+import styles from './styles';
+
+const ClientSearchForm = ({ searchedClient, onSubmitSearch }) => {
+  const [searchText, setSearchText] = useState(searchedClient || '');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmitSearch(searchText.trim());
+  };
+
+  const handleClearSearch = () => {
+    setSearchText('');
+    onSubmitSearch('');
+  };
+
+  return (
+    <Box component="form" onSubmit={handleSubmit} sx={styles.searchForm}>
+      <Stack direction="row" spacing={1} sx={styles.searchStack}>
+        <TextField
+          placeholder="Search clients..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          size="small"
+          sx={styles.searchInput}
+        />
+        <Button variant="contained" type="submit" sx={styles.searchButton}>
+          Search
+        </Button>
+        <Button variant="outlined" onClick={handleClearSearch} sx={styles.searchButton}>
+          Clear
+        </Button>
+      </Stack>
+    </Box>
+  );
+};
+
+export default React.memo(ClientSearchForm);

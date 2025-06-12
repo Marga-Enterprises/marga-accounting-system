@@ -10,15 +10,15 @@ const Navbar = ({ onMenuClick }) => {
       position="static"
       elevation={0}
       sx={{
-        backgroundColor: '#fff',
-        borderBottom: '1px solid #e0e0e0',
+        backgroundColor: '#f0f0f0',
+        borderBottom: '1px solid rgb(199, 199, 199)',
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         {/* Logo on the left */}
         <Box
           component="img"
-          src="https://cdn-ildgkmn.nitrocdn.com/lZCGdHsfFAURcutatXSuaOPaUFbGAGTa/assets/images/optimized/marga.biz/wp-content/uploads/2024/04/Marga-Logo-M.png"
+          src="https://wotg.sgp1.cdn.digitaloceanspaces.com/marga/images/Marga-Logo-M-removebg-preview.png"
           alt="Marga Logo"
           sx={{
             height: 60,

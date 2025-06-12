@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '@components/layout/Navbar';
 import Sidebar from '@components/layout/Sidebar';
 import { Outlet } from 'react-router-dom';
@@ -10,9 +10,7 @@ const MainLayout = () => {
     <>
       <Navbar onMenuClick={() => setSidebarOpen(true)} />
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      <div style={{ padding: '1rem' }}>
-        <Outlet />
-      </div>
+      <Outlet />
     </>
   );
 };

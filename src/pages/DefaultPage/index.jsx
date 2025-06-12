@@ -2,27 +2,19 @@
 import { Box, Typography, Button, Stack } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
+// styles
+import notFoundStyles from './styles';
+
 const Page = () => {
   return (
-    <Box
-      sx={{
-        height: '100vh',
-        textAlign: 'center',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        bgcolor: '#f5f5f5',
-        px: 2,
-      }}
-    >
-      <Typography variant="h1" color="primary" fontWeight="bold">
+    <Box sx={notFoundStyles.root}>
+      <Typography variant="h1" color="primary" sx={notFoundStyles.title}>
         404
       </Typography>
-      <Typography variant="h5" mt={1}>
+      <Typography variant="h5" sx={notFoundStyles.subtitle}>
         Oops! Page not found.
       </Typography>
-      <Typography variant="body1" mt={1} mb={3}>
+      <Typography variant="body1" sx={notFoundStyles.bodyText}>
         The page you’re looking for doesn’t exist or has been moved.
       </Typography>
       <Stack direction="row" spacing={2}>

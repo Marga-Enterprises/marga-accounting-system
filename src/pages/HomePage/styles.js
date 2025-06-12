@@ -6,6 +6,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     px: 2,
+    padding: '1rem'
   },
   wrapperBox: {
     display: 'flex',
