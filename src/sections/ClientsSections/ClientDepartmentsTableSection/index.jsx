@@ -40,25 +40,27 @@ const ClientBranchesTableSection = ({
           <TableHead>
             <TableRow>
               <TableCell sx={styles.tableHeadCell}>Department Name</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Address</TableCell>
               <TableCell sx={styles.tableHeadCell}>Status</TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
             {departments.length > 0 ? (
-              departments.map((branch) => (
-                <TableRow key={branch.id} hover>
-                  <TableCell>{branch.client_department_name}</TableCell>
+              departments.map((department) => (
+                <TableRow key={department.id} hover>
+                  <TableCell>{department.client_department_name}</TableCell>
+                  <TableCell>{department.client_department_address}</TableCell>
                   <TableCell>
                     <Stack direction="row" alignItems="center" spacing={1}>
                       <Select
-                        value={branch.client_department_status}
+                        value={department.client_department_status}
                         onChange={(e) =>
                           onStatusChange(
-                            branch.id, 
-                            branch.client_department_name, 
-                            branch.client_department_address,
-                            branch.client_department_client_id,
+                            department.id, 
+                            department.client_department_name, 
+                            department.client_department_address,
+                            department.client_department_client_id,
                             e.target.value
                           )
                         }
@@ -73,7 +75,7 @@ const ClientBranchesTableSection = ({
                         sx={{
                           ...styles.statusDot,
                           backgroundColor:
-                            branch.client_department_status === 'active'
+                            department.client_department_status === 'active'
                               ? styles.statusDotActive.backgroundColor
                               : styles.statusDotInactive.backgroundColor,
                         }}
