@@ -12,6 +12,7 @@ import DefaultPage from '@pages/DefaultPage';
 import ClientsPage from '@pages/ClientsPage';
 import ClientBranchesPage from '@pages/ClientBranchesPage';
 import ClientDepartmentsPage from '@pages/ClientDepartmentsPage';
+import PrintInvoicePage from '@pages/PrintInvoicePage';
 
 // layout
 import MainLayout from '@components/layout/MainLayout';
@@ -77,6 +78,18 @@ function AppRoutes() {
         }
       >
         <Route index element={<ClientDepartmentsPage />} />
+      </Route>
+
+      {/* PrintInvoicePage Route */}
+      <Route
+        path="/print-invoice"
+        element={
+          <AuthRouter>
+            <MainLayout />
+          </AuthRouter>
+        }
+      >
+        <Route index element={<PrintInvoicePage />} />
       </Route>
 
       {/* 404 fallback – must be outside layout */}
