@@ -1,16 +1,14 @@
-// react
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
 import * as XLSX from "xlsx";
-
-// print template
-import { generatePrintHTML } from "./printTemplate.js";
+import { generatePrintHTML } from "./printTemplate"; 
 
 export const useLogic = () => {
-  const printRef = useRef(null);
-
   const [data, setData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
+  // Handles the file upload and parsing
   const handleFileUpload = useCallback((e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -27,6 +25,7 @@ export const useLogic = () => {
     reader.readAsBinaryString(file);
   }, []);
 
+  // Toggles the selection of rows
   const toggleRow = useCallback((index) => {
     setSelectedRows((prev) =>
       prev.includes(index)
@@ -35,6 +34,27 @@ export const useLogic = () => {
     );
   }, []);
 
+  // Clears the search input
+  const handleClearSearch = useCallback(() => {
+    setSearchQuery("");
+    setFilteredData(data);
+  }, [data]);
+
+  // Perform the search when the button is clicked
+  const handleSearch = useCallback(() => {
+    if (!searchQuery.trim()) return setFilteredData(data);
+
+    const lowerQuery = searchQuery.toLowerCase();
+    const filtered = data.filter((row) =>
+      Object.values(row)
+        .join(" ")
+        .toLowerCase()
+        .includes(lowerQuery)
+    );
+    setFilteredData(filtered);
+  }, [data, searchQuery]);
+
+  // Print functionality
   const handlePrint = useCallback(() => {
     const printable = document.getElementById("print-preview");
 
@@ -49,11 +69,14 @@ export const useLogic = () => {
   }, []);
 
   return {
-    data,
+    data: filteredData.length > 0 ? filteredData : data, // Display filtered data or all data
     selectedRows,
     handleFileUpload,
     toggleRow,
     handlePrint,
-    printRef,
+    searchQuery,
+    setSearchQuery,
+    handleClearSearch,
+    handleSearch,
   };
 };

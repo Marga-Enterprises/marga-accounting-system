@@ -1,21 +1,15 @@
 // MUI
-import {
-  Box,
-  Button,
-  Container,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
+import { Box, Button, Container, Typography } from "@mui/material";
 import PrintIcon from "@mui/icons-material/Print";
 
 // logic
 import { useLogic } from "./useLogic";
 
 // sections
+import UploadExcelSection from "@sections/PrintInvoiceSection/UploadExcelSection";
 import InvoicesTableSection from "@sections/PrintInvoiceSection/InvoicesTableSection";
 import PrintPreviewSection from "@sections/PrintInvoiceSection/PrintPreviewSection";
+import SearchInvoiceSection from "@sections/PrintInvoiceSection/SearchInvoiceSection";
 
 // styles
 import styles from "./styles";
@@ -27,39 +21,38 @@ const PrintInvoicePage = () => {
     handleFileUpload,
     toggleRow,
     handlePrint,
+    searchQuery,
+    setSearchQuery,
+    handleClearSearch,
+    handleSearch,
   } = useLogic();
 
   return (
     <Container maxWidth="xl" sx={styles.container}>
-      {/* Title */}
       <Typography variant="h4" gutterBottom>
         Print Invoice
       </Typography>
 
-      {/* Upload Section */}
-      <Paper elevation={3} sx={styles.uploadSection}>
-        <Stack direction="row" alignItems="center" spacing={2}>
-          <UploadFileIcon color="primary" />
-          <Button component="label" variant="contained">
-            Upload Excel
-            <input
-              hidden
-              type="file"
-              accept=".xlsx, .xls"
-              onChange={handleFileUpload}
-            />
-          </Button>
-        </Stack>
-      </Paper>
+      {/* Excel Upload Section */}
+      <UploadExcelSection onFileUpload={handleFileUpload} />
 
-      {/* Table Section */}
+      {/* Search Section */}
+      <SearchInvoiceSection
+        value={searchQuery}
+        data={data}
+        onChange={setSearchQuery}
+        onSearch={handleSearch}
+        onClear={handleClearSearch}
+      />
+
+      {/* Display Parsed Excel Table */}
       <InvoicesTableSection
         data={data}
         selectedRows={selectedRows}
         toggleRow={toggleRow}
       />
 
-      {/* Print Button + Hidden Preview */}
+      {/* Print Button & Hidden Preview */}
       {selectedRows.length > 0 && (
         <Box sx={styles.printButtonWrapper}>
           <Button
@@ -71,7 +64,6 @@ const PrintInvoicePage = () => {
             Print Selected ({selectedRows.length})
           </Button>
 
-          {/* Hidden Printable Section */}
           <PrintPreviewSection data={data} selectedRows={selectedRows} />
         </Box>
       )}
