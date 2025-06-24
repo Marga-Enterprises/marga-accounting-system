@@ -5,10 +5,6 @@ const styles = {
   title: {
     mb: 2,
   },
-  uploadSection: {
-    p: 3,
-    mb: 4,
-  },
   printButtonWrapper: {
     position: 'fixed',
     bottom: 24,
