@@ -9,9 +9,13 @@ import {
   Divider,
 } from '@mui/material';
 
+// options
+import options from './options';
+
+// styles
+import styles from './styles';
+
 // mui icons
-import HomeIcon from '@mui/icons-material/Home';
-import PeopleIcon from '@mui/icons-material/People';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 // react router dom
@@ -24,16 +28,11 @@ import { marga } from '@redux/combineActions';
 const Sidebar = ({ open, onClose }) => {
   const dispatch = useDispatch();
 
-    const handleLogout = () => {
+  const handleLogout = () => {
     dispatch(marga.user.logoutAction());
     onClose();
     window.location.href = '/login';
-    };
-
-  const menuItems = [
-    { text: 'Home', icon: <HomeIcon />, path: '/' },
-    { text: 'Clients', icon: <PeopleIcon />, path: '/clients' },
-  ];
+  };
 
   return (
     <Drawer
@@ -41,24 +40,25 @@ const Sidebar = ({ open, onClose }) => {
       open={open}
       onClose={onClose}
       PaperProps={{
-        sx: {
-          width: 240,
-          boxShadow: 'none',
-          borderRight: '1px solid #e0e0e0',
-        },
+        sx: styles.drawerPaper,
       }}
     >
       <List>
-        {menuItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton component={Link} to={item.path} onClick={onClose}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {options.map((option, index) => {
+          const Icon = option.icon;
+          return (
+            <ListItem key={index} disablePadding>
+              <ListItemButton component={Link} to={option.path} onClick={onClose}>
+                <ListItemIcon>
+                  <Icon />
+                </ListItemIcon>
+                <ListItemText primary={option.label} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
 
-        <Divider sx={{ my: 1 }} />
+        <Divider sx={styles.divider} />
 
         {/* Logout Item */}
         <ListItem disablePadding>
