@@ -2,11 +2,12 @@
 import GroupIcon from '@mui/icons-material/Group';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import PrintIcon from '@mui/icons-material/Print';
 
 const options = [
   {
     label: 'Clients',
-    icon: GroupIcon, // just the component reference
+    icon: GroupIcon,
     color: '#1976d2',
     path: '/clients',
   },
@@ -21,6 +22,12 @@ const options = [
     icon: ReceiptLongIcon,
     color: '#1976d2',
     path: '#',
+  },
+  {
+    label: 'Print Invoice',
+    icon: PrintIcon,
+    color: '#1976d2',
+    path: '/print-invoice',
   },
 ];
 
