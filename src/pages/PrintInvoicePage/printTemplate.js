@@ -53,7 +53,7 @@ export const generatePrintHTML = (content) => `
 
         .amount-section {
           position: absolute;
-          right: 70;
+          right: 40;
           top: 270; 
           text-align: right;
           font-feature-settings: "tnum";
