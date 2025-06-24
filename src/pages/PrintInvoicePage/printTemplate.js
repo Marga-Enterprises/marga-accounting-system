@@ -36,7 +36,8 @@ export const generatePrintHTML = (content) => `
           position: absolute;
           top: 0;
           left: 90;
-          text-align: right;
+          max-width: 300px;
+          text-align: left;
           line-height: 1.4;
           font-size: 13px;
           color: #555;
