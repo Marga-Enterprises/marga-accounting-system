@@ -33,7 +33,13 @@ export const generatePrintHTML = (content) => `
 
         .client-name {
           font-weight: bold;
-          margin-bottom: 16px;
+          position: absolute;
+          top: 0;
+          left: 90;
+          text-align: right;
+          line-height: 1.4;
+          font-size: 13px;
+          color: #555;
         }
 
         .right-column {
@@ -44,16 +50,16 @@ export const generatePrintHTML = (content) => `
         .invoice-details {
           position: absolute;
           top: 0;
-          right: 120;
+          right: 90;
           text-align: right;
-          line-height: 1.6;
+          line-height: 1.4;
           font-size: 13px;
           color: #555;
         }
 
         .amount-section {
           position: absolute;
-          right: 40;
+          right: 45;
           top: 270; 
           text-align: right;
           font-feature-settings: "tnum";
