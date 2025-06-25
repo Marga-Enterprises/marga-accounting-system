@@ -35,7 +35,7 @@ export const generatePrintHTML = (content) => `
           font-weight: bold;
           position: absolute;
           top: 0;
-          left: 0;
+          left: 20;
           max-width: 300px;
           text-align: left;
           line-height: 1.4;
@@ -51,7 +51,7 @@ export const generatePrintHTML = (content) => `
         .invoice-details {
           position: absolute;
           top: 0;
-          right: 90;
+          right: 85;
           text-align: right;
           line-height: 1.4;
           font-size: 13px;
@@ -60,7 +60,7 @@ export const generatePrintHTML = (content) => `
 
         .amount-section {
           position: absolute;
-          right: 45;
+          right: 40;
           top: 270; 
           text-align: right;
           font-feature-settings: "tnum";
