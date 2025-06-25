@@ -37,7 +37,7 @@ const PrintInvoicePage = () => {
         value={searchQuery}
         data={data}
         onChange={setSearchQuery}
-        onSearch={handleSearch}
+        onSearch={(e) => handleSearch(e)}
         onClear={handleClearSearch}
       />
 
