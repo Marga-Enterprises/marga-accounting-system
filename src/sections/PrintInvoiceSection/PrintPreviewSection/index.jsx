@@ -28,7 +28,7 @@ const PrintPreviewSection = ({ data = [], selectedRows = [] }) => {
               <div className="right-column">
                 <div className="invoice-details">
                   <div>{convertDate(row["INVOICE DATE"])}</div>
-                  <div>RDG26</div>
+                  {/*<div>RDG26</div>*/}
                   <div>{row["INVOICE MONTH"]}</div>
                   <div>{row["CATEGORY"]}</div>
                 </div>
