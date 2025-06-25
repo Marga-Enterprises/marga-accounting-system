@@ -24,7 +24,7 @@ export const generatePrintHTML = (content) => `
           justify-content: space-between;
           position: relative;
           width: 100%;
-          margin-top: 3.25rem;
+          margin-top: 3.26rem;
         }
 
         .left-column {
@@ -35,7 +35,7 @@ export const generatePrintHTML = (content) => `
           font-weight: bold;
           position: absolute;
           top: 0;
-          left: 90;
+          left: 0;
           max-width: 300px;
           text-align: left;
           line-height: 1.4;
