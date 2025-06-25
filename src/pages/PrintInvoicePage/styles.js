@@ -2,9 +2,6 @@ const styles = {
   container: {
     py: 4,
   },
-  title: {
-    mb: 2,
-  },
   printButtonWrapper: {
     position: 'fixed',
     bottom: 24,

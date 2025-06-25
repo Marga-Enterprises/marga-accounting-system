@@ -29,10 +29,6 @@ const PrintInvoicePage = () => {
 
   return (
     <Container maxWidth="xl" sx={styles.container}>
-      <Typography variant="h4" gutterBottom>
-        Print Invoice
-      </Typography>
-
       {/* Excel Upload Section */}
       <UploadExcelSection onFileUpload={handleFileUpload} />
 
