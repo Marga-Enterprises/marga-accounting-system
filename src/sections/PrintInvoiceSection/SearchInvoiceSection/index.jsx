@@ -10,7 +10,7 @@ const SearchInvoiceSection = ({ data, value, onChange, onSearch, onClear }) => {
 
   return (
     <Paper elevation={0} sx={styles.searchSection}>
-      <Box display="flex" alignItems="center" justifyContent="space-between">
+      <Box component="form" onSubmit={(e) => onSearch(e)} display="flex" alignItems="center" justifyContent="space-between">
         {/* Search Input */}
         <TextField
           fullWidth
@@ -24,8 +24,8 @@ const SearchInvoiceSection = ({ data, value, onChange, onSearch, onClear }) => {
         {/* Search Button */}
         <Button
           variant="contained"
-          onClick={onSearch}
           sx={{ ml: 2 }}
+          type="submit"
         >
           Search
         </Button>

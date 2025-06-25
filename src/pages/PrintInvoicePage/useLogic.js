@@ -41,7 +41,9 @@ export const useLogic = () => {
   }, [data]);
 
   // Perform the search when the button is clicked
-  const handleSearch = useCallback(() => {
+  const handleSearch = useCallback((e) => {
+    e.preventDefault();
+
     if (!searchQuery.trim()) return setFilteredData(data);
 
     const lowerQuery = searchQuery.toLowerCase();
@@ -69,7 +71,7 @@ export const useLogic = () => {
   }, []);
 
   return {
-    data: filteredData.length > 0 ? filteredData : data, // Display filtered data or all data
+    data: filteredData.length > 0 ? filteredData : data,
     selectedRows,
     handleFileUpload,
     toggleRow,
