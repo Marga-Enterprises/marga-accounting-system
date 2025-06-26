@@ -8,10 +8,15 @@ const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails }) =
     <div id="print-preview" style={{ display: 'none' }}>
       {selectedRows.map((index) => {
         const row = data[index];
+        
+        const amount = parseFloat(row["AMOUNT"] || 0);
+        const netVat = amount / 1.12;
+        const lessVat = netVat * 0.12;
+
         const values = [
-          parseFloat(row["AMOUNT"] || 0),
-          0,
-          0,
+          amount,
+          lessVat?.toFixed(2) || 0,
+          netVat?.toFixed(2) || 0,
           0,
           0,
           0,
