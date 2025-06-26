@@ -24,7 +24,7 @@ export const generatePrintHTML = (content) => `
           justify-content: space-between;
           position: relative;
           width: 100%;
-          margin-top: 3.32rem;
+          margin-top: 3.36rem;
         }
 
         .left-column {
