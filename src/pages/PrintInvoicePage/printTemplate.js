@@ -54,6 +54,12 @@ export const generatePrintHTML = (content) => `
           font-weight: bold;
         }
 
+        .invoice-text-details {
+          font-size: 16px;
+          color: #555;
+          font-weight: bold;
+        }
+
         .right-column {
           flex: 1;
           position: relative;
