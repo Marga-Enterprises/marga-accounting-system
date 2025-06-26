@@ -32,11 +32,11 @@ const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails }) =
 
                 {/* invoice breakdown details */}
                 <div className="invoice-breakdown-details">
-                  <div className="invoice-text">Business Style: {invoiceDetails.businessStyle}</div>
-                  <div className="invoice-text">Printer Model: {invoiceDetails.printerModel}</div>
-                  <div className="invoice-text">Printer Rental Billing for{invoiceDetails.billingDate}</div>
-                  <div className="invoice-text">Pages Consumed: {invoiceDetails.pagesConsumed}</div>
-                  <div className="invoice-text">Rate Per Page: {invoiceDetails.ratePerPage}</div>
+                  <div className="invoice-text-details">Business Style: {invoiceDetails.businessStyle}</div>
+                  <div className="invoice-text-details">Printer Model: {invoiceDetails.printerModel}</div>
+                  <div className="invoice-text-details">Printer Rental Billing for{invoiceDetails.billingDate}</div>
+                  <div className="invoice-text-details">Pages Consumed: {invoiceDetails.pagesConsumed}</div>
+                  <div className="invoice-text-details">Rate Per Page: {invoiceDetails.ratePerPage}</div>
                 </div>
               </div>
 
