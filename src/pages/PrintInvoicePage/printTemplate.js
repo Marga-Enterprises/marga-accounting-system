@@ -31,16 +31,27 @@ export const generatePrintHTML = (content) => `
           flex: 1;
         }
 
-        .client-name {
-          font-weight: bold;
+        .client-details {
           position: absolute;
           top: 0;
           left: 20;
           max-width: 300px;
           text-align: left;
+        }
+
+        .invoice-breakdown-details {
+          position: absolute;
+          top: 130;
+          left: 20;
+          max-width: 500px;
+          text-align: left;
           line-height: 1.4;
+        }
+
+        .invoice-text {
           font-size: 13px;
           color: #555;
+          font-weight: bold;
         }
 
         .right-column {

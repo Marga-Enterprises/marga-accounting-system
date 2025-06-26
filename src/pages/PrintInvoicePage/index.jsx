@@ -11,6 +11,9 @@ import InvoicesTableSection from "@sections/PrintInvoiceSection/InvoicesTableSec
 import PrintPreviewSection from "@sections/PrintInvoiceSection/PrintPreviewSection";
 import SearchInvoiceSection from "@sections/PrintInvoiceSection/SearchInvoiceSection";
 
+// components
+import InvoiceDetailsFormModal from "@components/printInvoice/invoiceDetailsFormModal";
+
 // styles
 import styles from "./styles";
 
@@ -18,13 +21,18 @@ const PrintInvoicePage = () => {
   const {
     data,
     selectedRows,
+    searchQuery,
+    invoiceFormValues,
+    showInvoiceFormModal,
+    handleChangeInvoiceFormValues,
     handleFileUpload,
     toggleRow,
     handlePrint,
-    searchQuery,
     setSearchQuery,
     handleClearSearch,
     handleSearch,
+    handleShowInvoiceFormModal,
+    handleCloseInvoiceFormModal,
   } = useLogic();
 
   return (
@@ -50,18 +58,33 @@ const PrintInvoicePage = () => {
 
       {/* Print Button & Hidden Preview */}
       {selectedRows.length > 0 && (
-        <Box sx={styles.printButtonWrapper}>
-          <Button
-            variant="contained"
-            color="secondary"
-            startIcon={<PrintIcon />}
-            onClick={handlePrint}
-          >
-            Print Selected ({selectedRows.length})
-          </Button>
+        <>
+          <Box sx={styles.printButtonWrapper}>
+            <Button
+              variant="contained"
+              color="secondary"
+              startIcon={<PrintIcon />}
+              onClick={handleShowInvoiceFormModal}
+            >
+              Print Selected ({selectedRows.length})
+            </Button>
 
-          <PrintPreviewSection data={data} selectedRows={selectedRows} />
-        </Box>
+            <PrintPreviewSection 
+              data={data} 
+              selectedRows={selectedRows} 
+              invoiceDetails={invoiceFormValues}
+            />
+          </Box>
+
+          {/* Invoice Details Form Modal */}
+          <InvoiceDetailsFormModal
+            formValues={invoiceFormValues}
+            onPrint={(e) => handlePrint(e)}
+            open={showInvoiceFormModal}
+            onChange={handleChangeInvoiceFormValues}
+            onClose={handleCloseInvoiceFormModal}
+          />
+        </>
       )}
     </Container>
   );

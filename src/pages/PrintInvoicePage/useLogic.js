@@ -7,6 +7,17 @@ export const useLogic = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const [showInvoiceFormModal, setShowInvoiceFormModal] = useState(false);
+  const [invoiceFormValues, setInvoiceFormValues] = useState({
+    tinNumber: "",
+    fullAddress: "",
+    rd: "",
+    businessStyle: "",
+    printerModel: "",
+    billingDate: "",
+    pagesConsumed: "",
+    ratePerPage: "",
+  });
 
   // Handles the file upload and parsing
   const handleFileUpload = useCallback((e) => {
@@ -57,7 +68,11 @@ export const useLogic = () => {
   }, [data, searchQuery]);
 
   // Print functionality
-  const handlePrint = useCallback(() => {
+  const handlePrint = useCallback((e) => {
+    e.preventDefault();
+
+    setShowInvoiceFormModal(false);
+
     const printable = document.getElementById("print-preview");
 
     if (printable) {
@@ -70,15 +85,46 @@ export const useLogic = () => {
     }
   }, []);
 
+  // handle modal visibility
+  const handleShowInvoiceFormModal = useCallback(() => {
+    setShowInvoiceFormModal(true);
+  }, []);
+
+  // close the invoice form modal and reset values
+  const handleCloseInvoiceFormModal = useCallback(() => {
+    setShowInvoiceFormModal(false);
+    setInvoiceFormValues({
+      tinNumber: "",
+      fullAddress: "",
+      rd: "",
+      businessStyle: "",
+      printerModel: "",
+      billingDate: "",
+      pagesConsumed: "",
+      ratePerPage: "",
+    });
+  }, []);
+
+  // Set invoice form values
+  const handleChangeInvoiceFormValues = useCallback((e) => {
+    const { name, value } = e.target;
+    setInvoiceFormValues((prev) => ({ ...prev, [name]: value }));
+  }, []);
+
   return {
     data: filteredData.length > 0 ? filteredData : data,
     selectedRows,
+    showInvoiceFormModal,
+    searchQuery,
+    invoiceFormValues,
+    setSearchQuery,
+    handleChangeInvoiceFormValues,
     handleFileUpload,
     toggleRow,
     handlePrint,
-    searchQuery,
-    setSearchQuery,
     handleClearSearch,
     handleSearch,
+    handleShowInvoiceFormModal,
+    handleCloseInvoiceFormModal
   };
 };
