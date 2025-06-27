@@ -10,13 +10,13 @@ const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails }) =
         const row = data[index];
         
         const amount = parseFloat(row["AMOUNT"] || 0);
-        const netVat = amount / 1.12;
-        const lessVat = netVat * 0.12;
+        const netVat = parseFloat(amount / 1.12 || 0).toFixed(2);
+        const lessVat = parseFloat(netVat * 0.12 || 0).toFixed(2);
 
         const values = [
           amount,
-          lessVat?.toFixed(2) || 0,
-          netVat?.toFixed(2) || 0,
+          lessVat,
+          netVat,
           0,
           0,
           0,
@@ -39,7 +39,7 @@ const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails }) =
                 <div className="invoice-breakdown-details">
                   <div className="invoice-text-details">Business Style: {invoiceDetails.businessStyle}</div>
                   <div className="invoice-text-details">Printer Model: {invoiceDetails.printerModel}</div>
-                  <div className="invoice-text-details">Printer Rental Billing for{invoiceDetails.billingDate}</div>
+                  <div className="invoice-text-details">Printer Rental Billing for: {invoiceDetails.billingDate}</div>
                   <div className="invoice-text-details">Pages Consumed: {invoiceDetails.pagesConsumed}</div>
                   <div className="invoice-text-details">Rate Per Page: {invoiceDetails.ratePerPage}</div>
                 </div>

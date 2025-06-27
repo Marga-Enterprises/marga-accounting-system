@@ -34,7 +34,7 @@ export const generatePrintHTML = (content) => `
         .client-details {
           position: absolute;
           top: 0;
-          left: 20;
+          left: 30;
           max-width: 300px;
           text-align: left;
         }
