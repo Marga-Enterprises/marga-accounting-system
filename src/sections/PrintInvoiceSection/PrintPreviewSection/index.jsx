@@ -10,9 +10,9 @@ const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails }) =
         const row = data[index];
         
         const amount = parseFloat(row["AMOUNT"] || 0);
-        const netVat = parseFloat(amount / 1.12 || 0).toFixed(2);
         const lessVat = parseFloat(netVat * 0.12 || 0).toFixed(2);
-
+        const netVat = parseFloat(amount / 1.12 || 0).toFixed(2);
+        
         const values = [
           amount,
           lessVat,
