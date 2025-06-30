@@ -13,6 +13,7 @@ export default defineConfig({
       '@redux': path.resolve(__dirname, 'src/redux'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@routers': path.resolve(__dirname, 'src/routers'),
+      '@subsections': path.resolve(__dirname, 'src/subsections'),
     },
   },
 });

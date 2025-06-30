@@ -18,6 +18,7 @@ import styles from "./styles";
 const InvoiceDetailsFormModal = ({
   open,
   formValues,
+  selectedRows,
   onChange,
   onPrint,
   onClose,
@@ -31,6 +32,16 @@ const InvoiceDetailsFormModal = ({
         </Typography>
 
         <Box component="form" onSubmit={(e) => onPrint(e)} sx={styles.form}>
+          {/* Specific fields if selected rows length is only 1 */}
+          {selectedRows.length > 1 && (
+            <TextField
+              label="Client Name"
+              name="companyName"
+              value={formValues.companyName}
+              onChange={onChange}
+              fullWidth
+            />
+          )}
           <TextField
             label="TIN Number"
             name="tinNumber"
@@ -61,13 +72,16 @@ const InvoiceDetailsFormModal = ({
             onChange={onChange}
             fullWidth
           />
-          <TextField
-            label="Printer Model"
-            name="printerModel"
-            value={formValues.printerModel}
-            onChange={onChange}
-            fullWidth
-          />
+          {/* Specific fields if selected rows length is only 1 */}
+          {selectedRows.length === 1 && (
+            <TextField
+              label="Printer Model"
+              name="printerModel"
+              value={formValues.printerModel}
+              onChange={onChange}
+              fullWidth
+            />
+          )}
           <TextField
             label="Billing Date"
             name="billingDate"
@@ -75,23 +89,36 @@ const InvoiceDetailsFormModal = ({
             onChange={onChange}
             fullWidth
           />
+          {/* Specific fields if selected rows length is only 1 */}
+          {selectedRows.length === 1 && (
+            <TextField
+              label="Pages Consumed"
+              name="pagesConsumed"
+              value={formValues.pagesConsumed}
+              onChange={onChange}
+              fullWidth
+              type="number"
+            />
+          )}
+          {/* Specific fields if selected rows length is only 1 */}
+          {selectedRows.length === 1 && (
+            <TextField
+              label="Rate Per Page"
+              name="ratePerPage"
+              value={formValues.ratePerPage}
+              onChange={onChange}
+              fullWidth
+              type="number"
+            />
+          )}
           <TextField
-            label="Pages Consumed"
-            name="pagesConsumed"
-            value={formValues.pagesConsumed}
+            label="Less Withholding Tax"
+            name="lessWithholdingTax"
+            value={formValues.lessWithholdingTax}
             onChange={onChange}
             fullWidth
             type="number"
           />
-          <TextField
-            label="Rate Per Page"
-            name="ratePerPage"
-            value={formValues.ratePerPage}
-            onChange={onChange}
-            fullWidth
-            type="number"
-          />
-
           <Stack direction="row" spacing={2} justifyContent="flex-end" sx={styles.buttonGroup}>
             <Button onClick={onClose} color="inherit" variant="outlined">
               Cancel
