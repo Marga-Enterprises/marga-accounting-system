@@ -9,6 +9,7 @@ export const useLogic = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [showInvoiceFormModal, setShowInvoiceFormModal] = useState(false);
   const [invoiceFormValues, setInvoiceFormValues] = useState({
+    companyName: "",
     tinNumber: "",
     fullAddress: "",
     rd: "",
@@ -17,6 +18,7 @@ export const useLogic = () => {
     billingDate: "",
     pagesConsumed: "",
     ratePerPage: "",
+    lessWithholdingTax: "",
   });
 
   // Handles the file upload and parsing
@@ -102,6 +104,8 @@ export const useLogic = () => {
       billingDate: "",
       pagesConsumed: "",
       ratePerPage: "",
+      lessWithholdingTax: "",
+      companyName: "",
     });
   }, []);
 

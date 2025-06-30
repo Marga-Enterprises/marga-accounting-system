@@ -35,6 +35,9 @@ const PrintInvoicePage = () => {
     handleCloseInvoiceFormModal,
   } = useLogic();
 
+  console.log("Data:", data);
+  console.log("Selected Rows:", selectedRows);
+
   return (
     <Container maxWidth="xl" sx={styles.container}>
       {/* Excel Upload Section */}
@@ -78,6 +81,7 @@ const PrintInvoicePage = () => {
 
           {/* Invoice Details Form Modal */}
           <InvoiceDetailsFormModal
+            selectedRows={selectedRows}
             formValues={invoiceFormValues}
             onPrint={(e) => handlePrint(e)}
             open={showInvoiceFormModal}
