@@ -21,7 +21,7 @@ const options = [
     label: 'Billing',
     icon: ReceiptLongIcon,
     color: '#1976d2',
-    path: '#',
+    path: '/billings',
   },
   {
     label: 'Print Invoice',

@@ -19,7 +19,6 @@ import BillingsMonthAndYearForm from '@sections/BillingsSections/BillingsMonthAn
 import BillingSearchForm from '@sections/BillingsSections/BillingSearchForm';
 
 
-
 const Page = () => {
     // hooks
     const location = useLocation();
@@ -41,7 +40,7 @@ const Page = () => {
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
 
-        const month = queryParams.get("month") || new Date().getMonth();
+        const month = parseInt(queryParams.get("month")) || new Date().getMonth();
         const year = parseInt(queryParams.get("year")) || new Date().getFullYear();
         const currentPage = parseInt(queryParams.get("page")) || 1;
         const search = queryParams.get("search") || '';
@@ -78,7 +77,11 @@ const Page = () => {
                 billings={billings}
                 page={pageDetails.pageIndex}
                 totalPages={pageDetails.totalPages}
-                onPageChange={(newPage) => navigate(`?page=${newPage}`)}
+                onPageChange={(newPage) => {
+                    const params = new URLSearchParams(location.search);
+                    params.set('page', newPage);
+                    navigate(`?${params.toString()}`);
+                }}
             />
         </>
     );

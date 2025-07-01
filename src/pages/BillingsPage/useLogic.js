@@ -5,6 +5,9 @@ import { useState, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { marga } from '@redux/combineActions';
 
+// react-router
+import { useNavigate } from 'react-router-dom';
+
 // utils
 import { convertMonthToName } from '@utils/methods';
 
@@ -12,6 +15,7 @@ export const useLogic = () => {
     // hooks
     const dispatch = useDispatch();
     const loadingRef = useRef(null);
+    const navigate = useNavigate();
 
     // fixed values
     const monthNow = new Date().getMonth();
@@ -36,6 +40,7 @@ export const useLogic = () => {
         loadingRef.current = true;
         setLoading(true);
 
+        // Dispatch the action to fetch billings
         dispatch(marga.billing.getBillingsAction({ 
             pageIndex, 
             pageSize: 10,
@@ -73,6 +78,7 @@ export const useLogic = () => {
         }));
 
         // Fetch billings for the new month and current year
+        navigate(`?month=${newMonth}&year=${year}&page=1`);
         handleFetchBillings(1, newMonth, year);
     }, [handleFetchBillings, year]);
 
@@ -85,6 +91,7 @@ export const useLogic = () => {
         }));
 
         // Fetch billings for the current month and new year
+        navigate(`?month=${month}&year=${newYear}&page=1`);
         handleFetchBillings(1, month, newYear);
     }, [handleFetchBillings, month]);
 
