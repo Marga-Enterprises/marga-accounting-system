@@ -13,6 +13,7 @@ import ClientsPage from '@pages/ClientsPage';
 import ClientBranchesPage from '@pages/ClientBranchesPage';
 import ClientDepartmentsPage from '@pages/ClientDepartmentsPage';
 import PrintInvoicePage from '@pages/PrintInvoicePage';
+import BillingsPage from '@pages/BillingsPage';
 
 // layout
 import MainLayout from '@components/layout/MainLayout';
@@ -90,6 +91,18 @@ function AppRoutes() {
         }
       >
         <Route index element={<PrintInvoicePage />} />
+      </Route>
+
+      {/* BillingsPage Route */}
+      <Route
+        path="/billings"
+        element={
+          <AuthRouter>
+            <MainLayout />
+          </AuthRouter>
+        }
+      >
+        <Route index element={<BillingsPage />} />
       </Route>
 
       {/* 404 fallback – must be outside layout */}
