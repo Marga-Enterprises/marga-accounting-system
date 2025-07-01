@@ -42,3 +42,21 @@ export const convertDate = (input) => {
 
   return `${month}/${day}/${year}`; // → e.g. 15/03/2025
 };
+
+/**
+ * convert month number to month name
+ * 
+ * @param {number} monthNumber - 0 for January, 1 for February,
+ */
+export const convertMonthToName = (monthNumber) => {
+  if (typeof monthNumber !== 'number' || monthNumber < 0 || monthNumber > 11) {
+    return '';
+  }
+
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  return months[monthNumber];
+};

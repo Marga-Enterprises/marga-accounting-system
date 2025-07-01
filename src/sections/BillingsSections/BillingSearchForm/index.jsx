@@ -7,8 +7,8 @@ import { Box, TextField, Button, Stack } from '@mui/material';
 // styles
 import styles from './styles';
 
-const ClientSearchForm = ({ searchedClient, onSubmitSearch }) => {
-  const [searchText, setSearchText] = useState(searchedClient || '');
+const BillingSearchForm = ({ searchedInvoice, onSubmitSearch }) => {
+  const [searchText, setSearchText] = useState(searchedInvoice || '');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,4 +41,4 @@ const ClientSearchForm = ({ searchedClient, onSubmitSearch }) => {
   );
 };
 
-export default React.memo(ClientSearchForm);
+export default React.memo(BillingSearchForm);
