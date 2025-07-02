@@ -13,6 +13,7 @@ import SearchInvoiceSection from "@sections/PrintInvoiceSection/SearchInvoiceSec
 
 // components
 import InvoiceDetailsFormModal from "@components/printInvoice/invoiceDetailsFormModal";
+import LoadingScreen from "@components/common/LoadingScreen";
 
 // styles
 import styles from "./styles";
@@ -20,23 +21,24 @@ import styles from "./styles";
 const PrintInvoicePage = () => {
   const {
     data,
+    loading,
     selectedRows,
     searchQuery,
     invoiceFormValues,
     showInvoiceFormModal,
+    setSearchQuery,
     handleChangeInvoiceFormValues,
     handleFileUpload,
     toggleRow,
     handlePrint,
-    setSearchQuery,
     handleClearSearch,
     handleSearch,
     handleShowInvoiceFormModal,
     handleCloseInvoiceFormModal,
   } = useLogic();
 
-  console.log("Data:", data);
-  console.log("Selected Rows:", selectedRows);
+  // If loading, show loading screen
+  if (loading) return <LoadingScreen />;
 
   return (
     <Container maxWidth="xl" sx={styles.container}>
@@ -55,19 +57,21 @@ const PrintInvoicePage = () => {
       {/* Display Parsed Excel Table */}
       <InvoicesTableSection
         data={data}
+        loading={loading}
         selectedRows={selectedRows}
         toggleRow={toggleRow}
       />
 
-      {/* Print Button & Hidden Preview */}
+      
       {selectedRows.length > 0 && (
         <>
+          {/* Print Button & Hidden Preview */}
           <Box sx={styles.printButtonWrapper}>
             <Button
               variant="contained"
               color="secondary"
               startIcon={<PrintIcon />}
-              onClick={handleShowInvoiceFormModal}
+              onClick={() => handleShowInvoiceFormModal(data, selectedRows)}
             >
               Print Selected ({selectedRows.length})
             </Button>

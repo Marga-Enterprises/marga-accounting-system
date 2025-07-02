@@ -3,6 +3,7 @@ import {
     createClientDepartmentService,
     getClientDepartmentsService,
     getClientDepartmentService,
+    getClientDepartmentByNameService,
     updateClientDepartmentService,
     deleteClientDepartmentService
 } from '@services/api/clientdepartment';
@@ -34,6 +35,17 @@ export const getClientDepartmentsAction = (payload) => async () => {
 export const getClientDepartmentAction = (payload) => async () => {
     try {
         const res = await getClientDepartmentService(payload);
+        return res;
+    } catch (err) {
+        return { error: err.msg };
+    }
+};
+
+
+// get client department by name action
+export const getClientDepartmentByNameAction = (payload) => async () => {
+    try {
+        const res = await getClientDepartmentByNameService(payload);
         return res;
     } catch (err) {
         return { error: err.msg };
