@@ -19,10 +19,13 @@ const InvoiceDetailsFormModal = ({
   open,
   formValues,
   selectedRows,
+  data,
   onChange,
   onPrint,
   onClose,
 }) => {
+  // If selected rows length is only 1, get the row data
+  const rowData = selectedRows.length === 1 ? data[selectedRows[0]] : {};
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -89,27 +92,26 @@ const InvoiceDetailsFormModal = ({
             onChange={onChange}
             fullWidth
           />
-          {/* Specific fields if selected rows length is only 1 */}
-          {selectedRows.length === 1 && (
-            <TextField
-              label="Pages Consumed"
-              name="pagesConsumed"
-              value={formValues.pagesConsumed}
-              onChange={onChange}
-              fullWidth
-              type="number"
-            />
-          )}
-          {/* Specific fields if selected rows length is only 1 */}
-          {selectedRows.length === 1 && (
-            <TextField
-              label="Rate Per Page"
-              name="ratePerPage"
-              value={formValues.ratePerPage}
-              onChange={onChange}
-              fullWidth
-              type="number"
-            />
+          {/* Show only if one row is selected and category is RTP */}
+          {selectedRows.length === 1 && rowData.CATEGORY === "RTP" && (
+            <>
+              <TextField
+                label="Pages Consumed"
+                name="pagesConsumed"
+                value={formValues.pagesConsumed}
+                onChange={onChange}
+                fullWidth
+                type="number"
+              />
+              <TextField
+                label="Rate Per Page"
+                name="ratePerPage"
+                value={formValues.ratePerPage}
+                onChange={onChange}
+                fullWidth
+                type="number"
+              />
+            </>
           )}
           <TextField
             label="Less Withholding Tax"

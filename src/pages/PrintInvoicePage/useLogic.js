@@ -141,10 +141,8 @@ export const useLogic = () => {
     }
 
     const payload = {
-      clientDepartmentName: data[selectedRows[0]].CLIENT,
+      clientDepartmentName: data[selectedRows[0]].CLIENT.toUpperCase(),
     };
-
-    console.log("Fetching department by name:", payload);
 
     dispatch(marga.clientdepartment.getClientDepartmentByNameAction(payload))
       .then((res) => {

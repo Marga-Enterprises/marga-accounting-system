@@ -15,8 +15,14 @@ const InvoiceSingleView = ({ row, invoiceDetails, values, convertDate }) => {
             <div className="invoice-text-details">Business Style: {invoiceDetails.businessStyle}</div>
             <div className="invoice-text-details">Printer Rental Billing for: {invoiceDetails.billingDate}</div>
             <div className="invoice-text-details">Printer Model: {invoiceDetails.printerModel}</div>
-            <div className="invoice-text-details">Pages Consumed: {invoiceDetails.pagesConsumed}</div>
-            <div className="invoice-text-details">Rate Per Page: {invoiceDetails.ratePerPage}</div>
+
+            {/* If category is not RTP hide this fields */}
+            { row["CATEGORY"] === "RTP" && (
+              <>
+                <div className="invoice-text-details">Pages Consumed: {invoiceDetails.pagesConsumed}</div>
+                <div className="invoice-text-details">Rate Per Page: {invoiceDetails.ratePerPage}</div>
+              </>
+            )}
           </div>
         </div>
 
