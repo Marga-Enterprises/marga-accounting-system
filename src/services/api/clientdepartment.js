@@ -17,6 +17,11 @@ export async function getClientDepartmentService(payload) {
     return GET(`/clientdepartment/${payload.id}`);
 }
 
+export async function getClientDepartmentByNameService(payload) {
+    const params = methods.convertQueryString(payload);
+    return GET(`/clientdepartment/name?${params}`);
+}
+
 export async function updateClientDepartmentService(payload) {
     return PUT(`/clientdepartment/${payload.id}`, payload);
 }
