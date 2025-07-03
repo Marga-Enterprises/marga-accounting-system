@@ -159,11 +159,7 @@ export const useLogic = () => {
             formValues.companyName = client.client_name || "";
           }
 
-          setInvoiceFormValues((prev) => ({
-            ...prev,
-            ...formValues,
-          }));
-
+          setInvoiceFormValues(formValues);
         } else {
           console.error("Failed to fetch department:", res.payload);
         }
