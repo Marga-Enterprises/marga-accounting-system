@@ -14,6 +14,16 @@ const InvoiceMultipleView = ({ summaryRow, invoiceDetails, values, convertDate }
           <div className="invoice-breakdown-details">
             <div className="invoice-text-details">Business Style: {invoiceDetails.businessStyle}</div>
             <div className="invoice-text-details">Printer Rental Billing for: {invoiceDetails.billingDate}</div>
+
+            <div className="invoice-text-details">Printer Model: Multiple Machines</div>
+
+            {/* If category is not RTP hide this fields */}
+            { summaryRow["CATEGORY"] === "RTP" && (
+              <>
+                <div className="invoice-text-details">Pages Consumed: {invoiceDetails.pagesConsumed}</div>
+                <div className="invoice-text-details">Rate Per Page: {invoiceDetails.ratePerPage}</div>
+              </>
+            )}
           </div>
         </div>
 

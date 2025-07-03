@@ -35,6 +35,7 @@ export const useLogic = () => {
     pagesConsumed: "",
     ratePerPage: "",
     lessWithholdingTax: "",
+    withVat: true,
   });
 
   // Handles the file upload and parsing
@@ -141,10 +142,8 @@ export const useLogic = () => {
     }
 
     const payload = {
-      clientDepartmentName: data[selectedRows[0]].CLIENT,
+      clientDepartmentName: data[selectedRows[0]].CLIENT.toUpperCase(),
     };
-
-    console.log("Fetching department by name:", payload);
 
     dispatch(marga.clientdepartment.getClientDepartmentByNameAction(payload))
       .then((res) => {
@@ -160,7 +159,11 @@ export const useLogic = () => {
             formValues.companyName = client.client_name || "";
           }
 
-          setInvoiceFormValues(formValues);
+          setInvoiceFormValues((prev) => ({
+            ...prev,
+            ...formValues,
+          }));
+
         } else {
           console.error("Failed to fetch department:", res.payload);
         }
@@ -190,6 +193,7 @@ export const useLogic = () => {
       ratePerPage: "",
       lessWithholdingTax: "",
       companyName: "",
+      withVat: true,
     });
   }, []);
 

@@ -86,6 +86,7 @@ const PrintInvoicePage = () => {
           {/* Invoice Details Form Modal */}
           <InvoiceDetailsFormModal
             selectedRows={selectedRows}
+            data={data}
             formValues={invoiceFormValues}
             onPrint={(e) => handlePrint(e)}
             open={showInvoiceFormModal}
