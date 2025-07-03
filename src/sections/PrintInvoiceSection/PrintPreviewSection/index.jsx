@@ -15,8 +15,8 @@ const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails }) =
       return sum + amount;
     }, 0);
 
-    const netVat = parseFloat(totalAmount / 1.12 || 0).toFixed(2);
-    const lessVat = parseFloat(netVat * 0.12 || 0).toFixed(2);
+    const netVat = invoiceDetails.withVat ? parseFloat(totalAmount / 1.12 || 0).toFixed(2) :0;
+    const lessVat = invoiceDetails.withVat ? parseFloat(netVat * 0.12 || 0).toFixed(2) : 0;
     const lessWithholdingTax = parseFloat(invoiceDetails?.lessWithholdingTax || 0).toFixed(2);
 
     const values = [
@@ -41,8 +41,8 @@ const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails }) =
     );
   } else {
     const amount = parseFloat(summaryRow["AMOUNT"] || 0);
-    const netVat = parseFloat(amount / 1.12 || 0).toFixed(2);
-    const lessVat = parseFloat(netVat * 0.12 || 0).toFixed(2);
+    const netVat = invoiceDetails.withVat ? parseFloat(totalAmount / 1.12 || 0).toFixed(2) :0;
+    const lessVat = invoiceDetails.withVat ? parseFloat(netVat * 0.12 || 0).toFixed(2) : 0;
     const lessWithholdingTax = parseFloat(invoiceDetails?.lessWithholdingTax || 0).toFixed(2);
 
     const values = [

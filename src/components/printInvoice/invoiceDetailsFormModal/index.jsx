@@ -6,6 +6,8 @@ import {
   Modal,
   Box,
   Typography,
+  Switch,
+  FormControlLabel,
   TextField,
   Button,
   Stack,
@@ -25,7 +27,8 @@ const InvoiceDetailsFormModal = ({
   onClose,
 }) => {
   // If selected rows length is only 1, get the row data
-  const rowData = selectedRows.length === 1 ? data[selectedRows[0]] : {};
+  const rowData = selectedRows ? data[selectedRows[0]] : {};
+  console.log("WITH VAT", formValues.withVat);
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -93,7 +96,7 @@ const InvoiceDetailsFormModal = ({
             fullWidth
           />
           {/* Show only if one row is selected and category is RTP */}
-          {selectedRows.length === 1 && rowData.CATEGORY === "RTP" && (
+          {rowData.CATEGORY === "RTP" && (
             <>
               <TextField
                 label="Pages Consumed"
@@ -120,6 +123,23 @@ const InvoiceDetailsFormModal = ({
             onChange={onChange}
             fullWidth
             type="number"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={!!formValues.withVat}
+                onChange={(e) =>
+                  onChange({
+                    target: {
+                      name: "withVat",
+                      value: e.target.checked,
+                    },
+                  })
+                }
+                color="primary"
+              />
+            }
+            label="With VAT"
           />
           <Stack direction="row" spacing={2} justifyContent="flex-end" sx={styles.buttonGroup}>
             <Button onClick={onClose} color="inherit" variant="outlined">

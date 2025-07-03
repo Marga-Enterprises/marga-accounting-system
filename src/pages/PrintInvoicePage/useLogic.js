@@ -35,6 +35,7 @@ export const useLogic = () => {
     pagesConsumed: "",
     ratePerPage: "",
     lessWithholdingTax: "",
+    withVat: true,
   });
 
   // Handles the file upload and parsing
@@ -158,7 +159,11 @@ export const useLogic = () => {
             formValues.companyName = client.client_name || "";
           }
 
-          setInvoiceFormValues(formValues);
+          setInvoiceFormValues((prev) => ({
+            ...prev,
+            ...formValues,
+          }));
+
         } else {
           console.error("Failed to fetch department:", res.payload);
         }
@@ -188,6 +193,7 @@ export const useLogic = () => {
       ratePerPage: "",
       lessWithholdingTax: "",
       companyName: "",
+      withVat: true,
     });
   }, []);
 
