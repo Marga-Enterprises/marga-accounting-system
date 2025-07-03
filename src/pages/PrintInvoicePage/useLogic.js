@@ -1,5 +1,5 @@
 // react
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 // redux
 import { useDispatch } from "react-redux";
@@ -21,9 +21,11 @@ export const useLogic = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
+  const [clientDepartmentName, setClientDepartmentName] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [showInvoiceFormModal, setShowInvoiceFormModal] = useState(false);
+
   const [invoiceFormValues, setInvoiceFormValues] = useState({
     companyName: "",
     tinNumber: "",
@@ -36,7 +38,9 @@ export const useLogic = () => {
     ratePerPage: "",
     lessWithholdingTax: "",
     withVat: true,
+    multipleMachines: false,
   });
+
 
   // Handles the file upload and parsing
   const handleFileUpload = useCallback((e) => {
@@ -127,23 +131,11 @@ export const useLogic = () => {
   }, []);
 
 
-  // handle modal visibility and fetch department information
-  const handleShowInvoiceFormModal = useCallback((data, selectedRows) => {
-    if (loadingRef.current) return;
-    loadingRef.current = true;
-    setLoading(true);
+  // Fetch client department details by name
+  const handleFetchDetailsOfClient = useCallback((clientDepartmentName, selectedRows) => {
+    if (!clientDepartmentName || !selectedRows.length) return;
 
-    // Safety check
-    if (!data || selectedRows.length === 0 || !data[selectedRows[0]]) {
-      console.error("Invalid data or selection");
-      loadingRef.current = false;
-      setLoading(false);
-      return;
-    }
-
-    const payload = {
-      clientDepartmentName: data[selectedRows[0]].CLIENT.toUpperCase(),
-    };
+    const payload = { clientDepartmentName };
 
     dispatch(marga.clientdepartment.getClientDepartmentByNameAction(payload))
       .then((res) => {
@@ -155,28 +147,47 @@ export const useLogic = () => {
             businessStyle: client.client_business_style || "",
           };
 
-          if (selectedRows.length > 1) {
+          if (selectedRows.length > 1 || invoiceFormValues.multipleMachines) {
             formValues.companyName = client.client_name || "";
+            formValues.fullAddress = client.client_billing_address || "";
           }
 
           setInvoiceFormValues((prev) => ({
             ...prev,
             ...formValues,
           }));
-
         } else {
           console.error("Failed to fetch department:", res.payload);
         }
       })
       .catch((error) => {
         console.error("Error fetching department:", error);
-      })
-      .finally(() => {
-        loadingRef.current = false;
-        setLoading(false);
-        setShowInvoiceFormModal(true);
       });
-  }, [dispatch]);
+  }, [dispatch, invoiceFormValues.multipleMachines]);
+
+
+  // handle modal visibility
+  const handleShowInvoiceFormModal = useCallback((data, selectedRows) => {
+    if (loadingRef.current) return;
+    loadingRef.current = true;
+    setLoading(true);
+
+    if (!data || selectedRows.length === 0 || !data[selectedRows[0]]) {
+      console.error("Invalid data or selection");
+      loadingRef.current = false;
+      setLoading(false);
+      return;
+    }
+
+    const clientName = data[selectedRows[0]].CLIENT.toUpperCase();
+
+    handleFetchDetailsOfClient(clientName, selectedRows);
+    setClientDepartmentName(clientName);
+
+    setShowInvoiceFormModal(true);
+    loadingRef.current = false;
+    setLoading(false);
+  }, [handleFetchDetailsOfClient]);
 
 
   // close the invoice form modal and reset values
@@ -194,6 +205,7 @@ export const useLogic = () => {
       lessWithholdingTax: "",
       companyName: "",
       withVat: true,
+      multipleMachines: false,
     });
   }, []);
 
@@ -203,6 +215,14 @@ export const useLogic = () => {
     const { name, value } = e.target;
     setInvoiceFormValues((prev) => ({ ...prev, [name]: value }));
   }, []);
+
+  // use effect functions
+  useEffect(() => {
+    if (!showInvoiceFormModal || !clientDepartmentName || selectedRows.length === 0) return;
+
+    handleFetchDetailsOfClient(clientDepartmentName, selectedRows);
+  }, [invoiceFormValues.multipleMachines]);
+
 
   return {
     data: filteredData.length > 0 ? filteredData : data,

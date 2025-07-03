@@ -6,7 +6,7 @@ import { convertDate } from '@utils/methods';
 const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails }) => {
   if (selectedRows.length === 0) return null;
 
-  const isMultiple = selectedRows.length > 1;
+  const isMultiple = selectedRows.length > 1 || invoiceDetails.multipleMachines;
   const summaryRow = data[selectedRows[0]] || {};
 
   if (isMultiple) {

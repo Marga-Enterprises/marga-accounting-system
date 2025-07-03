@@ -2,17 +2,14 @@
 import React from 'react';
 
 const InvoiceSingleView = ({ row, invoiceDetails, values, convertDate }) => {
-  const rowClient = row["CLIENT"] === "Batangas P.Burgos (CBS)" ? "China Bank Savings - Branches" : row["CLIENT"];
-  const specialAddress = rowClient === "China Bank Savings - Branches" ? "6772 VGP Center Ayala Ave. Makati City" : invoiceDetails.fullAddress;
-
   return (
     <div className="invoice-preview">
       <div className="invoice-row">
         <div className="left-column">
           <div className="client-details">
-            <div className="invoice-text">{rowClient}</div>
+            <div className="invoice-text">{row["CLIENT"]}</div>
             <div className="invoice-text">{invoiceDetails.tinNumber}</div>
-            <div className="invoice-text">{specialAddress}</div>
+            <div className="invoice-text">{invoiceDetails.fullAddress}</div>
           </div>
           <div className="invoice-breakdown-details">
             <div className="invoice-text-details">Business Style: {invoiceDetails.businessStyle}</div>

@@ -29,6 +29,9 @@ const InvoiceDetailsFormModal = ({
   // If selected rows length is only 1, get the row data
   const rowData = selectedRows ? data[selectedRows[0]] : {};
 
+  // check if rowData is multiple machines
+  const isMultipleMachines = formValues.multipleMachines;
+
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={styles.modalWrapper}>
@@ -36,24 +39,27 @@ const InvoiceDetailsFormModal = ({
           Invoice Details
         </Typography>
 
-        <Box component="form" onSubmit={(e) => onPrint(e)} sx={styles.form}>
-          {/* Specific fields if selected rows length is only 1 */}
-          {selectedRows.length > 1 && (
+        <Box component="form" onSubmit={onPrint} sx={styles.form}>
+          {selectedRows.length === 1 && isMultipleMachines && (
             <TextField
               label="Client Name"
               name="companyName"
               value={formValues.companyName}
               onChange={onChange}
               fullWidth
+              sx={styles.formField}
             />
           )}
+
           <TextField
             label="TIN Number"
             name="tinNumber"
             value={formValues.tinNumber}
             onChange={onChange}
             fullWidth
+            sx={styles.formField}
           />
+
           <TextField
             label="Full Address"
             name="fullAddress"
@@ -62,39 +68,47 @@ const InvoiceDetailsFormModal = ({
             fullWidth
             multiline
             rows={2}
+            sx={styles.fullWidthField}
           />
+
           <TextField
             label="RD Type"
             name="rd"
             value={formValues.rd}
             onChange={onChange}
             fullWidth
+            sx={styles.formField}
           />
+
           <TextField
             label="Business Style"
             name="businessStyle"
             value={formValues.businessStyle}
             onChange={onChange}
             fullWidth
+            sx={styles.formField}
           />
-          {/* Specific fields if selected rows length is only 1 */}
-          {selectedRows.length === 1 && (
+
+          {selectedRows.length === 1 && !isMultipleMachines && (
             <TextField
               label="Printer Model"
               name="printerModel"
               value={formValues.printerModel}
               onChange={onChange}
               fullWidth
+              sx={styles.formField}
             />
           )}
+
           <TextField
             label="Billing Date"
             name="billingDate"
             value={formValues.billingDate}
             onChange={onChange}
             fullWidth
+            sx={styles.formField}
           />
-          {/* Show only if one row is selected and category is RTP */}
+
           {rowData.CATEGORY === "RTP" && (
             <>
               <TextField
@@ -104,6 +118,7 @@ const InvoiceDetailsFormModal = ({
                 onChange={onChange}
                 fullWidth
                 type="number"
+                sx={styles.formField}
               />
               <TextField
                 label="Rate Per Page"
@@ -112,9 +127,11 @@ const InvoiceDetailsFormModal = ({
                 onChange={onChange}
                 fullWidth
                 type="number"
+                sx={styles.formField}
               />
             </>
           )}
+
           <TextField
             label="Less Withholding Tax"
             name="lessWithholdingTax"
@@ -122,7 +139,9 @@ const InvoiceDetailsFormModal = ({
             onChange={onChange}
             fullWidth
             type="number"
+            sx={styles.formField}
           />
+
           <FormControlLabel
             control={
               <Switch
@@ -139,8 +158,34 @@ const InvoiceDetailsFormModal = ({
               />
             }
             label="With VAT"
+            sx={styles.formField}
           />
-          <Stack direction="row" spacing={2} justifyContent="flex-end" sx={styles.buttonGroup}>
+
+          <FormControlLabel
+            control={
+              <Switch
+                checked={!!formValues.multipleMachines}
+                onChange={(e) =>
+                  onChange({
+                    target: {
+                      name: "multipleMachines",
+                      value: e.target.checked,
+                    },
+                  })
+                }
+                color="primary"
+              />
+            }
+            label="Multiple Machines"
+            sx={styles.formField}
+          />
+
+          <Stack
+            direction="row"
+            spacing={2}
+            justifyContent="flex-end"
+            sx={{ ...styles.buttonGroup, ...styles.fullWidthField }}
+          >
             <Button onClick={onClose} color="inherit" variant="outlined">
               Cancel
             </Button>

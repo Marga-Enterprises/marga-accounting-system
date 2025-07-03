@@ -4,7 +4,7 @@ const styles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 500,
+    width: 700, // ⬅️ wider to fit 2 columns
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
@@ -16,8 +16,16 @@ const styles = {
   },
   form: {
     display: "flex",
-    flexDirection: "column",
+    flexWrap: "wrap",     // ⬅️ Allow wrapping
+    flexDirection: "row", // ⬅️ Row layout
     gap: 2,
+  },
+  formField: {
+    flex: "1 1 calc(50% - 8px)", // Two columns with spacing
+    minWidth: "calc(50% - 8px)",
+  },
+  fullWidthField: {
+    flex: "1 1 100%", // Span full width
   },
   buttonGroup: {
     mt: 3,
