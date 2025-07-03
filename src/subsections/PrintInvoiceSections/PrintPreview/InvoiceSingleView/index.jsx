@@ -3,7 +3,7 @@ import React from 'react';
 
 const InvoiceSingleView = ({ row, invoiceDetails, values, convertDate }) => {
   const rowClient = row["CLIENT"] === "Batangas P.Burgos (CBS)" ? "China Bank Savings - Branches" : row["CLIENT"];
-  const specialAddress = rowClient === "China Bank Savings - Branches" ? "6772 VGP Center Ayala Ave. Makati City" : row["CLIENT ADDRESS"];
+  const specialAddress = rowClient === "China Bank Savings - Branches" ? "6772 VGP Center Ayala Ave. Makati City" : invoiceDetails.fullAddress;
 
   return (
     <div className="invoice-preview">
