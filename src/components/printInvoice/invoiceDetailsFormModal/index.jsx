@@ -28,7 +28,6 @@ const InvoiceDetailsFormModal = ({
 }) => {
   // If selected rows length is only 1, get the row data
   const rowData = selectedRows ? data[selectedRows[0]] : {};
-  console.log("WITH VAT", formValues.withVat);
 
   return (
     <Modal open={open} onClose={onClose}>
