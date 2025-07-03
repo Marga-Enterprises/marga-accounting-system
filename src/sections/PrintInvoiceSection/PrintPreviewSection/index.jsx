@@ -3,7 +3,7 @@ import InvoiceSingleView from '@subsections/PrintInvoiceSections/PrintPreview/In
 import InvoiceMultipleView from '@subsections/PrintInvoiceSections/PrintPreview/InvoiceMultipleView';
 import { convertDate } from '@utils/methods';
 
-const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails }) => {
+const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails, setFinalPrintData }) => {
   if (selectedRows.length === 0) return null;
 
   const isMultiple = selectedRows.length > 1 || invoiceDetails.multipleMachines;
@@ -35,6 +35,7 @@ const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails }) =
           summaryRow={summaryRow}
           invoiceDetails={invoiceDetails}
           values={values}
+          setFinalPrintData={setFinalPrintData}
           convertDate={convertDate}
         />
       </div>
@@ -61,6 +62,7 @@ const PrintPreviewSection = ({ data = [], selectedRows = [], invoiceDetails }) =
           row={summaryRow}
           invoiceDetails={invoiceDetails}
           values={values}
+          setFinalPrintData={setFinalPrintData}
           convertDate={convertDate}
         />
       </div>

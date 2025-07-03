@@ -1,7 +1,17 @@
 // react
-import React from 'react';
+import React, { use, useEffect } from 'react';
 
-const InvoiceSingleView = ({ row, invoiceDetails, values, convertDate }) => {
+const InvoiceSingleView = ({ row, invoiceDetails, values, convertDate, setFinalPrintData }) => {
+  useEffect(() => {
+    // Set the final print data when the component mounts
+    setFinalPrintData({
+      row,
+      invoiceDetails,
+      values,
+      convertDate,
+    });
+  }, [row, invoiceDetails, values, convertDate, setFinalPrintData]);
+
   return (
     <div className="invoice-preview">
       <div className="invoice-row">

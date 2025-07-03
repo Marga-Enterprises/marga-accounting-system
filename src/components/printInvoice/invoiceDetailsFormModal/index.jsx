@@ -40,7 +40,7 @@ const InvoiceDetailsFormModal = ({
         </Typography>
 
         <Box component="form" onSubmit={onPrint} sx={styles.form}>
-          {selectedRows.length === 1 && isMultipleMachines && (
+          {(selectedRows.length > 1 || isMultipleMachines) && (
             <TextField
               label="Client Name"
               name="companyName"
@@ -161,24 +161,27 @@ const InvoiceDetailsFormModal = ({
             sx={styles.formField}
           />
 
-          <FormControlLabel
-            control={
-              <Switch
-                checked={!!formValues.multipleMachines}
-                onChange={(e) =>
-                  onChange({
-                    target: {
-                      name: "multipleMachines",
-                      value: e.target.checked,
-                    },
-                  })
-                }
-                color="primary"
-              />
-            }
-            label="Multiple Machines"
-            sx={styles.formField}
-          />
+          {  /* if selected rows are more than 1 show the switch its automatic multiple machine */ }
+          {selectedRows.length <= 1 && (
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={!!formValues.multipleMachines}
+                  onChange={(e) =>
+                    onChange({
+                      target: {
+                        name: "multipleMachines",
+                        value: e.target.checked,
+                      },
+                    })
+                  }
+                  color="primary"
+                />
+              }
+              label="Multiple Machines"
+              sx={styles.formField}
+            />
+          )}
 
           <Stack
             direction="row"

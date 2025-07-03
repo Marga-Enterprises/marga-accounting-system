@@ -23,6 +23,7 @@ export const useLogic = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [clientDepartmentName, setClientDepartmentName] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [finalPrintData, setFinalPrintData] = useState({});
   const [filteredData, setFilteredData] = useState([]);
   const [showInvoiceFormModal, setShowInvoiceFormModal] = useState(false);
 
@@ -223,6 +224,7 @@ export const useLogic = () => {
     handleFetchDetailsOfClient(clientDepartmentName, selectedRows);
   }, [invoiceFormValues.multipleMachines]);
 
+  console.log("Final Print Data:", finalPrintData);
 
   return {
     data: filteredData.length > 0 ? filteredData : data,
@@ -232,6 +234,7 @@ export const useLogic = () => {
     searchQuery,
     invoiceFormValues,
     setSearchQuery,
+    setFinalPrintData,
     handleChangeInvoiceFormValues,
     handleFileUpload,
     toggleRow,

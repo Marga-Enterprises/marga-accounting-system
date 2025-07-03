@@ -26,6 +26,7 @@ const PrintInvoicePage = () => {
     searchQuery,
     invoiceFormValues,
     showInvoiceFormModal,
+    setFinalPrintData,
     setSearchQuery,
     handleChangeInvoiceFormValues,
     handleFileUpload,
@@ -80,6 +81,7 @@ const PrintInvoicePage = () => {
               data={data} 
               selectedRows={selectedRows} 
               invoiceDetails={invoiceFormValues}
+              setFinalPrintData={setFinalPrintData}
             />
           </Box>
 
