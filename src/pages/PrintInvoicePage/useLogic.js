@@ -28,6 +28,8 @@ export const useLogic = () => {
   const [showInvoiceFormModal, setShowInvoiceFormModal] = useState(false);
 
   const [invoiceFormValues, setInvoiceFormValues] = useState({
+    departmentId: "",
+    clientId: "",
     companyName: "",
     tinNumber: "",
     fullAddress: "",
@@ -113,25 +115,6 @@ export const useLogic = () => {
   }, [data, searchQuery]);
 
 
-  // Print functionality
-  const handlePrint = useCallback((e) => {
-    e.preventDefault();
-
-    setShowInvoiceFormModal(false);
-
-    const printable = document.getElementById("print-preview");
-
-    if (printable) {
-      const win = window.open();
-
-      win.document.write(generatePrintHTML(printable.innerHTML));
-
-      win.document.close();
-      win.onload = () => win.print();
-    }
-  }, []);
-
-
   // Fetch client department details by name
   const handleFetchDetailsOfClient = useCallback((clientDepartmentName, selectedRows) => {
     if (!clientDepartmentName || !selectedRows.length) return;
@@ -142,7 +125,10 @@ export const useLogic = () => {
       .then((res) => {
         if (res.success) {
           const client = res.data.client || {};
+
           const formValues = {
+            departmentId: res.data.id || "",
+            clientId: res.data.client_department_client_id || "",
             tinNumber: client.client_tin || "",
             fullAddress: res.data.client_department_address || "",
             businessStyle: client.client_business_style || "",
@@ -165,6 +151,57 @@ export const useLogic = () => {
         console.error("Error fetching department:", error);
       });
   }, [dispatch, invoiceFormValues.multipleMachines]);
+
+
+  // save the invoice details 
+  const handleSaveInvoiceDetails = useCallback(() => {
+    if (loadingRef.current) return;
+    loadingRef.current = true;
+    setLoading(true);
+
+    console.log("Final Print Data:", finalPrintData);
+
+    dispatch(marga.billing.createBillingAction(finalPrintData))
+      .then((res) => {
+        if (res.success) {
+          console.log("Invoice saved successfully:", res.data);
+          handleCloseInvoiceFormModal();
+        } else {
+          console.error("Failed to save invoice:", res.payload);
+        }
+      })
+      .catch((error) => {
+        console.error("Error saving invoice:", error);
+      })
+      .finally(() => {
+        loadingRef.current = false;
+        setLoading(false);
+      });
+  }, [dispatch, finalPrintData]);
+
+
+  // Print functionality
+  const handlePrint = useCallback((e) => {
+    e.preventDefault();
+
+    // Optional check
+    if (!finalPrintData.billing_invoice_number) {
+      console.warn("Final print data not ready");
+      return;
+    }
+
+    handleSaveInvoiceDetails(finalPrintData);
+    setShowInvoiceFormModal(false);
+
+    const printable = document.getElementById("print-preview");
+
+    if (printable) {
+      const win = window.open();
+      win.document.write(generatePrintHTML(printable.innerHTML));
+      win.document.close();
+      win.onload = () => win.print();
+    }
+  }, [finalPrintData]);
 
 
   // handle modal visibility
@@ -196,6 +233,8 @@ export const useLogic = () => {
     setShowInvoiceFormModal(false);
     setInvoiceFormValues({
       tinNumber: "",
+      departmentId: "",
+      clientId: "",
       fullAddress: "",
       rd: "",
       businessStyle: "",
@@ -224,7 +263,7 @@ export const useLogic = () => {
     handleFetchDetailsOfClient(clientDepartmentName, selectedRows);
   }, [invoiceFormValues.multipleMachines]);
 
-  console.log("Final Print Data:", finalPrintData);
+  console.log("finalPrintData:", finalPrintData); 
 
   return {
     data: filteredData.length > 0 ? filteredData : data,

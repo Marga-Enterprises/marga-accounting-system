@@ -1,16 +1,25 @@
 // react
-import React, { use, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 const InvoiceSingleView = ({ row, invoiceDetails, values, convertDate, setFinalPrintData }) => {
+  const year = new Date().getFullYear();
+
   useEffect(() => {
-    // Set the final print data when the component mounts
+    if (!invoiceDetails.clientId || !invoiceDetails.departmentId) return;
+
     setFinalPrintData({
-      row,
-      invoiceDetails,
-      values,
-      convertDate,
+      billing_invoice_number: row["INVOICE NUM"],
+      billing_amount: row["AMOUNT"],
+      billing_total_amount: row["AMOUNT"],
+      billing_month: row["INVOICE MONTH"],
+      billing_year: year,
+      billing_client_id: invoiceDetails.clientId,
+      billing_department_id: invoiceDetails.departmentId,
+      billing_vat_amount: values[1],
+      billing_discount: values[3],
+      billing_type: row["CATEGORY"],
     });
-  }, [row, invoiceDetails, values, convertDate, setFinalPrintData]);
+  }, [invoiceDetails, row, values]);
 
   return (
     <div className="invoice-preview">

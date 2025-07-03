@@ -1,7 +1,28 @@
 // react
-import React from 'react';
+import React, { use, useEffect } from 'react';
 
-const InvoiceMultipleView = ({ summaryRow, invoiceDetails, values, convertDate }) => {
+const InvoiceMultipleView = ({ summaryRow, invoiceDetails, values, convertDate, setFinalPrintData }) => {
+  const year = new Date().getFullYear();
+
+  useEffect(() => {
+    if (!invoiceDetails.clientId || !invoiceDetails.departmentId) return;
+
+    setFinalPrintData({
+      billing_invoice_number: row["INVOICE NUM"],
+      billing_amount: row["AMOUNT"],
+      billing_total_amount: row["AMOUNT"],
+      billing_month: row["INVOICE MONTH"],
+      billing_year: year,
+      billing_client_id: invoiceDetails.clientId,
+      billing_department_id: invoiceDetails.departmentId,
+      billing_vat_amount: values[1],
+      billing_discount: values[3],
+      billing_type: row["CATEGORY"],
+    });
+  }, [invoiceDetails, summaryRow, values]);
+
+  console.log("Invoice Details:", invoiceDetails.clientId);
+
   return (
     <div className="invoice-preview">
       <div className="invoice-row">
