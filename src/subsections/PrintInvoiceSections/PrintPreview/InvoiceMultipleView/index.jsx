@@ -1,5 +1,5 @@
 // react
-import React, { use, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 const InvoiceMultipleView = ({ summaryRow, invoiceDetails, values, convertDate, setFinalPrintData }) => {
   const year = new Date().getFullYear();
