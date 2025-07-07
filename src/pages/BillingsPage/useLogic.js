@@ -52,6 +52,8 @@ export const useLogic = () => {
             .then((res) => {
                 if (res.success) {
                     setBillings(res.data.billings || []);
+                    setMonth(billingMonth);
+                    setYear(billingYear);
                     setPageDetails({
                         totalRecords: res.data.totalRecords || 0,
                         pageIndex: res.data.pageIndex || 1,

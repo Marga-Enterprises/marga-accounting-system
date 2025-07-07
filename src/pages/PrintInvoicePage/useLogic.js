@@ -159,8 +159,6 @@ export const useLogic = () => {
     loadingRef.current = true;
     setLoading(true);
 
-    console.log("Final Print Data:", finalPrintData);
-
     dispatch(marga.billing.createBillingAction(finalPrintData))
       .then((res) => {
         if (res.success) {
