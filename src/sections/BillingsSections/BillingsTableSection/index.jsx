@@ -9,13 +9,14 @@ import {
   Box,
   Table,
   TableBody,
+  Typography,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
   Paper,
   Pagination,
-  Button,
+  Button
 } from '@mui/material';
 
 // styles
@@ -26,6 +27,7 @@ import LoadingScreen from '@components/common/LoadingScreen';
 
 const BillingsTableSection = ({
   billings,
+  totalBillings,
   loading,
   page,
   totalPages,
@@ -35,6 +37,18 @@ const BillingsTableSection = ({
 
   return (
     <Box sx={styles.root}>
+      <Box sx={styles.totalBillingsBox}>
+        <Typography variant="subtitle1" sx={styles.totalBillingsLabel}>
+          Billing Total For This Month:
+        </Typography>
+        <Typography variant="h6" sx={styles.totalBillingsValue}>
+          ₱{Number(totalBillings).toLocaleString('en-PH', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}
+        </Typography>
+      </Box>
+
       <TableContainer component={Paper} sx={styles.tableContainer}>
         <Table size="small">
           <TableHead>

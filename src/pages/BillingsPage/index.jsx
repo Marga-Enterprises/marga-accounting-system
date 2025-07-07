@@ -31,6 +31,7 @@ const Page = () => {
         pageDetails,
         month,
         year,
+        totalBillings,
         handleFetchBillings,
         handleMonthChange,
         handleYearChange,
@@ -76,6 +77,7 @@ const Page = () => {
                 loading={loading}
                 billings={billings}
                 page={pageDetails.pageIndex}
+                totalBillings={totalBillings}
                 totalPages={pageDetails.totalPages}
                 onPageChange={(newPage) => {
                     const params = new URLSearchParams(location.search);

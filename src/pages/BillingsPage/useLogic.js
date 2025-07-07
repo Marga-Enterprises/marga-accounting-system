@@ -26,6 +26,7 @@ export const useLogic = () => {
     const [loading, setLoading] = useState(false);
     const [month, setMonth] = useState(monthNow);
     const [year, setYear] = useState(yearNow);
+    const [totalBillings, setTotalBillings] = useState(0);
     const [pageDetails, setPageDetails] = useState({
         totalRecords: 0,
         pageIndex: 1,
@@ -56,6 +57,7 @@ export const useLogic = () => {
                         pageIndex: res.data.pageIndex || 1,
                         totalPages: res.data.totalPages || 0,
                     });
+                    setTotalBillings(res.data.totalBillingForMonth || 0);
                 } else {
                     console.error('Failed to fetch billings:', res.payload);
                 }
@@ -102,6 +104,7 @@ export const useLogic = () => {
         pageDetails,
         month,
         year,
+        totalBillings,
         handleFetchBillings,
         handleMonthChange,
         handleYearChange,

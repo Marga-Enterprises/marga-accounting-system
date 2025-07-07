@@ -50,6 +50,24 @@ const styles = {
   statusDotInactive: {
     backgroundColor: 'error.main',
   },
+
+  totalBillingsBox: {
+    mb: 2,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: 1,
+  },
+
+  totalBillingsLabel: {
+    fontWeight: 500,
+    color: 'text.secondary',
+  },
+
+  totalBillingsValue: {
+    fontWeight: 'bold',
+    color: 'success.main',
+  },
 };
 
 export default styles;
