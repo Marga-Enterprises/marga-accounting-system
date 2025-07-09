@@ -55,9 +55,7 @@ const Page = () => {
           page={pageDetails.pageIndex}
           totalPages={pageDetails.totalPages}
           onPageChange={(newPage) => navigate(`?page=${newPage}`)}
-          onStatusChange={(branchId, branchName, branchAddress, branchParentId, newStatus) => {
-            handleUpdateClientStatus(branchId, branchName, branchAddress, branchParentId, newStatus);
-          }}
+          onStatusChange={handleUpdateClientStatus}
         />
   
     </>

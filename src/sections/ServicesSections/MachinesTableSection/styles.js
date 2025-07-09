@@ -22,34 +22,10 @@ const styles = {
     fontSize: 14,
   },
 
-  selectStatus: {
-    minWidth: 120,
-    textTransform: 'capitalize',
-  },
-
   pagination: {
     mt: 3,
     display: 'flex',
     justifyContent: 'center',
-  },
-  
-  selectStatus: {
-    minWidth: 120,
-    textTransform: 'capitalize',
-  },
-
-  statusDot: {
-    width: 10,
-    height: 10,
-    borderRadius: '50%',
-  },
-
-  statusDotActive: {
-    backgroundColor: 'success.main',
-  },
-
-  statusDotInactive: {
-    backgroundColor: 'error.main',
   },
 };
 

@@ -37,15 +37,11 @@ export const loginAction = (payload) => async (dispatch) => {
   try {
     const res = await loginService(payload);
 
-    console.log('RESPONSE ACTION', res);
-
     const { success, data } = res;
 
     if (success) {
       if (data) {
         const account = jwtDecode(data); 
-
-        console.log('Login successful:', account);
 
         setAuthorizationHeader(data);
         dispatch(setUserDetails(account));

@@ -261,8 +261,6 @@ export const useLogic = () => {
     handleFetchDetailsOfClient(clientDepartmentName, selectedRows);
   }, [invoiceFormValues.multipleMachines]);
 
-  console.log("finalPrintData:", finalPrintData); 
-
   return {
     data: filteredData.length > 0 ? filteredData : data,
     loading,

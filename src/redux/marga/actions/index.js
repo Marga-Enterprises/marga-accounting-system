@@ -3,6 +3,7 @@ import * as client from './client';
 import * as clientbranch from './clientbranch';
 import * as clientdepartment from './clientdepartment';
 import * as billing from './billing';
+import * as machine from './machine';
 
 export {
   user,
@@ -10,4 +11,5 @@ export {
   clientbranch,
   clientdepartment,
   billing,
+  machine
 };

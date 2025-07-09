@@ -3,6 +3,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PrintIcon from '@mui/icons-material/Print';
+import BuildIcon from '@mui/icons-material/Build'; // Icon for Services
 
 const options = [
   {
@@ -28,6 +29,12 @@ const options = [
     icon: PrintIcon,
     color: '#1976d2',
     path: '/print-invoice',
+  },
+  {
+    label: 'Services',
+    icon: BuildIcon,
+    color: '#1976d2',
+    path: '/services',
   },
 ];
 
