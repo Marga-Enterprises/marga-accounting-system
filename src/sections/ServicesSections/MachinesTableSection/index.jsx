@@ -10,11 +10,15 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  IconButton ,
   Paper,
   Pagination,
   Select,
   MenuItem,
 } from '@mui/material';
+
+// mui icons
+import EditIcon from '@mui/icons-material/Edit';
 
 // styles
 import styles from './styles';
@@ -35,6 +39,7 @@ const MachinesTableSection = ({
   loading,
   page,
   totalPages,
+  onFetchMachine,
   onPageChange,
   onStatusChange
 }) => {
@@ -50,6 +55,7 @@ const MachinesTableSection = ({
               <TableCell sx={styles.tableHeadCell}>Model</TableCell>
               <TableCell sx={styles.tableHeadCell}>Serial #</TableCell>
               <TableCell sx={styles.tableHeadCell}>Status</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Actions</TableCell>
             </TableRow>
           </TableHead>
 
@@ -75,6 +81,15 @@ const MachinesTableSection = ({
                         </MenuItem>
                       ))}
                     </Select>
+                  </TableCell>
+                  <TableCell>
+                    <IconButton
+                      size="small"
+                      color="primary"
+                      onClick={() => onFetchMachine(machine.id)}
+                    >
+                      <EditIcon />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))

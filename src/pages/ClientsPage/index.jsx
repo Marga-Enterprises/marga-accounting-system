@@ -41,7 +41,7 @@ const Page = () => {
         <ClientSearchForm
           searchedClient={new URLSearchParams(location.search).get("search") || ''}
           onSubmitSearch={(searchText) => {
-            searchText ? navigate(`?search=${searchText}&page=1`) : navigate('?page=1');
+              searchText ? navigate(`?search=${searchText}&page=1`) : navigate('?page=1');
           }}
         />
 
@@ -51,7 +51,11 @@ const Page = () => {
           clients={clients}
           page={pageDetails.pageIndex}
           totalPages={pageDetails.totalPages}
-          onPageChange={(newPage) => navigate(`?page=${newPage}`)}
+          onPageChange={(newPage) => {
+              const params = new URLSearchParams(location.search);
+              params.set('page', newPage);
+              navigate(`?${params.toString()}`);
+          }}
           onStatusChange={handleUpdateClientStatus}
         />
   

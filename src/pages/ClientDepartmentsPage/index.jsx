@@ -54,7 +54,11 @@ const Page = () => {
           departments={departments}
           page={pageDetails.pageIndex}
           totalPages={pageDetails.totalPages}
-          onPageChange={(newPage) => navigate(`?page=${newPage}`)}
+          onPageChange={(newPage) => {
+              const params = new URLSearchParams(location.search);
+              params.set('page', newPage);
+              navigate(`?${params.toString()}`);
+          }}
           onStatusChange={handleUpdateClientStatus}
         />
   

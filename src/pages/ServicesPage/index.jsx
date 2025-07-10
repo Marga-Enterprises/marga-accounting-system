@@ -10,6 +10,9 @@ import { useLogicMachines } from './useLogicMachines';
 // sections
 import MachinesTableSection from '@sections/ServicesSections/MachinesTableSection';
 
+// components
+import EditMachineModal from '@components/services/EditMachineModal';
+
 const Page = () => {
     // hooks
     const location = useLocation();
@@ -20,8 +23,13 @@ const Page = () => {
         machines,
         loading,
         pageDetails,
+        openEditMachineModal,
+        formValues,
+        handleChangeFormValues,
         handleFetchMachines,
-        handleUpdateMachine
+        handleUpdateMachine,
+        handleFetchMachine,
+        handleCloseEditMachineModal
     } = useLogicMachines();
 
     // use effect to fetch machines on component mount or location change
@@ -42,11 +50,21 @@ const Page = () => {
                 page={pageDetails.pageIndex}
                 totalPages={pageDetails.totalPages}
                 onStatusChange={handleUpdateMachine}
+                onFetchMachine={handleFetchMachine}
                 onPageChange={(newPage) => {
                     const params = new URLSearchParams(location.search);
                     params.set('page', newPage);
                     navigate(`?${params.toString()}`);
                 }}
+            />
+
+            {/* Edit Machine Modal */}
+            <EditMachineModal
+                open={openEditMachineModal}
+                formValues={formValues}
+                onChange={handleChangeFormValues}
+                onClose={handleCloseEditMachineModal}
+                onSendUpdate={handleUpdateMachine}
             />
         </>
     );

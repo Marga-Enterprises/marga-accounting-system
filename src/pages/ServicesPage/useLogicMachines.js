@@ -13,10 +13,17 @@ export const useLogicMachines = () => {
     // states
     const [machines, setMachines] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [openEditMachineModal, setOpenEditMachineModal] = useState(false);
     const [pageDetails, setPageDetails] = useState({
         totalRecords: 0,
         pageIndex: 1,
         totalPages: 0,
+    });
+    const [formValues, setFormValues] = useState({
+        machine_brand: '',
+        machine_model: '',
+        machine_description: '',
+        machine_serial_number: '',
     });
 
     // callback functions
@@ -76,6 +83,13 @@ export const useLogicMachines = () => {
                                 : machine
                         )
                     );
+                    setOpenEditMachineModal(prevState => prevState ? false : prevState);
+                    setFormValues({
+                        machine_brand: '',
+                        machine_model: '',
+                        machine_description: '',
+                        machine_serial_number: '',
+                    });
                 } else {
                     console.error("Failed to update machine status:", res.payload);
                 }
@@ -89,11 +103,66 @@ export const useLogicMachines = () => {
             });
     }, [dispatch]);
 
+    // Function to fetch a specific machine by ID
+    const handleFetchMachine = useCallback((machineId) => {
+        setOpenEditMachineModal(true);
+
+        if (loadingRef.current) return;
+        loadingRef.current = true;
+        setLoading(true);
+
+        const payload = {
+            id: machineId,
+        };
+
+        // Dispatch the action to fetch a specific machine
+        dispatch(marga.machine.getMachineAction(payload))
+            .then((res) => {
+                if (res.success) {
+                    const machine = res.data || {};
+                    setFormValues({
+                        machine_brand: machine.machine_brand || '',
+                        machine_model: machine.machine_model || '',
+                        machine_description: machine.machine_description || '',
+                        machine_serial_number: machine.machine_serial_number || '',
+                    });
+                } else {
+                    console.error("Failed to fetch machine:", res.payload);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching machine:", error);
+            })
+            .finally(() => {
+                setLoading(false);
+                loadingRef.current = false;
+            });
+    }, [dispatch]);
+
+    // Function to handle form value changes
+    const handleChangeFormValues = useCallback((event) => {
+        const { name, value } = event.target;
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
+    }, []);
+
+    // handle close modals
+    const handleCloseEditMachineModal = useCallback(() => {
+        setOpenEditMachineModal(false);
+    }, []);
+
     return {
         machines,
         loading,
         pageDetails,
+        openEditMachineModal,
+        formValues,
+        handleChangeFormValues,
         handleFetchMachines,
-        handleUpdateMachine
+        handleUpdateMachine,
+        handleFetchMachine,
+        handleCloseEditMachineModal
     };
 };
