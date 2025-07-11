@@ -9,6 +9,7 @@ import { useLogicMachines } from './useLogicMachines';
 
 // sections
 import MachinesTableSection from '@sections/ServicesSections/MachinesTableSection';
+import MachineSearchForm from '@sections/ServicesSections/MachineSearchForm';
 
 // components
 import EditMachineModal from '@components/services/EditMachineModal';
@@ -27,6 +28,7 @@ const Page = () => {
         formValues,
         handleChangeFormValues,
         handleFetchMachines,
+        handleUpdateMachineStatus,
         handleUpdateMachine,
         handleFetchMachine,
         handleCloseEditMachineModal
@@ -36,20 +38,29 @@ const Page = () => {
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const currentPage = parseInt(queryParams.get("page")) || 1;
+        const searchText = queryParams.get("search") || '';
 
         // Fetch machines based on the current page
-        handleFetchMachines(currentPage);
+        handleFetchMachines(currentPage, searchText);
     }, [location.search, handleFetchMachines]);
 
     return (
         <>
+            {/* Machine Search Form Section */}
+            <MachineSearchForm
+                searchedMachine={new URLSearchParams(location.search).get('search') || ''}
+                onSubmitSearch={(searchText) => {
+                    searchText ? navigate(`?search=${searchText}&page=1`) : navigate('?page=1');
+                }}
+            />
+
             {/* Machines Table Section */}
             <MachinesTableSection
                 machines={machines}
                 loading={loading}
                 page={pageDetails.pageIndex}
                 totalPages={pageDetails.totalPages}
-                onStatusChange={handleUpdateMachine}
+                onStatusChange={handleUpdateMachineStatus}
                 onFetchMachine={handleFetchMachine}
                 onPageChange={(newPage) => {
                     const params = new URLSearchParams(location.search);
@@ -64,7 +75,7 @@ const Page = () => {
                 formValues={formValues}
                 onChange={handleChangeFormValues}
                 onClose={handleCloseEditMachineModal}
-                onSendUpdate={handleUpdateMachine}
+                onSendUpdate={(e) => handleUpdateMachine(e)}
             />
         </>
     );

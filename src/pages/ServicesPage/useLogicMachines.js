@@ -14,6 +14,7 @@ export const useLogicMachines = () => {
     const [machines, setMachines] = useState([]);
     const [loading, setLoading] = useState(false);
     const [openEditMachineModal, setOpenEditMachineModal] = useState(false);
+    const [machineId, setMachineId] = useState(null);
     const [pageDetails, setPageDetails] = useState({
         totalRecords: 0,
         pageIndex: 1,
@@ -29,7 +30,7 @@ export const useLogicMachines = () => {
     // callback functions
 
     // Function to fetch machines based on the page index
-    const handleFetchMachines = useCallback((pageIndex) => {
+    const handleFetchMachines = useCallback((pageIndex, searchedMachine) => {
         if (loadingRef.current) return;
         loadingRef.current = true;
         setLoading(true);
@@ -38,6 +39,7 @@ export const useLogicMachines = () => {
         dispatch(marga.machine.getMachinesAction({
             pageIndex,
             pageSize: 10,
+            search: searchedMachine,
         }))
             .then((res) => {
                 if (res.success) {
@@ -61,7 +63,7 @@ export const useLogicMachines = () => {
     }, [dispatch]);
 
     // Function to handle status change of a machine
-    const handleUpdateMachine = useCallback((machineId, newStatus) => {
+    const handleUpdateMachineStatus = useCallback((machineId, newStatus) => {
         if (loadingRef.current) return;
         loadingRef.current = true;
         setLoading(true);
@@ -103,6 +105,60 @@ export const useLogicMachines = () => {
             });
     }, [dispatch]);
 
+    // Function to update machine details
+    const handleUpdateMachine = useCallback((e) => {
+        e.preventDefault();
+
+        if (loadingRef.current) return;
+        loadingRef.current = true;
+        setLoading(true);
+
+        const payload = {
+            id: machineId,
+            machine_brand: formValues.machine_brand,
+            machine_model: formValues.machine_model,
+            machine_description: formValues.machine_description,
+            machine_serial_number: formValues.machine_serial_number,
+        };
+
+        // Dispatch the action to update machine status
+        dispatch(marga.machine.updateMachineAction(payload))
+            .then((res) => {
+                if (res.success) {
+                    // Update the local state with the new status
+                    setMachines((prevMachines) =>
+                        prevMachines.map((machine) =>
+                            machine.id === machineId
+                                ? {
+                                    ...machine,
+                                    machine_brand: formValues.machine_brand,
+                                    machine_model: formValues.machine_model,
+                                    machine_description: formValues.machine_description,
+                                    machine_serial_number: formValues.machine_serial_number,
+                                }
+                                : machine
+                        )
+                    );
+                    setOpenEditMachineModal(prevState => prevState ? false : prevState);
+                    setFormValues({
+                        machine_brand: '',
+                        machine_model: '',
+                        machine_description: '',
+                        machine_serial_number: '',
+                    });
+                } else {
+                    console.error("Failed to update machine status:", res.payload);
+                }
+            })
+            .catch((error) => {
+                console.error("Error updating machine status:", error);
+            })
+            .finally(() => {
+                setLoading(false);
+                loadingRef.current = false;
+            });
+    }, [dispatch, machineId, formValues]);
+
     // Function to fetch a specific machine by ID
     const handleFetchMachine = useCallback((machineId) => {
         setOpenEditMachineModal(true);
@@ -126,6 +182,7 @@ export const useLogicMachines = () => {
                         machine_description: machine.machine_description || '',
                         machine_serial_number: machine.machine_serial_number || '',
                     });
+                    setMachineId(machineId);
                 } else {
                     console.error("Failed to fetch machine:", res.payload);
                 }
@@ -161,6 +218,7 @@ export const useLogicMachines = () => {
         formValues,
         handleChangeFormValues,
         handleFetchMachines,
+        handleUpdateMachineStatus,
         handleUpdateMachine,
         handleFetchMachine,
         handleCloseEditMachineModal

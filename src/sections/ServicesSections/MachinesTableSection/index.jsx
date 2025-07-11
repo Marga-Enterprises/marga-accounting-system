@@ -32,6 +32,8 @@ const statusOptions = [
   'Field',
   'For Overhauling',
   'For Parts',
+  'Used In The Company',
+  'For Delete'
 ];
 
 const MachinesTableSection = ({
