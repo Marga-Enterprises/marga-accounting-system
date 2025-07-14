@@ -8,9 +8,7 @@ import {
   Typography,
   TextField,
   Button,
-  Stack,
-  FormControlLabel,
-  Switch,
+  Stack
 } from "@mui/material";
 
 // styles

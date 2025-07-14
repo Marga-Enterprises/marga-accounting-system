@@ -29,3 +29,7 @@ export async function updateClientDepartmentService(payload) {
 export async function deleteClientDepartmentService(payload) {
     return DELETE(`/clientdepartment/${payload.id}`);
 }
+
+export async function sendEmailToClientDepartmentService(payload) {
+    return POST('/clientdepartment/send-email-to-clients', payload);
+}

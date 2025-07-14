@@ -5,7 +5,8 @@ import {
     getClientDepartmentService,
     getClientDepartmentByNameService,
     updateClientDepartmentService,
-    deleteClientDepartmentService
+    deleteClientDepartmentService,
+    sendEmailToClientDepartmentService
 } from '@services/api/clientdepartment';
 
 
@@ -68,6 +69,17 @@ export const updateClientDepartmentAction = (payload) => async () => {
 export const deleteClientDepartmentAction = (payload) => async () => {
     try {
         const res = await deleteClientDepartmentService(payload);
+        return res;
+    } catch (err) {
+        return { error: err.msg };
+    }
+};
+
+
+// send email to client department action
+export const sendEmailToClientDepartmentAction = (payload) => async () => {
+    try {
+        const res = await sendEmailToClientDepartmentService(payload);
         return res;
     } catch (err) {
         return { error: err.msg };

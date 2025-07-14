@@ -11,6 +11,9 @@ import { useLogic } from './useLogic';
 import ClientsTableSection from '@sections/ClientsSections/ClientsTableSection';
 import ClientSearchForm from '@sections/ClientsSections/ClientSearchForm';
 
+// components
+import SendEmailToClientsModal from '@components/clients/SendEmailToClientsModal';
+
 
 const Page = () => {
   // hooks
@@ -22,8 +25,14 @@ const Page = () => {
     clients,
     loading,
     pageDetails,
+    showEmailModal,
     handleFetchClients,
-    handleUpdateClientStatus
+    handleUpdateClientStatus,
+    handleSendEmail,
+    handleEmailFormChange,
+    handleOpenEmailModal,
+    handleCloseEmailModal,
+    handleSelectDepartmentIds
   } = useLogic();
 
   // use effect
@@ -59,6 +68,15 @@ const Page = () => {
           onStatusChange={handleUpdateClientStatus}
         />
   
+
+        {/* Send Email Modal */}
+        <SendEmailToClientsModal
+          open={showEmailModal}
+          onClose={handleCloseEmailModal}
+          departmentId={handleSelectDepartmentIds}
+          onSendEmail={handleSendEmail}
+          onEmailFormChange={handleEmailFormChange}
+        />
     </>
   );
 };

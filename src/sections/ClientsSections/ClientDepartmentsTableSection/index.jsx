@@ -41,6 +41,7 @@ const ClientBranchesTableSection = ({
             <TableRow>
               <TableCell sx={styles.tableHeadCell}>Department Name</TableCell>
               <TableCell sx={styles.tableHeadCell}>Address</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Email Address</TableCell>
               <TableCell sx={styles.tableHeadCell}>Status</TableCell>
             </TableRow>
           </TableHead>
@@ -51,6 +52,7 @@ const ClientBranchesTableSection = ({
                 <TableRow key={department.id} hover>
                   <TableCell>{department.client_department_name}</TableCell>
                   <TableCell>{department.client_department_address}</TableCell>
+                  <TableCell>{department.client_department_email}</TableCell>
                   <TableCell>
                     <Stack direction="row" alignItems="center" spacing={1}>
                       <Select
