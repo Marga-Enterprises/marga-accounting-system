@@ -27,12 +27,7 @@ const Page = () => {
     pageDetails,
     showEmailModal,
     handleFetchClients,
-    handleUpdateClientStatus,
-    handleSendEmail,
-    handleEmailFormChange,
-    handleOpenEmailModal,
-    handleCloseEmailModal,
-    handleSelectDepartmentIds
+    handleUpdateClientStatus
   } = useLogic();
 
   // use effect
@@ -66,16 +61,6 @@ const Page = () => {
               navigate(`?${params.toString()}`);
           }}
           onStatusChange={handleUpdateClientStatus}
-        />
-  
-
-        {/* Send Email Modal */}
-        <SendEmailToClientsModal
-          open={showEmailModal}
-          onClose={handleCloseEmailModal}
-          departmentId={handleSelectDepartmentIds}
-          onSendEmail={handleSendEmail}
-          onEmailFormChange={handleEmailFormChange}
         />
     </>
   );

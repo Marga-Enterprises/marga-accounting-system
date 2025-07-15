@@ -60,3 +60,20 @@ export const convertMonthToName = (monthNumber) => {
 
   return months[monthNumber];
 };
+
+
+/**
+ * check if a string is a valid email
+ * 
+ * @param {string} email
+ * @return {boolean}
+ * */
+export const isValidEmail = (email) => {
+  if (typeof email !== 'string') return false;
+  email = email.trim();
+  if (email.length === 0) return false;
+
+  // Basic regex for email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}

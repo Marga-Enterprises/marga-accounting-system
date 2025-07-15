@@ -13,10 +13,16 @@ export const useLogic = () => {
   // states
   const [departments, setDepartments] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [selectedDepartmentIds, setSelectedDepartmentIds] = useState([]);
   const [pageDetails, setPageDetails] = useState({
     totalRecords: 0,
     pageIndex: 1,
     totalPages: 0,
+  });
+  const [emailFormValues, setEmailFormValues] = useState({
+    subject: '',
+    message: '',
   });
 
   // callback functions
@@ -96,12 +102,82 @@ export const useLogic = () => {
       });
   }, [dispatch]);
 
+    // function to open the email modal
+  const handleOpenEmailModal = useCallback(() => {
+    setShowEmailModal(true);
+  }, []);
+
+  // close the email modal
+  const handleCloseEmailModal = useCallback(() => {
+    setShowEmailModal(false);
+    setEmailFormValues({ subject: '', message: '' });
+  }, []);
+
+  // function to handle email form changes
+  const handleEmailFormChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setEmailFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  }, []);
+
+  // handle sending email
+  const handleSendEmail = useCallback((e) => {
+    handleCloseEmailModal();
+
+    e.preventDefault();
+    if (loadingRef.current) return;
+    loadingRef.current = true;
+    setLoading(true);
+
+    dispatch(marga.clientdepartment.sendEmailToClientDepartmentAction({
+      clientIds: selectedDepartmentIds,
+      subject: emailFormValues.subject,
+      message: emailFormValues.message,
+    }))
+      .then((res) => {
+        if (res.success) {
+          setSelectedDepartmentIds([]);
+        } else {
+          console.error('Failed to send email:', res.payload);
+        }
+      })
+      .catch((error) => {
+        console.error('Error sending email:', error);
+      })
+      .finally(() => {
+        setLoading(false);
+        loadingRef.current = false;
+      });
+
+  }, [emailFormValues, handleCloseEmailModal]);
+
+  // function to handle department selection
+  const handleSelectDepartmentIds = useCallback((departmentIds) => {
+    setSelectedDepartmentIds(prevIds => {
+      if (prevIds.includes(departmentIds)) {
+        return prevIds.filter(id => id !== departmentIds);
+      };
+
+      return [...prevIds, departmentIds];
+    });
+  }, []);
+
   // Return the necessary states and functions for use in the component
   return {
     departments,
     loading,
     pageDetails,
+    showEmailModal,
+    selectedDepartmentIds,
+    emailFormValues,
     handleFetchDepartments,
-    handleUpdateClientStatus
+    handleUpdateClientStatus,
+    handleSendEmail,
+    handleEmailFormChange,
+    handleOpenEmailModal,
+    handleCloseEmailModal,
+    handleSelectDepartmentIds
   };
 };

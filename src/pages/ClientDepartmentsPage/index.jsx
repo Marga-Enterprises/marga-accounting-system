@@ -11,6 +11,8 @@ import { useLogic } from './useLogic';
 import ClientDepartmentsTableSection from '@sections/ClientsSections/ClientDepartmentsTableSection';
 import ClientSearchForm from '@sections/ClientsSections/ClientSearchForm';
 
+// components
+import SendEmailToClientsModal from '@components/clients/SendEmailToClientsModal';
 
 const Page = () => {
   // id
@@ -25,8 +27,16 @@ const Page = () => {
     departments,
     loading,
     pageDetails,
+    showEmailModal,
+    selectedDepartmentIds,
+    emailFormValues,
     handleFetchDepartments,
-    handleUpdateClientStatus
+    handleUpdateClientStatus,
+    handleSendEmail,
+    handleEmailFormChange,
+    handleOpenEmailModal,
+    handleCloseEmailModal,
+    handleSelectDepartmentIds
   } = useLogic();
 
   // use effect
@@ -51,9 +61,12 @@ const Page = () => {
         {/* Clients Table Section */}
         <ClientDepartmentsTableSection
           loading={loading}
+          selectedIds={selectedDepartmentIds}
           departments={departments}
           page={pageDetails.pageIndex}
           totalPages={pageDetails.totalPages}
+          onSelectDepartmentIds={handleSelectDepartmentIds}
+          onOpenEmailModal={handleOpenEmailModal}
           onPageChange={(newPage) => {
               const params = new URLSearchParams(location.search);
               params.set('page', newPage);
@@ -62,6 +75,14 @@ const Page = () => {
           onStatusChange={handleUpdateClientStatus}
         />
   
+        {/* Send Email Modal */}
+        <SendEmailToClientsModal
+          open={showEmailModal}
+          emailFormValues={emailFormValues}
+          onClose={handleCloseEmailModal}
+          onSendEmail={handleSendEmail}
+          onEmailFormChange={handleEmailFormChange}
+        />
     </>
   );
 };
