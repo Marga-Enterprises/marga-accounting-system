@@ -15,6 +15,7 @@ import ClientDepartmentsPage from '@pages/ClientDepartmentsPage';
 import PrintInvoicePage from '@pages/PrintInvoicePage';
 import BillingsPage from '@pages/BillingsPage';
 import ServicesPage from '@pages/ServicesPage';
+import CollectionsPage from '@pages/CollectionsPage';
 
 // layout
 import MainLayout from '@components/layout/MainLayout';
@@ -116,6 +117,18 @@ function AppRoutes() {
         }
       >
         <Route index element={<ServicesPage />} />
+      </Route>
+
+      {/* CollectionsPage Route */}
+      <Route
+        path="/collections"
+        element={
+          <AuthRouter>
+            <MainLayout />
+          </AuthRouter>
+        }
+      >
+        <Route index element={<CollectionsPage />} />
       </Route>
 
       {/* 404 fallback – must be outside layout */}

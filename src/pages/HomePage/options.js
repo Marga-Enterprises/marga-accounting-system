@@ -1,9 +1,8 @@
-// pages/HomePage/options.js
 import GroupIcon from '@mui/icons-material/Group';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PrintIcon from '@mui/icons-material/Print';
-import BuildIcon from '@mui/icons-material/Build'; // Icon for Services
+import BuildIcon from '@mui/icons-material/Build';
 
 const options = [
   {
@@ -13,10 +12,10 @@ const options = [
     path: '/clients',
   },
   {
-    label: 'Collection',
+    label: 'Collections',
     icon: PaymentsIcon,
     color: '#1976d2',
-    path: '#',
+    path: '/collections',
   },
   {
     label: 'Billing',

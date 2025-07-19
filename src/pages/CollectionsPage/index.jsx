@@ -1,4 +1,4 @@
-// react 
+// react
 import { useEffect } from 'react';
 
 // router
@@ -13,55 +13,54 @@ import { Box } from '@mui/material';
 // styles
 import styles from './styles';
 
-// section
-import BillingsTableSection from '@sections/BillingsSections/BillingsTableSection';
-import BillingsMonthAndYearForm from '@sections/BillingsSections/BillingsMonthAndYearForm';
-import BillingSearchForm from '@sections/BillingsSections/BillingSearchForm';
-
+// sections
+import CollectionsTableSection from '@sections/CollectionsSections/CollectionsTableSection';
+import CollectionsSearchForm from '@sections/CollectionsSections/CollectionsSearchForm';
+import CollectionsFiltersForm from '@sections/CollectionsSections/CollectionsFiltersForm';
 
 const Page = () => {
-    // hooks
+    //hooks
     const location = useLocation();
     const navigate = useNavigate();
 
     // logic hooks
     const {
-        billings,
+        collections,
         loading,
         pageDetails,
-        month,
-        year,
-        totalBillings,
-        handleFetchBillings,
-        handleMonthChange,
-        handleYearChange,
+        status,
+        dateRange,
+        handleFetchCollections,
+        handleChangeStatus,
+        handleChangeDateRange
     } = useLogic();
 
     // use effect
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
 
-        const month = parseInt(queryParams.get("month")) || new Date().getMonth();
-        const year = parseInt(queryParams.get("year")) || new Date().getFullYear();
         const currentPage = parseInt(queryParams.get("page")) || 1;
         const search = queryParams.get("search") || '';
+        const status = queryParams.get("status") || '';
+        const dateRange = queryParams.get("dateRange") || '';
 
-        handleFetchBillings(currentPage, month, year, search);
-    }, [location.search, handleFetchBillings]);
+        handleFetchCollections(currentPage, search, status, dateRange);
+    }, [location.search, location.status, location.dateRange, handleFetchCollections]);
 
     return (
         <>
+            {/* Search Form Section */}
             <Box sx={styles.headerSection}>
-                {/* Month and Year Form Section */}
-                <BillingsMonthAndYearForm
-                    month={month}
-                    year={year}
-                    onMonthChange={handleMonthChange}
-                    onYearChange={handleYearChange}
+                {/* Filters Form Section */}
+                <CollectionsFiltersForm
+                    dateRange={dateRange}
+                    status={status}
+                    onChangeStatus={handleChangeStatus}
+                    onChangeDateRange={handleChangeDateRange}
                 />
 
                 {/* Search Form Section */}
-                <BillingSearchForm
+                <CollectionsSearchForm
                     searchedInvoice={new URLSearchParams(location.search).get("search") || ''}
                     onSubmitSearch={(searchText) => {
                         searchText ? navigate(`?search=${searchText}&page=1`) : navigate('?page=1');
@@ -72,12 +71,11 @@ const Page = () => {
                 />
             </Box>
 
-            {/* Billings Table Section */}
-            <BillingsTableSection
+            {/* Collections Table Section */}
+            <CollectionsTableSection
                 loading={loading}
-                billings={billings}
+                collections={collections}
                 page={pageDetails.pageIndex}
-                totalBillings={totalBillings}
                 totalPages={pageDetails.totalPages}
                 onPageChange={(newPage) => {
                     const params = new URLSearchParams(location.search);
@@ -86,8 +84,7 @@ const Page = () => {
                 }}
             />
         </>
-    );
+    )
 }
 
 export default Page;
-
