@@ -4,7 +4,8 @@ import {
     getBillingsService,
     getBillingService,
     updateBillingService,
-    deleteBillingService
+    deleteBillingService,
+    createBulkBillingsService
 } from '@services/api/billing';
 
 
@@ -12,6 +13,17 @@ import {
 export const createBillingAction = (payload) => async () => {
     try {
         const res = await createBillingService(payload);
+        return res;
+    } catch (err) {
+        return { error: err.msg };
+    }
+};
+
+
+// create bulk billings action
+export const createBulkBillingsAction = (payload) => async () => {
+    try {
+        const res = await createBulkBillingsService(payload);
         return res;
     } catch (err) {
         return { error: err.msg };

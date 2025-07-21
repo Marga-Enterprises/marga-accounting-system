@@ -44,6 +44,7 @@ export const useLogic = () => {
     multipleMachines: false,
   });
 
+  console.log('DATAAA', data);
 
   // Handles the file upload and parsing
   const handleFileUpload = useCallback((e) => {
@@ -176,6 +177,47 @@ export const useLogic = () => {
         setLoading(false);
       });
   }, [dispatch, finalPrintData]);
+
+
+  // save bulk billings for selected rows
+  const handleSaveBulkBillings = useCallback(() => {
+    if (loadingRef.current) return;
+    loadingRef.current = true;
+    setLoading(true);
+
+    // change format for each data row
+    const manipulatedData = data.map((row) => {
+      return {
+        billing_invoice_number: row["INVOICE NUMBER"],
+        billing_client_department_name: row["CLIENT DEPARTMENT NAME"],
+        billing_client_name: row["CLIENT NAME"],
+        billing_tin_number: row["TIN NUMBER"],
+        billing_full_address: row["FULL ADDRESS"],
+        billing_rd: row["RD"],
+        billing_business_style: row["BUSINESS STYLE"],
+        billing_printer_model: row["PRINTER MODEL"],
+      }
+    });
+
+    const payload = selectedRows.map((index) => data[index]);
+
+    dispatch(marga.billing.createBulkBillingsAction(payload))
+      .then((res) => {
+        if (res.success) {
+          console.log("Bulk billings saved successfully:", res.data);
+          handleCloseInvoiceFormModal();
+        } else {
+          console.error("Failed to save bulk billings:", res.payload);
+        }
+      })
+      .catch((error) => {
+        console.error("Error saving bulk billings:", error);
+      })
+      .finally(() => {
+        loadingRef.current = false;
+        setLoading(false);
+      });
+  }, [dispatch, data, selectedRows]);
 
 
   // Print functionality

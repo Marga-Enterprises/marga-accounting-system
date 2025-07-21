@@ -8,6 +8,10 @@ export async function createBillingService(payload) {
     return POST('/billing', payload);
 }
 
+export async function createBulkBillingsService(payload) {
+    return POST('/billing/bulk', payload);
+}
+
 export async function getBillingsService(payload) {
     const params = methods.convertQueryString(payload);
     return GET(`/billing?${params}`);
