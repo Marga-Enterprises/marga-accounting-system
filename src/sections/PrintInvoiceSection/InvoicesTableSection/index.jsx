@@ -1,4 +1,4 @@
-//react
+// react
 import React from "react";
 
 // mui
@@ -11,16 +11,36 @@ import {
   TableHead,
   TableRow,
   Checkbox,
+  Button,
+  Box,
 } from "@mui/material";
 
 // utils
 import { convertDate } from "@utils/methods";
 
-const InvoicesTableSection = ({ data, selectedRows, toggleRow }) => {
+// styles
+import styles from "./styles";
+
+const InvoicesTableSection = ({
+  data,
+  selectedRows,
+  toggleRow,
+  onSaveBulkBillings,
+}) => {
   if (!data.length) return null;
 
   return (
-    <TableContainer component={Paper} elevation={3} sx={{ mb: 4 }}>
+    <TableContainer component={Paper} elevation={3} sx={styles.tableContainer}>
+      <Box sx={styles.buttonContainer}>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={selectedRows.length === 0}
+          onClick={onSaveBulkBillings}
+        >
+          Save Selected Billings
+        </Button>
+      </Box>
       <Table size="small">
         <TableHead>
           <TableRow>

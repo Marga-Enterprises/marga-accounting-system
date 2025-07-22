@@ -36,6 +36,7 @@ const PrintInvoicePage = () => {
     handleSearch,
     handleShowInvoiceFormModal,
     handleCloseInvoiceFormModal,
+    handleSaveBulkBillings,
   } = useLogic();
 
   // If loading, show loading screen
@@ -58,7 +59,7 @@ const PrintInvoicePage = () => {
       {/* Display Parsed Excel Table */}
       <InvoicesTableSection
         data={data}
-        loading={loading}
+        onSaveBulkBillings={handleSaveBulkBillings}
         selectedRows={selectedRows}
         toggleRow={toggleRow}
       />

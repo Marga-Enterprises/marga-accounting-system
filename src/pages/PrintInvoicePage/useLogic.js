@@ -17,6 +17,9 @@ export const useLogic = () => {
   const dispatch = useDispatch();
   const loadingRef = useRef(null);
 
+  // constants
+  const year = new Date().getFullYear();
+
   // states
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -43,8 +46,6 @@ export const useLogic = () => {
     withVat: true,
     multipleMachines: false,
   });
-
-  console.log('DATAAA', data);
 
   // Handles the file upload and parsing
   const handleFileUpload = useCallback((e) => {
@@ -185,21 +186,26 @@ export const useLogic = () => {
     loadingRef.current = true;
     setLoading(true);
 
-    // change format for each data row
+    // change format for each data row [{}]
     const manipulatedData = data.map((row) => {
       return {
-        billing_invoice_number: row["INVOICE NUMBER"],
-        billing_client_department_name: row["CLIENT DEPARTMENT NAME"],
-        billing_client_name: row["CLIENT NAME"],
-        billing_tin_number: row["TIN NUMBER"],
-        billing_full_address: row["FULL ADDRESS"],
-        billing_rd: row["RD"],
-        billing_business_style: row["BUSINESS STYLE"],
-        billing_printer_model: row["PRINTER MODEL"],
-      }
+        billing_invoice_number: row["INVOICE NUM"],
+        billing_amount: row["AMOUNT"],
+        billing_total_amount: row["AMOUNT"],
+        billing_month: row["INVOICE MONTH"],
+        billing_year: year,
+        billing_client_department_name: row["CLIENT"],
+        billing_type: row["CATEGORY"],
+      };
     });
 
-    const payload = selectedRows.map((index) => data[index]);
+    console.log("Saving bulk billings for selected rows:", selectedRows);
+    console.log("Manipulated data:", manipulatedData);
+    console.log("Original data:", data);
+
+    const payload = selectedRows.map((index) => manipulatedData[index]);
+
+    console.log("[[[[[[[[[Payload for bulk billings]]]]]]]]]:", payload);
 
     dispatch(marga.billing.createBulkBillingsAction(payload))
       .then((res) => {
@@ -319,6 +325,7 @@ export const useLogic = () => {
     handleClearSearch,
     handleSearch,
     handleShowInvoiceFormModal,
-    handleCloseInvoiceFormModal
+    handleCloseInvoiceFormModal,
+    handleSaveBulkBillings,
   };
 };
