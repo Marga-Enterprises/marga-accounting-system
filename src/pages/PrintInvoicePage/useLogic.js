@@ -210,8 +210,8 @@ export const useLogic = () => {
     dispatch(marga.billing.createBulkBillingsAction(payload))
       .then((res) => {
         if (res.success) {
-          console.log("Bulk billings saved successfully:", res.data);
           handleCloseInvoiceFormModal();
+          setSelectedRows([]);
         } else {
           console.error("Failed to save bulk billings:", res.payload);
         }

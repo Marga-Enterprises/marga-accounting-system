@@ -8,16 +8,16 @@ const InvoiceMultipleView = ({ summaryRow, invoiceDetails, values, convertDate, 
     if (!invoiceDetails.clientId || !invoiceDetails.departmentId) return;
 
     setFinalPrintData({
-      billing_invoice_number: row["INVOICE NUM"],
-      billing_amount: row["AMOUNT"],
-      billing_total_amount: row["AMOUNT"],
-      billing_month: row["INVOICE MONTH"],
+      billing_invoice_number: summaryRow["INVOICE NUM"],
+      billing_amount: summaryRow["AMOUNT"],
+      billing_total_amount: summaryRow["AMOUNT"],
+      billing_month: summaryRow["INVOICE MONTH"],
       billing_year: year,
       billing_client_id: invoiceDetails.clientId,
       billing_department_id: invoiceDetails.departmentId,
       billing_vat_amount: values[1],
       billing_discount: values[3],
-      billing_type: row["CATEGORY"],
+      billing_type: summaryRow["CATEGORY"],
     });
   }, [invoiceDetails, summaryRow, values]);
 

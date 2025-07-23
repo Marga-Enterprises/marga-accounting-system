@@ -35,11 +35,11 @@ const CollectionsTableSection = ({
         <Table size="small">
           <TableHead>
             <TableRow>
+              <TableCell sx={styles.tableHeadCell}>Client</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Category</TableCell>
               <TableCell sx={styles.tableHeadCell}>Invoice #</TableCell>
-              <TableCell sx={styles.tableHeadCell}>Amount</TableCell>
-              <TableCell sx={styles.tableHeadCell}>Status</TableCell>
               <TableCell sx={styles.tableHeadCell}>Date</TableCell>
-              <TableCell sx={styles.tableHeadCell}>Remarks</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Amount</TableCell>
             </TableRow>
           </TableHead>
 
@@ -47,11 +47,11 @@ const CollectionsTableSection = ({
             {collections.length > 0 ? (
               collections.map((collection) => (
                 <TableRow key={collection.id} hover>
+                  <TableCell>{collection.billing?.department?.client_department_name}</TableCell>
+                  <TableCell>{collection.billing?.billing_type}</TableCell>
                   <TableCell>{collection.collection_invoice_number}</TableCell>
-                  <TableCell>₱{parseFloat(collection.collection_amount).toFixed(2)}</TableCell>
-                  <TableCell>{collection.collection_status}</TableCell>
                   <TableCell>{new Date(collection.collection_date).toLocaleDateString()}</TableCell>
-                  <TableCell>{collection.collection_remarks || '—'}</TableCell>
+                  <TableCell>₱{parseFloat(collection.collection_amount).toFixed(2)}</TableCell>
                 </TableRow>
               ))
             ) : (
