@@ -15,8 +15,10 @@ import styles from './styles';
 
 // sections
 import CollectionsTableSection from '@sections/CollectionsSections/CollectionsTableSection';
+import CollectionsTableSectionAgeFormatSection from '@sections/CollectionsSections/CollectionsTableAgeFormatSection';
 import CollectionsSearchForm from '@sections/CollectionsSections/CollectionsSearchForm';
 import CollectionsFiltersForm from '@sections/CollectionsSections/CollectionsFiltersForm';
+import CollectionsTableFormatForm from '@sections/CollectionsSections/CollectionsTableFormatForm';
 
 const Page = () => {
     //hooks
@@ -30,9 +32,11 @@ const Page = () => {
         pageDetails,
         status,
         dateRange,
+        tableFormat,
         handleFetchCollections,
         handleChangeStatus,
-        handleChangeDateRange
+        handleChangeDateRange,
+        handleChangeTableFormat
     } = useLogic();
 
     // use effect
@@ -41,7 +45,7 @@ const Page = () => {
 
         const currentPage = parseInt(queryParams.get("page")) || 1;
         const search = queryParams.get("search") || '';
-        const status = queryParams.get("status") || '';
+        const status = queryParams.get("status") || 'pending';
         const dateRange = queryParams.get("dateRange") || '';
 
         handleFetchCollections(currentPage, search, status, dateRange);
@@ -58,6 +62,12 @@ const Page = () => {
                     onChangeStatus={handleChangeStatus}
                     onChangeDateRange={handleChangeDateRange}
                 />
+                
+                {/* Table Format Form Section */}
+                <CollectionsTableFormatForm
+                    format={tableFormat}
+                    onChangeTableFormat={handleChangeTableFormat}
+                />
 
                 {/* Search Form Section */}
                 <CollectionsSearchForm
@@ -72,17 +82,36 @@ const Page = () => {
             </Box>
 
             {/* Collections Table Section */}
-            <CollectionsTableSection
-                loading={loading}
-                collections={collections}
-                page={pageDetails.pageIndex}
-                totalPages={pageDetails.totalPages}
-                onPageChange={(newPage) => {
-                    const params = new URLSearchParams(location.search);
-                    params.set('page', newPage);
-                    navigate(`?${params.toString()}`);
-                }}
-            />
+
+            {
+                tableFormat === 'all' ? (
+                    <CollectionsTableSection
+                        loading={loading}
+                        collections={collections}
+                        page={pageDetails.pageIndex}
+                        totalPages={pageDetails.totalPages}
+                        onPageChange={(newPage) => {
+                            const params = new URLSearchParams(location.search);
+                            params.set('page', newPage);
+                            navigate(`?${params.toString()}`);
+                        }}
+                    />
+                ) : (
+                    <CollectionsTableSectionAgeFormatSection
+                        loading={loading}
+                        collections={collections}
+                        page={pageDetails.pageIndex}
+                        totalPages={pageDetails.totalPages}
+                        onPageChange={(newPage) => {
+                            const params = new URLSearchParams(location.search);
+                            params.set('page', newPage);
+                            navigate(`?${params.toString()}`);
+                        }}
+                    />
+                )
+            }
+
+
         </>
     )
 }

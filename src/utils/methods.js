@@ -1,3 +1,7 @@
+// imports
+import dayjs from 'dayjs';
+
+
 /**
  * convert object to query string
  * @param {*} params
@@ -77,3 +81,30 @@ export const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
+
+
+
+/**
+ * Returns a mapping of age bucket keys to values based on the number of days old.
+ * 
+ * @param {string|Date} date - The reference date to check the age from (e.g., collection.collection_date)
+ * @param {number|string} amount - The amount to insert in the matching bucket
+ * @param {Array<{ label: string, key: string, min: number, max?: number }>} buckets - Age ranges
+ * @returns {Object} - Key-value pairs per bucket (only one bucket has the amount, others are null)
+ */
+export const bucketByAge = (date, amount, buckets) => {
+  const daysOld = dayjs().diff(dayjs(date), 'day');
+  const parsedAmount = parseFloat(amount).toFixed(2);
+
+  const result = {};
+
+  for (const bucket of buckets) {
+    const isInRange = bucket.max !== undefined
+      ? daysOld >= bucket.min && daysOld <= bucket.max
+      : daysOld >= bucket.min;
+
+    result[bucket.key] = isInRange ? `₱${parsedAmount}` : null;
+  }
+
+  return result;
+};

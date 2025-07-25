@@ -31,6 +31,7 @@ const PrintInvoicePage = () => {
     handleChangeInvoiceFormValues,
     handleFileUpload,
     toggleRow,
+    toggleSelectAllRows,
     handlePrint,
     handleClearSearch,
     handleSearch,
@@ -60,6 +61,7 @@ const PrintInvoicePage = () => {
       <InvoicesTableSection
         data={data}
         onSaveBulkBillings={handleSaveBulkBillings}
+        selectAll={toggleSelectAllRows}
         selectedRows={selectedRows}
         toggleRow={toggleRow}
       />

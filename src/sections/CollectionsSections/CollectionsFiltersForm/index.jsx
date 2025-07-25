@@ -21,11 +21,13 @@ const statusOptions = [
 ];
 
 const dateRangeOptions = [
-  { label: '1–30 days', value: '1-30' },
-  { label: '31–60 days', value: '31-60' },
-  { label: '61–90 days', value: '61-90' },
-  { label: '90 days and above', value: '90+' },
+  { label: '1–29 days', value: '1-29' },
+  { label: '30–59 days', value: '30-59' },
+  { label: '60–89 days', value: '60-89' },
+  { label: '90–119 days', value: '90-119' },
+  { label: '120 days and above', value: '120+' },
 ];
+
 
 const CollectionsFiltersForm = ({ status, dateRange, onChangeStatus, onChangeDateRange }) => {
   return (

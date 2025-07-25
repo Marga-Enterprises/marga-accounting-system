@@ -25,6 +25,7 @@ const InvoicesTableSection = ({
   data,
   selectedRows,
   toggleRow,
+  selectAll,
   onSaveBulkBillings,
 }) => {
   if (!data.length) return null;
@@ -44,7 +45,13 @@ const InvoicesTableSection = ({
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Select</TableCell>
+            <TableCell>
+              <Checkbox
+                checked={selectedRows.length === data.length}
+                indeterminate={selectedRows.length > 0 && selectedRows.length < data.length}
+                onChange={selectAll}
+              />
+            </TableCell>
             <TableCell>Invoice Month</TableCell>
             <TableCell>Client</TableCell>
             <TableCell>Category</TableCell>

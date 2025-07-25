@@ -93,6 +93,16 @@ export const useLogic = () => {
   }, []);
 
 
+  // handle select all rows
+  const toggleSelectAllRows = useCallback(() => {
+    if (selectedRows.length === data.length) {
+      setSelectedRows([]);
+    } else {
+      setSelectedRows(data.map((_, index) => index));
+    }
+  }, [data, selectedRows]);
+
+
   // Clears the search input
   const handleClearSearch = useCallback(() => {
     setSearchQuery("");
@@ -321,6 +331,7 @@ export const useLogic = () => {
     handleChangeInvoiceFormValues,
     handleFileUpload,
     toggleRow,
+    toggleSelectAllRows,
     handlePrint,
     handleClearSearch,
     handleSearch,

@@ -16,9 +16,10 @@ export const useLogic = () => {
 
     // states
     const [collections, setCollections] = useState([]);
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('pending');
     const [dateRange, setDateRange] = useState('');
     const [loading, setLoading] = useState(false);
+    const [tableFormat, setTableFormat] = useState('all');
     const [pageDetails, setPageDetails] = useState({
         totalRecords: 0,
         pageIndex: 1,
@@ -88,6 +89,11 @@ export const useLogic = () => {
         navigate(`?dateRange=${dateRange}&page=1`);
     },[handleFetchCollections]);
 
+    // function to handle table format change
+    const handleChangeTableFormat = useCallback((format) => {
+        setTableFormat(format);
+    }, []);
+
     // Return the necessary states and functions for use in the component
     return {
         collections,
@@ -95,8 +101,10 @@ export const useLogic = () => {
         pageDetails,
         status,
         dateRange,
+        tableFormat,
         handleFetchCollections,
         handleChangeStatus,
         handleChangeDateRange,
+        handleChangeTableFormat
     };
 };
