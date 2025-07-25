@@ -25,7 +25,7 @@ const dateRangeOptions = [
   { label: '30–59 days', value: '30-59' },
   { label: '60–89 days', value: '60-89' },
   { label: '90–119 days', value: '90-119' },
-  { label: '120 days and above', value: '120+' },
+  { label: '120 days and above', value: '120' },
 ];
 
 
