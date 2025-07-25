@@ -8,6 +8,7 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  Button,
   TableHead,
   TableRow,
   Paper,
@@ -40,6 +41,7 @@ const CollectionsTableSection = ({
               <TableCell sx={styles.tableHeadCell}>Invoice #</TableCell>
               <TableCell sx={styles.tableHeadCell}>Date</TableCell>
               <TableCell sx={styles.tableHeadCell}>Amount</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Actions</TableCell>
             </TableRow>
           </TableHead>
 
@@ -52,11 +54,21 @@ const CollectionsTableSection = ({
                   <TableCell>{collection.collection_invoice_number}</TableCell>
                   <TableCell>{new Date(collection.collection_date).toLocaleDateString()}</TableCell>
                   <TableCell>₱{parseFloat(collection.collection_amount).toFixed(2)}</TableCell>
+                  <TableCell>
+                    <Box display="flex" gap={1}>
+                      <Button variant="contained" size="small" color="primary">
+                        Pay
+                      </Button>
+                      <Button variant="outlined" size="small" color="primary">
+                        Follow Up
+                      </Button>
+                    </Box>
+                  </TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={5} align="center">
+                <TableCell colSpan={6} align="center">
                   No collections found.
                 </TableCell>
               </TableRow>
