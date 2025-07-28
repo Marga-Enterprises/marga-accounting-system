@@ -14,39 +14,105 @@ import {
 // styles
 import styles from "./styles";
 
-const PayCollectionFormModal = ({
+const PaymentFormModal = ({
   open,
   onClose,
-  onSendEmail,
-  onEmailFormChange,
-  emailFormValues,
+  onSubmit,
+  onFormChange,
+  formValues,
 }) => {
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={styles.modalWrapper}>
         <Typography variant="h6" sx={styles.title}>
-          Send Email to Clients
+          Record Payment
         </Typography>
 
-        <Box component="form" onSubmit={onSendEmail} sx={styles.form}>
+        <Box component="form" onSubmit={onSubmit} sx={styles.form}>
           <TextField
-            label="Subject"
-            name="subject"
-            value={emailFormValues.subject || ""}
-            onChange={(e) => onEmailFormChange(e)}
+            label="OR Number"
+            name="payment_or_number"
+            value={formValues.payment_or_number || ""}
+            onChange={onFormChange}
             fullWidth
             sx={styles.formField}
           />
 
           <TextField
-            label="Message"
-            name="message"
-            value={emailFormValues.message || ""}
-            onChange={(e) => onEmailFormChange(e)}
+            label="Amount"
+            name="payment_amount"
+            type="number"
+            value={formValues.payment_amount || ""}
+            onChange={onFormChange}
+            fullWidth
+            sx={styles.formField}
+          />
+
+          <TextField
+            label="Payment Mode"
+            name="payment_mode"
+            value={formValues.payment_mode || ""}
+            onChange={onFormChange}
+            fullWidth
+            sx={styles.formField}
+          />
+
+          <TextField
+            label="Remarks"
+            name="payment_remarks"
+            value={formValues.payment_remarks || ""}
+            onChange={onFormChange}
             fullWidth
             multiline
-            rows={4}
-            sx={styles.fullWidthField}
+            rows={3}
+            sx={styles.formField}
+          />
+
+          <TextField
+            label="Cheque Number"
+            name="payment_cheque_number"
+            value={formValues.payment_cheque_number || ""}
+            onChange={onFormChange}
+            fullWidth
+            sx={styles.formField}
+          />
+
+          <TextField
+            label="Cheque Date"
+            name="payment_cheque_date"
+            type="date"
+            value={formValues.payment_cheque_date || ""}
+            onChange={onFormChange}
+            fullWidth
+            InputLabelProps={{ shrink: true }}
+            sx={styles.formField}
+          />
+
+          <TextField
+            label="Cheque Bank Name"
+            name="payment_cheque_bank_name"
+            value={formValues.payment_cheque_bank_name || ""}
+            onChange={onFormChange}
+            fullWidth
+            sx={styles.formField}
+          />
+
+          <TextField
+            label="Online Transfer Ref No."
+            name="payment_online_transfer_reference_number"
+            value={formValues.payment_online_transfer_reference_number || ""}
+            onChange={onFormChange}
+            fullWidth
+            sx={styles.formField}
+          />
+
+          <TextField
+            label="Online Transfer Bank"
+            name="payment_online_transfer_bank_name"
+            value={formValues.payment_online_transfer_bank_name || ""}
+            onChange={onFormChange}
+            fullWidth
+            sx={styles.formField}
           />
 
           <Stack
@@ -59,7 +125,7 @@ const PayCollectionFormModal = ({
               Cancel
             </Button>
             <Button type="submit" variant="contained" color="primary">
-              Send
+              Save
             </Button>
           </Stack>
         </Box>
@@ -68,4 +134,4 @@ const PayCollectionFormModal = ({
   );
 };
 
-export default React.memo(PayCollectionFormModal);
+export default React.memo(PaymentFormModal);

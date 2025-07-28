@@ -25,7 +25,6 @@ const Page = () => {
     clients,
     loading,
     pageDetails,
-    showEmailModal,
     handleFetchClients,
     handleUpdateClientStatus
   } = useLogic();

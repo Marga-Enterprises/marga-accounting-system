@@ -33,10 +33,15 @@ const Page = () => {
         status,
         dateRange,
         tableFormat,
+        openPayCollectionModal,
         handleFetchCollections,
         handleChangeStatus,
         handleChangeDateRange,
-        handleChangeTableFormat
+        handleChangeTableFormat,
+        handleFormValuesChange,
+        handleSavePayment,
+        handleOpenPayCollectionModal,
+        handleClosePayCollectionModal,
     } = useLogic();
 
     // use effect
