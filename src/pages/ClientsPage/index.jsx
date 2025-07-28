@@ -11,9 +11,6 @@ import { useLogic } from './useLogic';
 import ClientsTableSection from '@sections/ClientsSections/ClientsTableSection';
 import ClientSearchForm from '@sections/ClientsSections/ClientSearchForm';
 
-// components
-import SendEmailToClientsModal from '@components/clients/SendEmailToClientsModal';
-
 
 const Page = () => {
   // hooks
