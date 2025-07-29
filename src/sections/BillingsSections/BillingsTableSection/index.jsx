@@ -25,6 +25,9 @@ import styles from './styles';
 // components
 import LoadingScreen from '@components/common/LoadingScreen';
 
+// utils 
+import { formatPeso } from '@utils/methods';
+
 const BillingsTableSection = ({
   billings,
   totalBillings,
@@ -53,11 +56,11 @@ const BillingsTableSection = ({
         <Table size="small">
           <TableHead>
             <TableRow>
+              <TableCell sx={styles.tableHeadCell}>Client</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Category</TableCell>
               <TableCell sx={styles.tableHeadCell}>Invoice #</TableCell>
-              <TableCell sx={styles.tableHeadCell}>Department</TableCell>
-              <TableCell sx={styles.tableHeadCell} align="right">
-                Total Amount (₱)
-              </TableCell>
+              <TableCell sx={styles.tableHeadCell}>Date</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Amount</TableCell>
               <TableCell sx={styles.tableHeadCell}>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -66,29 +69,23 @@ const BillingsTableSection = ({
             {billings.length > 0 ? (
               billings.map((billing) => (
                 <TableRow key={billing.id} hover>
-                  <TableCell>{billing.billing_invoice_number}</TableCell>
-
                   <TableCell>
-                    {billing.department?.client_department_name || '—'}
+                    {billing.department?.client_department_name || 'N/A'}
                   </TableCell>
-
-                  <TableCell align="right">
-                    {Number(billing.billing_total_amount).toLocaleString(
-                      'en-PH',
-                      {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      }
-                    )}
+                  <TableCell>{billing.billing_type}</TableCell>
+                  <TableCell>{billing.billing_invoice_number}</TableCell>
+                  <TableCell>
+                    {new Date(billing.createdAt).toLocaleDateString()}
                   </TableCell>
-
+                  <TableCell>
+                    {formatPeso(parseFloat(billing.billing_amount))}
+                  </TableCell>
                   <TableCell>
                     <Button
-                      variant="outlined"
+                      variant="contained"
                       size="small"
                       component={RouterLink}
-                      to={`/billing/${billing.id}`}
-                      color="primary"
+                      to={`/billings/${billing.id}`}
                     >
                       View
                     </Button>

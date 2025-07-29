@@ -1,54 +1,23 @@
 const styles = {
-  root: {
-    p: { xs: 2, sm: 3 },
+  searchForm: {
+    width: '100%',
   },
 
-  header: {
-    direction: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    mb: 2,
+  searchStack: {
+    alignItems: 'stretch',
+    flexWrap: 'wrap',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column',
+    },
   },
 
-  tableContainer: {
-    borderRadius: 2,
-    overflow: 'hidden',
-    boxShadow: 2,
+  searchInput: {
+    flexGrow: 1,
+    minWidth: { xs: '100%', sm: '300px' },
   },
 
-  tableHeadCell: {
-    fontWeight: 'bold',
-    backgroundColor: '#f4f6f8',
-    fontSize: 14,
-  },
-
-  selectStatus: {
-    minWidth: 120,
-    textTransform: 'capitalize',
-  },
-
-  pagination: {
-    mt: 3,
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  selectStatus: {
-    minWidth: 120,
-    textTransform: 'capitalize',
-  },
-
-  statusDot: {
-    width: 10,
-    height: 10,
-    borderRadius: '50%',
-  },
-
-  statusDotActive: {
-    backgroundColor: 'success.main',
-  },
-
-  statusDotInactive: {
-    backgroundColor: 'error.main',
+  searchButton: {
+    minWidth: { xs: '100%', sm: 'auto' },
   },
 };
 

@@ -22,18 +22,31 @@ const BillingSearchForm = ({ searchedInvoice, onSubmitSearch }) => {
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={styles.searchForm}>
-      <Stack direction="row" spacing={1} sx={styles.searchStack}>
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }} // Stack vertically on small screens
+        spacing={1}
+        sx={styles.searchStack}
+      >
         <TextField
           placeholder="Search invoice..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           size="small"
+          variant="outlined"
           sx={styles.searchInput}
         />
-        <Button variant="contained" type="submit" sx={styles.searchButton}>
+        <Button
+          variant="contained"
+          type="submit"
+          sx={styles.searchButton}
+        >
           Search
         </Button>
-        <Button variant="outlined" onClick={handleClearSearch} sx={styles.searchButton}>
+        <Button
+          variant="outlined"
+          onClick={handleClearSearch}
+          sx={styles.searchButton}
+        >
           Clear
         </Button>
       </Stack>

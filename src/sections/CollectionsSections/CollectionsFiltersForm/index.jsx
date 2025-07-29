@@ -14,10 +14,7 @@ import {
 // styles
 import styles from './styles';
 
-const statusOptions = [
-  'pending',
-  'paid',
-];
+const statusOptions = ['pending', 'paid'];
 
 const dateRangeOptions = [
   { label: '1–29 days', value: '1-29' },
@@ -27,13 +24,22 @@ const dateRangeOptions = [
   { label: '120 days and above', value: '120' },
 ];
 
-
-const CollectionsFiltersForm = ({ status, dateRange, onChangeStatus, onChangeDateRange }) => {
+const CollectionsFiltersForm = ({
+  status,
+  dateRange,
+  onChangeStatus,
+  onChangeDateRange,
+}) => {
   return (
     <Box sx={styles.formContainer}>
-      <Stack direction="row" spacing={2} alignItems="center">
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={2}
+        alignItems="flex-start"
+        sx={styles.stack}
+      >
         {/* Status Filter */}
-        <FormControl size="small">
+        <FormControl size="small" sx={styles.formControl}>
           <InputLabel id="status-label">Status</InputLabel>
           <Select
             labelId="status-label"
@@ -51,7 +57,7 @@ const CollectionsFiltersForm = ({ status, dateRange, onChangeStatus, onChangeDat
         </FormControl>
 
         {/* Date Range Filter */}
-        <FormControl size="small">
+        <FormControl size="small" sx={styles.formControl}>
           <InputLabel id="range-label">Date Range</InputLabel>
           <Select
             labelId="range-label"

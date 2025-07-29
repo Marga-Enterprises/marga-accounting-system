@@ -15,7 +15,6 @@ import {
 import styles from './styles';
 
 const BillingsMonthAndYearForm = ({ month, year, onMonthChange, onYearChange }) => {
-  // generate years from 2004 to current year
   const years = useMemo(() => {
     const currentYear = new Date().getFullYear();
     const startYear = 2004;
@@ -29,9 +28,8 @@ const BillingsMonthAndYearForm = ({ month, year, onMonthChange, onYearChange }) 
 
   return (
     <Box sx={styles.formContainer}>
-      <Stack direction="row" spacing={2} alignItems="center">
-        {/* Month */}
-        <FormControl size="small">
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={styles.stack}>
+        <FormControl size="small" sx={styles.formControl}>
           <InputLabel id="month-label">Month</InputLabel>
           <Select
             labelId="month-label"
@@ -48,8 +46,7 @@ const BillingsMonthAndYearForm = ({ month, year, onMonthChange, onYearChange }) 
           </Select>
         </FormControl>
 
-        {/* Year */}
-        <FormControl size="small">
+        <FormControl size="small" sx={styles.formControl}>
           <InputLabel id="year-label">Year</InputLabel>
           <Select
             labelId="year-label"

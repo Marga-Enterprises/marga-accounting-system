@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useLogic } from './useLogic';
 
 // mui
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 // styles
 import styles from './styles';
@@ -50,7 +50,8 @@ const Page = () => {
     }, [location.search, handleFetchBillings]);
 
     return (
-        <>
+        <>  
+            {/* Header Section */}
             <Box sx={styles.headerSection}>
                 {/* Month and Year Form Section */}
                 <BillingsMonthAndYearForm

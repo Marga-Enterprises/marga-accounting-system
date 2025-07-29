@@ -21,6 +21,9 @@ import styles from './styles';
 // components
 import LoadingScreen from '@components/common/LoadingScreen';
 
+// utils 
+import { formatPeso } from '@utils/methods';
+
 const CollectionsTableSection = ({
   collections,
   loading,
@@ -54,7 +57,9 @@ const CollectionsTableSection = ({
                   <TableCell>{collection.billing?.billing_type}</TableCell>
                   <TableCell>{collection.collection_invoice_number}</TableCell>
                   <TableCell>{new Date(collection.collection_date).toLocaleDateString()}</TableCell>
-                  <TableCell>₱{parseFloat(collection.collection_amount).toFixed(2)}</TableCell>
+                  <TableCell>
+                    {formatPeso(parseFloat(collection.collection_amount))}
+                  </TableCell>
                   <TableCell>
                     <Box display="flex" gap={1}>
                       <Button variant="contained" size="small" color="primary" onClick={() => onOpenPaymentModal(collection.id)}>

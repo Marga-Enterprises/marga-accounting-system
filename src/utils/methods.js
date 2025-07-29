@@ -108,3 +108,14 @@ export const bucketByAge = (date, amount, buckets) => {
 
   return result;
 };
+
+/**
+ * Converts a number to PESO format with right commas and two decimal places.
+ * @param {number} amount - The amount to format
+ * @returns {string} - The formatted amount in PESO format
+ */
+export const formatPeso = (amount) => {
+  if (typeof amount !== 'number' || isNaN(amount)) return '₱0.00';
+
+  return `₱${amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+}

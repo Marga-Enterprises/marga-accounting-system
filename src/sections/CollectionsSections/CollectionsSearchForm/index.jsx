@@ -22,7 +22,11 @@ const CollectionsSearchForm = ({ searchedInvoice, onSubmitSearch }) => {
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={styles.searchForm}>
-      <Stack direction="row" spacing={1} sx={styles.searchStack}>
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={1}
+        sx={styles.searchStack}
+      >
         <TextField
           placeholder="Search invoice..."
           value={searchText}

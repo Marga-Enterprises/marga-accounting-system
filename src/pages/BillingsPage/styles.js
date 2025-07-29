@@ -4,7 +4,7 @@ const styles = {
     flexDirection: { xs: 'column', sm: 'row' },
     justifyContent: 'center',
     alignItems: 'flex-start',
-    gap: 2,
+    gap: 1,
     padding: 3,
   },
 };
