@@ -29,6 +29,9 @@ export const useLogic = () => {
   const [finalPrintData, setFinalPrintData] = useState({});
   const [filteredData, setFilteredData] = useState([]);
   const [showInvoiceFormModal, setShowInvoiceFormModal] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState("success");
 
   const [invoiceFormValues, setInvoiceFormValues] = useState({
     departmentId: "",
@@ -215,15 +218,18 @@ export const useLogic = () => {
 
     const payload = selectedRows.map((index) => manipulatedData[index]);
 
-    console.log("[[[[[[[[[Payload for bulk billings]]]]]]]]]:", payload);
-
     dispatch(marga.billing.createBulkBillingsAction(payload))
       .then((res) => {
         if (res.success) {
           handleCloseInvoiceFormModal();
           setSelectedRows([]);
+          setOpenSnackbar(true);
+          setMessage(res.msg);
+          setSeverity("success");         
         } else {
-          console.error("Failed to save bulk billings:", res.payload);
+          setOpenSnackbar(true);
+          setMessage(res.error);
+          setSeverity("error"); 
         }
       })
       .catch((error) => {
