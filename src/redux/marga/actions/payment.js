@@ -13,7 +13,7 @@ export const createPaymentAction = (payload) => async () => {
         const res = await createPaymentService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -24,7 +24,7 @@ export const getAllPaymentsAction = (payload) => async () => {
         const res = await getAllPaymentsService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -35,7 +35,7 @@ export const getPaymentAction = (payload) => async () => {
         const res = await getPaymentService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -46,6 +46,6 @@ export const deletePaymentAction = (payload) => async () => {
         const res = await deletePaymentService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };

@@ -14,27 +14,37 @@ const styles = {
     borderRadius: 2,
     overflow: 'hidden',
     boxShadow: 2,
+    width: '100%',
+    overflowX: 'auto', // Optional: for scroll support
+    '@media (max-width: 600px)': {
+      boxShadow: 'none',
+    },
   },
 
   tableHeadCell: {
     fontWeight: 'bold',
     backgroundColor: '#f4f6f8',
-    fontSize: 14,
+    fontSize: {
+      xs: '12px',
+      sm: '13px',
+      md: '14px',
+    },
   },
 
   selectStatus: {
     minWidth: 120,
     textTransform: 'capitalize',
+    fontSize: {
+      xs: '12px',
+      sm: '13px',
+      md: '14px',
+    },
   },
 
   pagination: {
     mt: 3,
     display: 'flex',
     justifyContent: 'center',
-  },
-  selectStatus: {
-    minWidth: 120,
-    textTransform: 'capitalize',
   },
 
   statusDot: {

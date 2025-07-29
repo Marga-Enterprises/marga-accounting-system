@@ -5,6 +5,7 @@ import * as clientdepartment from './clientdepartment';
 import * as billing from './billing';
 import * as machine from './machine';
 import * as collection from './collection';
+import * as payment from './payment';
 
 export {
   user,
@@ -13,5 +14,6 @@ export {
   clientdepartment,
   billing,
   machine,
-  collection
+  collection,
+  payment,
 };

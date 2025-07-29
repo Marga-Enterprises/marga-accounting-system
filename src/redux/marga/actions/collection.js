@@ -14,7 +14,7 @@ export const createCollectionAction = (payload) => async () => {
         const res = await createCollectionService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -25,7 +25,7 @@ export const getCollectionsAction = (payload) => async () => {
         const res = await getCollectionsService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -36,7 +36,7 @@ export const getCollectionAction = (payload) => async () => {
         const res = await getCollectionService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -47,7 +47,7 @@ export const updateCollectionAction = (payload) => async () => {
         const res = await updateCollectionService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -58,6 +58,6 @@ export const deleteCollectionAction = (payload) => async () => {
         const res = await deleteCollectionService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };

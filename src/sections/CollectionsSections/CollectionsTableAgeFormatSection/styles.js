@@ -12,14 +12,22 @@ const styles = {
 
   tableContainer: {
     borderRadius: 2,
-    overflow: 'hidden',
+    overflowX: 'auto', // ✅ Enable horizontal scroll for small screens
     boxShadow: 2,
+    width: '100%',
+    '@media (max-width: 600px)': {
+      boxShadow: 'none', // Optional: cleaner look on mobile
+    },
   },
 
   tableHeadCell: {
     fontWeight: 'bold',
     backgroundColor: '#f4f6f8',
-    fontSize: 14,
+    fontSize: {
+      xs: '12px',  // Mobile
+      sm: '13px',  // Tablet
+      md: '14px',  // Desktop
+    },
   },
 
   pagination: {

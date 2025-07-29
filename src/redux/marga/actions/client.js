@@ -14,7 +14,7 @@ export const createClientAction = (payload) => async () => {
     const res = await createClientService(payload);
     return res;
   } catch (err) {
-    return { error: err.msg };
+    return { error: err.response?.data?.msg };
   }
 };
 
@@ -25,7 +25,7 @@ export const getClientsAction = (payload) => async () => {
     const res = await getClientsService(payload);
     return res;
   } catch (err) {
-    return { error: err.msg };
+    return { error: err.response?.data?.msg };
   }
 };
 
@@ -36,7 +36,7 @@ export const getClientAction = (payload) => async () => {
     const res = await getClientService(payload);
     return res;
   } catch (err) {
-    return { error: err.msg };
+    return { error: err.response?.data?.msg };
   }
 };
 
@@ -47,7 +47,7 @@ export const updateClientAction = (payload) => async () => {
     const res = await updateClientService(payload);
     return res;
   } catch (err) {
-    return { error: err.msg };
+    return { error: err.response?.data?.msg };
   }
 };
 
@@ -58,6 +58,6 @@ export const deleteClientAction = (payload) => async () => {
     const res = await deleteClientService(payload);
     return res;
   } catch (err) {
-    return { error: err.msg };
+    return { error: err.response?.data?.msg };
   }
 };

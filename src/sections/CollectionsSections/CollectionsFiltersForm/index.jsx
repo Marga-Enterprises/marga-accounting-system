@@ -17,7 +17,6 @@ import styles from './styles';
 const statusOptions = [
   'pending',
   'paid',
-  'cancelled',
 ];
 
 const dateRangeOptions = [
@@ -43,7 +42,6 @@ const CollectionsFiltersForm = ({ status, dateRange, onChangeStatus, onChangeDat
             onChange={(e) => onChangeStatus(e.target.value)}
             sx={styles.select}
           >
-            <MenuItem value="">All</MenuItem>
             {statusOptions.map((s) => (
               <MenuItem key={s} value={s}>
                 {s.charAt(0).toUpperCase() + s.slice(1)}

@@ -15,7 +15,7 @@ export const createBillingAction = (payload) => async () => {
         const res = await createBillingService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -26,7 +26,7 @@ export const createBulkBillingsAction = (payload) => async () => {
         const res = await createBulkBillingsService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -37,7 +37,7 @@ export const getBillingsAction = (payload) => async () => {
         const res = await getBillingsService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -48,7 +48,7 @@ export const getBillingAction = (payload) => async () => {
         const res = await getBillingService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -59,7 +59,7 @@ export const updateBillingAction = (payload) => async () => {
         const res = await updateBillingService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -70,6 +70,6 @@ export const deleteBillingAction = (payload) => async () => {
         const res = await deleteBillingService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };

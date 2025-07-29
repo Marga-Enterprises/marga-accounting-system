@@ -12,19 +12,32 @@ const styles = {
 
   tableContainer: {
     borderRadius: 2,
-    overflow: 'hidden',
+    overflowX: 'auto',
     boxShadow: 2,
+    width: '100%',
+    '@media (max-width: 600px)': {
+      boxShadow: 'none',
+    },
   },
 
   tableHeadCell: {
     fontWeight: 'bold',
     backgroundColor: '#f4f6f8',
-    fontSize: 14,
+    fontSize: {
+      xs: '12px',  // Mobile
+      sm: '13px',  // Tablet
+      md: '14px',  // Desktop
+    },
   },
 
   selectStatus: {
     minWidth: 120,
     textTransform: 'capitalize',
+    fontSize: {
+      xs: '12px',
+      sm: '13px',
+      md: '14px',
+    },
   },
 
   pagination: {
@@ -44,11 +57,21 @@ const styles = {
   totalBillingsLabel: {
     fontWeight: 500,
     color: 'text.secondary',
+    fontSize: {
+      xs: '12px',
+      sm: '13px',
+      md: '14px',
+    },
   },
 
   totalBillingsValue: {
     fontWeight: 'bold',
     color: 'success.main',
+    fontSize: {
+      xs: '13px',
+      sm: '15px',
+      md: '16px',
+    },
   },
 };
 

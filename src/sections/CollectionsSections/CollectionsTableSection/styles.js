@@ -10,16 +10,26 @@ const styles = {
     mb: 2,
   },
 
+  // ✅ Add scroll support and mobile-friendly boxShadow
   tableContainer: {
     borderRadius: 2,
-    overflow: 'hidden',
+    overflowX: 'auto', // horizontal scroll on small screens
     boxShadow: 2,
+    width: '100%',
+    '@media (max-width: 600px)': {
+      boxShadow: 'none',
+    },
   },
 
+  // ✅ Make table header text responsive
   tableHeadCell: {
     fontWeight: 'bold',
     backgroundColor: '#f4f6f8',
-    fontSize: 14,
+    fontSize: {
+      xs: '12px',  // Mobile
+      sm: '13px',  // Tablet
+      md: '14px',  // Desktop
+    },
   },
 
   pagination: {

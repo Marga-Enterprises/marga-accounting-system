@@ -30,6 +30,7 @@ const CollectionsTableAgeFormatSection = ({
   page,
   totalPages,
   onPageChange,
+  onOpenPaymentModal,
 }) => {
   const AGE_BUCKETS = [
     { key: 'current', label: 'Current (1–29 days)', min: 0, max: 29 },
@@ -78,7 +79,7 @@ const CollectionsTableAgeFormatSection = ({
                     <TableCell>{ageColumns.d120}</TableCell>
                     <TableCell>
                       <Box display="flex" gap={1}>
-                        <Button variant="contained" size="small" color="primary">
+                        <Button variant="contained" size="small" color="primary" onClick={() => onOpenPaymentModal(collection.id)}>
                           Pay
                         </Button>
                         <Button variant="outlined" size="small" color="primary">

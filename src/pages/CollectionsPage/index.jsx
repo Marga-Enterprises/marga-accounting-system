@@ -20,6 +20,10 @@ import CollectionsSearchForm from '@sections/CollectionsSections/CollectionsSear
 import CollectionsFiltersForm from '@sections/CollectionsSections/CollectionsFiltersForm';
 import CollectionsTableFormatForm from '@sections/CollectionsSections/CollectionsTableFormatForm';
 
+// components
+import PayCollectionFormModal from '@components/collections/PayCollectionFormModal';
+import SnackbarAlert from '@components/common/SnackbarAlert';
+
 const Page = () => {
     //hooks
     const location = useLocation();
@@ -34,6 +38,11 @@ const Page = () => {
         dateRange,
         tableFormat,
         openPayCollectionModal,
+        formValues,
+        openSnackbar,
+        message,
+        severity,
+        setOpenSnackbar,
         handleFetchCollections,
         handleChangeStatus,
         handleChangeDateRange,
@@ -87,11 +96,11 @@ const Page = () => {
             </Box>
 
             {/* Collections Table Section */}
-
             {
                 tableFormat === 'all' ? (
                     <CollectionsTableSection
                         loading={loading}
+                        onOpenPaymentModal={handleOpenPayCollectionModal}
                         collections={collections}
                         page={pageDetails.pageIndex}
                         totalPages={pageDetails.totalPages}
@@ -104,6 +113,7 @@ const Page = () => {
                 ) : (
                     <CollectionsTableSectionAgeFormatSection
                         loading={loading}
+                        onOpenPaymentModal={handleOpenPayCollectionModal}
                         collections={collections}
                         page={pageDetails.pageIndex}
                         totalPages={pageDetails.totalPages}
@@ -116,7 +126,23 @@ const Page = () => {
                 )
             }
 
+            {/* Pay Collection Modal */}
+            <PayCollectionFormModal
+                open={openPayCollectionModal}
+                onClose={handleClosePayCollectionModal}
+                onSubmit={handleSavePayment}
+                onFormChange={handleFormValuesChange}
+                formValues={formValues}
+            />
 
+            {/* Snackbar Alert */}
+            <SnackbarAlert
+                open={openSnackbar}
+                onClose={() => setOpenSnackbar(false)}
+                message={message}
+                severity={severity}
+                duration={3000}
+            />
         </>
     )
 }

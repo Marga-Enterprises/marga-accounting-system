@@ -16,7 +16,7 @@ export const createClientDepartmentAction = (payload) => async () => {
         const res = await createClientDepartmentService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -27,7 +27,7 @@ export const getClientDepartmentsAction = (payload) => async () => {
         const res = await getClientDepartmentsService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -38,7 +38,7 @@ export const getClientDepartmentAction = (payload) => async () => {
         const res = await getClientDepartmentService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -49,7 +49,7 @@ export const getClientDepartmentByNameAction = (payload) => async () => {
         const res = await getClientDepartmentByNameService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -60,7 +60,7 @@ export const updateClientDepartmentAction = (payload) => async () => {
         const res = await updateClientDepartmentService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -71,7 +71,7 @@ export const deleteClientDepartmentAction = (payload) => async () => {
         const res = await deleteClientDepartmentService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -82,6 +82,6 @@ export const sendEmailToClientDepartmentAction = (payload) => async () => {
         const res = await sendEmailToClientDepartmentService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };

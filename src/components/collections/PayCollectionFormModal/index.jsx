@@ -8,24 +8,30 @@ import {
   Typography,
   TextField,
   Button,
-  Stack
+  Stack,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl
 } from "@mui/material";
 
 // styles
 import styles from "./styles";
 
-const PaymentFormModal = ({
+const PayCollectionFormModal = ({
   open,
   onClose,
   onSubmit,
   onFormChange,
   formValues,
 }) => {
+  const paymentMode = formValues.payment_mode;
+
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={styles.modalWrapper}>
         <Typography variant="h6" sx={styles.title}>
-          Record Payment
+          Save Payment
         </Typography>
 
         <Box component="form" onSubmit={onSubmit} sx={styles.form}>
@@ -33,7 +39,7 @@ const PaymentFormModal = ({
             label="OR Number"
             name="payment_or_number"
             value={formValues.payment_or_number || ""}
-            onChange={onFormChange}
+            onChange={(e) => onFormChange(e)}
             fullWidth
             sx={styles.formField}
           />
@@ -43,77 +49,83 @@ const PaymentFormModal = ({
             name="payment_amount"
             type="number"
             value={formValues.payment_amount || ""}
-            onChange={onFormChange}
+            onChange={(e) => onFormChange(e)}
             fullWidth
             sx={styles.formField}
           />
 
-          <TextField
-            label="Payment Mode"
-            name="payment_mode"
-            value={formValues.payment_mode || ""}
-            onChange={onFormChange}
-            fullWidth
-            sx={styles.formField}
-          />
+          <FormControl fullWidth sx={styles.formField}>
+            <InputLabel>Payment Mode</InputLabel>
+            <Select
+              label="Payment Mode"
+              name="payment_mode"
+              value={paymentMode || ""}
+              onChange={(e) => onFormChange(e)}
+            >
+              <MenuItem value="cash">Cash</MenuItem>
+              <MenuItem value="cheque">Cheque</MenuItem>
+              <MenuItem value="online_transfer">Online Transfer</MenuItem>
+            </Select>
+          </FormControl>
 
           <TextField
             label="Remarks"
             name="payment_remarks"
             value={formValues.payment_remarks || ""}
-            onChange={onFormChange}
+            onChange={(e) => onFormChange(e)}
             fullWidth
             multiline
             rows={3}
-            sx={styles.formField}
+            sx={styles.fullWidthField}
           />
 
-          <TextField
-            label="Cheque Number"
-            name="payment_cheque_number"
-            value={formValues.payment_cheque_number || ""}
-            onChange={onFormChange}
-            fullWidth
-            sx={styles.formField}
-          />
+          {paymentMode === "cheque" && (
+            <>
+              <TextField
+                label="Cheque Number"
+                name="payment_cheque_number"
+                value={formValues.payment_cheque_number || ""}
+                onChange={(e) => onFormChange(e)}
+                fullWidth
+                sx={styles.formField}
+              />
 
-          <TextField
-            label="Cheque Date"
-            name="payment_cheque_date"
-            type="date"
-            value={formValues.payment_cheque_date || ""}
-            onChange={onFormChange}
-            fullWidth
-            InputLabelProps={{ shrink: true }}
-            sx={styles.formField}
-          />
+              <TextField
+                label="Cheque Date"
+                name="payment_cheque_date"
+                type="date"
+                value={formValues.payment_cheque_date || ""}
+                onChange={(e) => onFormChange(e)}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                sx={styles.formField}
+              />
+            </>
+          )}
 
-          <TextField
-            label="Cheque Bank Name"
-            name="payment_cheque_bank_name"
-            value={formValues.payment_cheque_bank_name || ""}
-            onChange={onFormChange}
-            fullWidth
-            sx={styles.formField}
-          />
+          {paymentMode === "online_transfer" && (
+            <>
+              <TextField
+                label="Online Transfer Ref No."
+                name="payment_online_transfer_reference_number"
+                value={formValues.payment_online_transfer_reference_number || ""}
+                onChange={(e) => onFormChange(e)}
+                fullWidth
+                sx={styles.formField}
+              />
 
-          <TextField
-            label="Online Transfer Ref No."
-            name="payment_online_transfer_reference_number"
-            value={formValues.payment_online_transfer_reference_number || ""}
-            onChange={onFormChange}
-            fullWidth
-            sx={styles.formField}
-          />
-
-          <TextField
-            label="Online Transfer Bank"
-            name="payment_online_transfer_bank_name"
-            value={formValues.payment_online_transfer_bank_name || ""}
-            onChange={onFormChange}
-            fullWidth
-            sx={styles.formField}
-          />
+              <TextField
+                label="Online Transfer Date"
+                name="payment_online_transfer_date"
+                type="date"
+                value={formValues.payment_online_transfer_date || ""}
+                onChange={(e) => onFormChange(e)}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                sx={styles.formField}
+              />
+            </>
+          )}
 
           <Stack
             direction="row"
@@ -134,4 +146,4 @@ const PaymentFormModal = ({
   );
 };
 
-export default React.memo(PaymentFormModal);
+export default React.memo(PayCollectionFormModal);

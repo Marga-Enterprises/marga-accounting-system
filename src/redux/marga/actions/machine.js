@@ -14,7 +14,7 @@ export const createMachineAction = (payload) => async () => {
         const res = await createMachineService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -25,7 +25,7 @@ export const getMachinesAction = (payload) => async () => {
         const res = await getMachinesService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -36,7 +36,7 @@ export const getMachineAction = (payload) => async () => {
         const res = await getMachineService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -47,7 +47,7 @@ export const updateMachineAction = (payload) => async () => {
         const res = await updateMachineService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -58,6 +58,6 @@ export const deleteMachineAction = (payload) => async () => {
         const res = await deleteMachineService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };

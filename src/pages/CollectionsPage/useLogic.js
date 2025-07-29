@@ -18,6 +18,9 @@ export const useLogic = () => {
     const [collections, setCollections] = useState([]);
     const [openPayCollectionModal, setOpenPayCollectionModal] = useState(false);
     const [status, setStatus] = useState('pending');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [message, setMessage] = useState('');
+    const [severity, setSeverity] = useState('success');
     const [dateRange, setDateRange] = useState('');
     const [loading, setLoading] = useState(false);
     const [tableFormat, setTableFormat] = useState('all');
@@ -31,13 +34,12 @@ export const useLogic = () => {
         payment_or_number: '',
         payment_or_number: '',
         payment_amount: '',
-        payment_mode: '',
+        payment_mode: 'cash',
         payment_remarks: '',
         payment_cheque_number: '',
         payment_cheque_date: '',
-        payment_cheque_bank_name: '',
         payment_online_transfer_reference_number: '',
-        payment_online_transfer_bank_name: ''
+        payment_online_transfer_date: '',
     });
 
     // callback functions
@@ -109,15 +111,18 @@ export const useLogic = () => {
     }, []);
 
     // handle form values change
-    const handleFormValuesChange = useCallback((newValues) => {
+    const handleFormValuesChange = useCallback((e) => {
+        const { name, value } = e.target;
         setFormValues((prev) => ({
             ...prev,
-            ...newValues,
+            [name]: value,
         }));
     }, []);
 
     // handle save payment for collection
-    const handleSavePayment = useCallback(() => {
+    const handleSavePayment = useCallback((e) => {
+        e.preventDefault();
+
         if (loadingRef.current) return;
         loadingRef.current = true;
         setLoading(true);
@@ -126,24 +131,30 @@ export const useLogic = () => {
         dispatch(marga.payment.createPaymentAction(formValues))
             .then((res) => {
                 if (res.success) {
-                    // Close modal and reset form values
                     setOpenPayCollectionModal(false);
                     setFormValues({
                         payment_collection_id: '',
                         payment_or_number: '',
                         payment_amount: '',
-                        payment_mode: '',
+                        payment_mode: 'cash',
                         payment_remarks: '',
                         payment_cheque_number: '',
                         payment_cheque_date: '',
                         payment_cheque_bank_name: '',
                         payment_online_transfer_reference_number: '',
                         payment_online_transfer_bank_name: '',
+                        payment_online_transfer_date: ''
                     });
-                    // Optionally, refetch collections
-                    handleFetchCollections(pageDetails.pageIndex, '', status, dateRange);
+
+                    // remove the payment from the collections list
+                    setCollections((prev) => prev.filter((collection) => collection.id !== formValues.payment_collection_id));
+                    setOpenSnackbar(true);
+                    setMessage(res.msg);
+                    setSeverity('success');
                 } else {
-                    console.error('Failed to create payment:', res.payload);
+                    setOpenSnackbar(true);
+                    setMessage(res.error);
+                    setSeverity('error');
                 }
             })
             .catch((error) => {
@@ -153,11 +164,15 @@ export const useLogic = () => {
                 loadingRef.current = false;
                 setLoading(false);
             });
-    }, [dispatch, formValues, pageDetails.pageIndex, status, dateRange, handleFetchCollections]);
+    }, [dispatch, formValues]);
 
     // handle open/close modal
-    const handleOpenPayCollectionModal = useCallback(() => {
+    const handleOpenPayCollectionModal = useCallback((id) => {
         setOpenPayCollectionModal(true);
+        setFormValues((prev) => ({
+            ...prev,
+            payment_collection_id: id,
+        }));
     }, []);
 
     const handleClosePayCollectionModal = useCallback(() => {
@@ -173,6 +188,11 @@ export const useLogic = () => {
         dateRange,
         tableFormat,
         openPayCollectionModal,
+        formValues,
+        openSnackbar,
+        message,
+        severity,
+        setOpenSnackbar,
         handleFetchCollections,
         handleChangeStatus,
         handleChangeDateRange,

@@ -14,7 +14,7 @@ export const createClientBranchAction = (payload) => async () => {
         const res = await createClientBranchService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -25,7 +25,7 @@ export const getClientBranchesAction = (payload) => async () => {
         const res = await getClientBranchesService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -36,7 +36,7 @@ export const getClientBranchAction = (payload) => async () => {
         const res = await getClientBranchService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -47,7 +47,7 @@ export const updateClientBranchAction = (payload) => async () => {
         const res = await updateClientBranchService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };
 
@@ -58,6 +58,6 @@ export const deleteClientBranchAction = (payload) => async () => {
         const res = await deleteClientBranchService(payload);
         return res;
     } catch (err) {
-        return { error: err.msg };
+        return { error: err.response?.data?.msg };
     }
 };

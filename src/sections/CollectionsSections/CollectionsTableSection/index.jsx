@@ -27,6 +27,7 @@ const CollectionsTableSection = ({
   page,
   totalPages,
   onPageChange,
+  onOpenPaymentModal,
 }) => {
   if (loading) return <LoadingScreen />;
 
@@ -56,7 +57,7 @@ const CollectionsTableSection = ({
                   <TableCell>₱{parseFloat(collection.collection_amount).toFixed(2)}</TableCell>
                   <TableCell>
                     <Box display="flex" gap={1}>
-                      <Button variant="contained" size="small" color="primary">
+                      <Button variant="contained" size="small" color="primary" onClick={() => onOpenPaymentModal(collection.id)}>
                         Pay
                       </Button>
                       <Button variant="outlined" size="small" color="primary">
