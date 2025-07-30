@@ -3,6 +3,7 @@ import PaymentsIcon from '@mui/icons-material/Payments';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PrintIcon from '@mui/icons-material/Print';
 import BuildIcon from '@mui/icons-material/Build';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 const options = [
   {
@@ -34,6 +35,12 @@ const options = [
     icon: BuildIcon,
     color: '#1976d2',
     path: '/services',
+  },
+  {
+    label: 'Payments',
+    icon: AccountBalanceWalletIcon,
+    color: '#1976d2',
+    path: '/payments',
   },
 ];
 

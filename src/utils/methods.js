@@ -14,6 +14,7 @@ export const convertQueryString = (params) => {
     .join('&');
 };
 
+
 /**
  * capitalize the first letter of a string
  * @param {string} str
@@ -22,6 +23,7 @@ export const capitalizeFirstLetter = (str) => {
   if (typeof str !== 'string' || str.length === 0) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
 
 /**
  * convert to date string in format DD/MM/YYYY
@@ -46,6 +48,7 @@ export const convertDate = (input) => {
 
   return `${month}/${day}/${year}`; // → e.g. 15/03/2025
 };
+
 
 /**
  * convert month number to month name
@@ -83,7 +86,6 @@ export const isValidEmail = (email) => {
 }
 
 
-
 /**
  * Returns a mapping of age bucket keys to values based on the number of days old.
  * 
@@ -109,6 +111,7 @@ export const bucketByAge = (date, amount, buckets) => {
   return result;
 };
 
+
 /**
  * Converts a number to PESO format with right commas and two decimal places.
  * @param {number} amount - The amount to format
@@ -118,4 +121,20 @@ export const formatPeso = (amount) => {
   if (typeof amount !== 'number' || isNaN(amount)) return '₱0.00';
 
   return `₱${amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+}
+
+
+/**
+ * Capitalizes the first letter of each word in a string.
+ * @param {string} str - The string to capitalize
+ * @return {string} - The capitalized string
+ */
+
+export const capitalizeWords = (str) => {
+  if (typeof str !== 'string' || str.length === 0) return str;
+
+  return str.split(' ').map(word => {
+    if (word.length === 0) return word; // handle multiple spaces
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  }).join(' ');
 }

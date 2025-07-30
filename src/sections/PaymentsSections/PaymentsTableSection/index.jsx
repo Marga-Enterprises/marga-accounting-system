@@ -1,0 +1,83 @@
+// react
+import React from 'react';
+
+// mui
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Pagination,
+} from '@mui/material';
+
+// styles
+import styles from './styles';
+
+// components
+import LoadingScreen from '@components/common/LoadingScreen';
+
+// utils
+import { formatPeso, capitalizeWords } from '@utils/methods';
+
+const PaymentsTableSection = ({
+  payments,
+  loading,
+  page,
+  totalPages,
+  onPageChange,
+}) => {
+  if (loading) return <LoadingScreen />;
+
+  return (
+    <Box sx={styles.root}>
+      <TableContainer component={Paper} sx={styles.tableContainer}>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell sx={styles.tableHeadCell}>Client</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Invoice #</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Payment Date</TableCell>
+              <TableCell sx={styles.tableHeadCell}>OR #</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Amount</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Payment Mode</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {payments.length > 0 ? (
+              payments.map((payment) => (
+                <TableRow key={payment.id} hover>
+                  <TableCell>{payment.collection?.billing?.department?.client_department_name || '-'}</TableCell>
+                  <TableCell>{payment.payment_invoice_number || '-'}</TableCell>
+                  <TableCell>{payment.payment_date ? new Date(payment.payment_date).toLocaleDateString() : '-'}</TableCell>
+                  <TableCell>{payment.payment_or_number || '-'}</TableCell>
+                  <TableCell>{formatPeso(parseFloat(payment.payment_amount))}</TableCell>
+                  <TableCell>{capitalizeWords(payment.payment_mode) || '-'}</TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} align="center">
+                  No payments found.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <Pagination
+        count={totalPages}
+        page={page}
+        onChange={(e, value) => onPageChange(value)}
+        color="primary"
+        sx={styles.pagination}
+      />
+    </Box>
+  );
+};
+
+export default React.memo(PaymentsTableSection);

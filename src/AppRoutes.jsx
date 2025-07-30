@@ -16,6 +16,7 @@ import PrintInvoicePage from '@pages/PrintInvoicePage';
 import BillingsPage from '@pages/BillingsPage';
 import ServicesPage from '@pages/ServicesPage';
 import CollectionsPage from '@pages/CollectionsPage';
+import PaymentsPage from '@pages/PaymentsPage';
 
 // layout
 import MainLayout from '@components/layout/MainLayout';
@@ -129,6 +130,18 @@ function AppRoutes() {
         }
       >
         <Route index element={<CollectionsPage />} />
+      </Route>
+
+      {/* PaymentsPage Route */}
+      <Route
+        path="/payments"
+        element={
+          <AuthRouter>
+            <MainLayout />
+          </AuthRouter>
+        }
+      >
+        <Route index element={<PaymentsPage />} />
       </Route>
 
       {/* 404 fallback – must be outside layout */}
