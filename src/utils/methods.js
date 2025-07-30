@@ -129,7 +129,6 @@ export const formatPeso = (amount) => {
  * @param {string} str - The string to capitalize
  * @return {string} - The capitalized string
  */
-
 export const capitalizeWords = (str) => {
   if (typeof str !== 'string' || str.length === 0) return str;
 
