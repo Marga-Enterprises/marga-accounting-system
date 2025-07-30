@@ -212,10 +212,6 @@ export const useLogic = () => {
       };
     });
 
-    console.log("Saving bulk billings for selected rows:", selectedRows);
-    console.log("Manipulated data:", manipulatedData);
-    console.log("Original data:", data);
-
     const payload = selectedRows.map((index) => manipulatedData[index]);
 
     dispatch(marga.billing.createBulkBillingsAction(payload))
@@ -332,6 +328,10 @@ export const useLogic = () => {
     showInvoiceFormModal,
     searchQuery,
     invoiceFormValues,
+    openSnackbar,
+    message,
+    severity,
+    setOpenSnackbar,
     setSearchQuery,
     setFinalPrintData,
     handleChangeInvoiceFormValues,

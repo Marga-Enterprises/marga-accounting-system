@@ -27,6 +27,10 @@ const PrintInvoicePage = () => {
     searchQuery,
     invoiceFormValues,
     showInvoiceFormModal,
+    openSnackbar,
+    message,
+    severity,
+    setOpenSnackbar,
     setFinalPrintData,
     setSearchQuery,
     handleChangeInvoiceFormValues,
@@ -101,6 +105,15 @@ const PrintInvoicePage = () => {
           />
         </>
       )}
+
+      {/* Snackbar Alert for Notifications */}
+      <SnackbarAlert
+        open={openSnackbar}
+        onClose={() => setOpenSnackbar(false)}
+        message={message}
+        severity={severity}
+        duration={3000}
+      />
     </Container>
   );
 };
