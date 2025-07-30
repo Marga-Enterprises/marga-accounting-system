@@ -66,6 +66,8 @@ export const useLogic = () => {
             .then((res) => {
                 if (res.success) {
                     setCollections(res.data.collections || []);
+                    setStatus(status || 'pending');
+                    setDateRange(dateRange || '');
                     setTotalCollectionsAmount(res.data.totalCollectionAmount || 0);
                     setPageDetails({
                         totalRecords: res.data.totalRecords || 0,
@@ -136,6 +138,8 @@ export const useLogic = () => {
         dispatch(marga.payment.createPaymentAction(formValues))
             .then((res) => {
                 if (res.success) {
+                    handleFetchCollections(pageDetails.pageIndex, '', status, dateRange);
+
                     setOpenPayCollectionModal(false);
                     setFormValues({
                         payment_collection_id: '',
@@ -152,12 +156,6 @@ export const useLogic = () => {
                         payment_online_transfer_reference_number: '',
                         payment_online_transfer_date: ''
                     });
-
-                    // remove the payment from the collections list
-                    setCollections((prev) => prev.filter((collection) => collection.id !== formValues.payment_collection_id));
-                    
-                    // update the total collections amount
-                    setTotalCollectionsAmount((prev) => prev - parseFloat(formValues.payment_amount || 0));
 
                     // return success message
                     setOpenSnackbar(true);
@@ -177,7 +175,7 @@ export const useLogic = () => {
                 loadingRef.current = false;
                 setLoading(false);
             });
-    }, [dispatch, formValues]);
+    }, [dispatch, formValues, handleFetchCollections, pageDetails.pageIndex, status, dateRange]);
 
     // handle open/close modal
     const handleOpenPayCollectionModal = useCallback((id) => {

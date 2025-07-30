@@ -64,7 +64,7 @@ const Page = () => {
         const dateRange = queryParams.get("dateRange") || '';
 
         handleFetchCollections(currentPage, search, status, dateRange);
-    }, [location.search, location.status, location.dateRange, handleFetchCollections]);
+    }, [location.search, handleFetchCollections]);
 
     return (
         <>
