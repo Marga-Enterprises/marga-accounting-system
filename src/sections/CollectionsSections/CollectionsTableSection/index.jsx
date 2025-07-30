@@ -8,6 +8,7 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  Typography,
   Button,
   TableHead,
   TableRow,
@@ -28,6 +29,7 @@ const CollectionsTableSection = ({
   collections,
   loading,
   page,
+  totalCollections,
   totalPages,
   onPageChange,
   onOpenPaymentModal,
@@ -36,6 +38,18 @@ const CollectionsTableSection = ({
 
   return (
     <Box sx={styles.root}>
+      <Box sx={styles.totalCollectionsBox}>
+        <Typography variant="subtitle1" sx={styles.totalCollectionsLabel}>
+          Total Collections:
+        </Typography>
+        <Typography variant="h6" sx={styles.totalCollectionsValue}>
+          ₱{Number(totalCollections).toLocaleString('en-PH', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}
+        </Typography>
+      </Box>
+
       <TableContainer component={Paper} sx={styles.tableContainer}>
         <Table size="small">
           <TableHead>

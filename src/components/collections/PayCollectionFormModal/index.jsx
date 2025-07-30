@@ -64,20 +64,10 @@ const PayCollectionFormModal = ({
             >
               <MenuItem value="cash">Cash</MenuItem>
               <MenuItem value="cheque">Cheque</MenuItem>
+              <MenuItem value="pdc">PDC</MenuItem>
               <MenuItem value="online_transfer">Online Transfer</MenuItem>
             </Select>
           </FormControl>
-
-          <TextField
-            label="Remarks"
-            name="payment_remarks"
-            value={formValues.payment_remarks || ""}
-            onChange={(e) => onFormChange(e)}
-            fullWidth
-            multiline
-            rows={3}
-            sx={styles.fullWidthField}
-          />
 
           {paymentMode === "cheque" && (
             <>
@@ -126,6 +116,63 @@ const PayCollectionFormModal = ({
               />
             </>
           )}
+
+          {paymentMode === "pdc" && (
+            <>
+              <TextField
+                label="PDC Number"
+                name="payment_pdc_number"
+                value={formValues.payment_pdc_number || ""}
+                onChange={(e) => onFormChange(e)}
+                fullWidth
+                sx={styles.formField}
+              />
+
+              <TextField
+                label="PDC Date"
+                name="payment_pdc_date"
+                type="date"
+                value={formValues.payment_pdc_date || ""}
+                onChange={(e) => onFormChange(e)}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                sx={styles.formField}
+              />
+
+              <TextField
+                label="PDC Deposit Date"
+                name="payment_pdc_deposit_date"
+                type="date"
+                value={formValues.payment_pdc_deposit_date || ""}
+                onChange={(e) => onFormChange(e)}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                sx={styles.formField}
+              />
+
+              <TextField
+                label="PDC Credit Date"
+                name="payment_pdc_credit_date"
+                type="date"
+                value={formValues.payment_pdc_credit_date || ""}
+                onChange={(e) => onFormChange(e)}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                sx={styles.formField}
+              />
+            </>
+          )}
+
+          <TextField
+            label="Remarks"
+            name="payment_remarks"
+            value={formValues.payment_remarks || ""}
+            onChange={(e) => onFormChange(e)}
+            fullWidth
+            multiline
+            rows={3}
+            sx={styles.fullWidthField}
+          />
 
           <Stack
             direction="row"

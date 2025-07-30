@@ -37,6 +37,34 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
+
+    totalCollectionsBox: {
+    mb: 2,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: 1,
+  },
+
+  totalCollectionsLabel: {
+    fontWeight: 500,
+    color: 'text.secondary',
+    fontSize: {
+      xs: '12px',
+      sm: '13px',
+      md: '14px',
+    },
+  },
+
+  totalCollectionsValue: {
+    fontWeight: 'bold',
+    color: 'success.main',
+    fontSize: {
+      xs: '13px',
+      sm: '15px',
+      md: '16px',
+    },
+  },
 };
 
 export default styles;

@@ -42,6 +42,7 @@ const Page = () => {
         openSnackbar,
         message,
         severity,
+        totalCollectionsAmount,
         setOpenSnackbar,
         handleFetchCollections,
         handleChangeStatus,
@@ -100,6 +101,7 @@ const Page = () => {
                 tableFormat === 'all' ? (
                     <CollectionsTableSection
                         loading={loading}
+                        totalCollections={totalCollectionsAmount}
                         onOpenPaymentModal={handleOpenPayCollectionModal}
                         collections={collections}
                         page={pageDetails.pageIndex}
@@ -114,6 +116,7 @@ const Page = () => {
                     <CollectionsTableSectionAgeFormatSection
                         loading={loading}
                         onOpenPaymentModal={handleOpenPayCollectionModal}
+                        totalCollections={totalCollectionsAmount}
                         collections={collections}
                         page={pageDetails.pageIndex}
                         totalPages={pageDetails.totalPages}

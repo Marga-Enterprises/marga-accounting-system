@@ -24,6 +24,7 @@ export const useLogic = () => {
     const [dateRange, setDateRange] = useState('');
     const [loading, setLoading] = useState(false);
     const [tableFormat, setTableFormat] = useState('all');
+    const [totalCollectionsAmount, setTotalCollectionsAmount] = useState(0);
     const [pageDetails, setPageDetails] = useState({
         totalRecords: 0,
         pageIndex: 1,
@@ -32,12 +33,15 @@ export const useLogic = () => {
     const [formValues, setFormValues] = useState({
         payment_collection_id: '',
         payment_or_number: '',
-        payment_or_number: '',
         payment_amount: '',
         payment_mode: 'cash',
         payment_remarks: '',
         payment_cheque_number: '',
         payment_cheque_date: '',
+        payment_pdc_number: '',
+        payment_pdc_date: '',
+        payment_pdc_deposit_date: '',
+        payment_pdc_credit_date: '',
         payment_online_transfer_reference_number: '',
         payment_online_transfer_date: '',
     });
@@ -62,6 +66,7 @@ export const useLogic = () => {
             .then((res) => {
                 if (res.success) {
                     setCollections(res.data.collections || []);
+                    setTotalCollectionsAmount(res.data.totalCollectionAmount || 0);
                     setPageDetails({
                         totalRecords: res.data.totalRecords || 0,
                         pageIndex: res.data.pageIndex || 1,
@@ -140,18 +145,26 @@ export const useLogic = () => {
                         payment_remarks: '',
                         payment_cheque_number: '',
                         payment_cheque_date: '',
-                        payment_cheque_bank_name: '',
+                        payment_pdc_number: '',
+                        payment_pdc_date: '',
+                        payment_pdc_deposit_date: '',
+                        payment_pdc_credit_date: '',
                         payment_online_transfer_reference_number: '',
-                        payment_online_transfer_bank_name: '',
                         payment_online_transfer_date: ''
                     });
 
                     // remove the payment from the collections list
                     setCollections((prev) => prev.filter((collection) => collection.id !== formValues.payment_collection_id));
+                    
+                    // update the total collections amount
+                    setTotalCollectionsAmount((prev) => prev - parseFloat(formValues.payment_amount || 0));
+
+                    // return success message
                     setOpenSnackbar(true);
                     setMessage(res.msg);
                     setSeverity('success');
                 } else {
+                    // return error message
                     setOpenSnackbar(true);
                     setMessage(res.error);
                     setSeverity('error');
@@ -192,6 +205,7 @@ export const useLogic = () => {
         openSnackbar,
         message,
         severity,
+        totalCollectionsAmount,
         setOpenSnackbar,
         handleFetchCollections,
         handleChangeStatus,
