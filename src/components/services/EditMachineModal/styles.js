@@ -4,7 +4,12 @@ const styles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 700, // Wider to fit the form content
+    width: {
+      xs: "90%",   // small screens
+      sm: 500,     // tablets
+      md: 600,     // medium screens
+      lg: 700,     // large screens
+    },
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
@@ -16,19 +21,29 @@ const styles = {
   },
   form: {
     display: "flex",
-    flexWrap: "wrap", // Allow wrapping
-    flexDirection: "row", // Row layout
+    flexWrap: "wrap",
+    flexDirection: "row",
     gap: 2,
   },
   formField: {
-    flex: "1 1 calc(50% - 8px)", // Two columns with spacing
-    minWidth: "calc(50% - 8px)",
+    flex: {
+      xs: "1 1 100%",         // Full width on small screens
+      sm: "1 1 calc(50% - 8px)", // Half width on tablets and up
+    },
+    minWidth: {
+      xs: "100%",
+      sm: "calc(50% - 8px)",
+    },
   },
   fullWidthField: {
-    flex: "1 1 100%", // Span full width for multiline fields
+    flex: "1 1 100%",
   },
   buttonGroup: {
     mt: 3,
+    display: "flex",
+    justifyContent: "flex-end",
+    flexWrap: "wrap",
+    gap: 1,
   },
 };
 
