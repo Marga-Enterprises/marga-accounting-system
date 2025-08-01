@@ -43,6 +43,8 @@ const Page = () => {
         message,
         severity,
         totalCollectionsAmount,
+        invoiceNumber,
+        clientName,
         setOpenSnackbar,
         handleFetchCollections,
         handleChangeStatus,
@@ -136,6 +138,8 @@ const Page = () => {
                 onSubmit={handleSavePayment}
                 onFormChange={handleFormValuesChange}
                 formValues={formValues}
+                invoiceNumber={invoiceNumber}
+                clientName={clientName}
             />
 
             {/* Snackbar Alert */}

@@ -7,6 +7,9 @@ import {
   Box,
   Typography,
   TextField,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
   Button,
   Stack,
   MenuItem,
@@ -20,6 +23,8 @@ import styles from "./styles";
 
 const PayCollectionFormModal = ({
   open,
+  invoiceNumber,
+  clientName,
   onClose,
   onSubmit,
   onFormChange,
@@ -30,16 +35,35 @@ const PayCollectionFormModal = ({
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={styles.modalWrapper}>
-        <Typography variant="h6" sx={styles.title}>
-          Save Payment
-        </Typography>
+      <Typography variant="h6" sx={styles.title}>
+        Save Payment
+      </Typography>
+
+      <Typography variant="body2" sx={styles.invoiceInfoText}>
+        <span style={styles.invoiceInfoLabel}>Invoice #:</span> {invoiceNumber}
+      </Typography>
+
+      <Typography variant="body2" sx={styles.invoiceInfoTextLast}>
+        <span style={styles.invoiceInfoLabel}>Client:</span> {clientName}
+      </Typography>
 
         <Box component="form" onSubmit={onSubmit} sx={styles.form}>
+          <TextField
+            label="Payment Date"
+            name="payment_date"
+            type="date"
+            value={formValues.payment_date || ""}
+            onChange={onFormChange}
+            fullWidth
+            InputLabelProps={{ shrink: true }}
+            sx={styles.formField}
+          />
+
           <TextField
             label="OR Number"
             name="payment_or_number"
             value={formValues.payment_or_number || ""}
-            onChange={(e) => onFormChange(e)}
+            onChange={onFormChange}
             fullWidth
             sx={styles.formField}
           />
@@ -49,7 +73,16 @@ const PayCollectionFormModal = ({
             name="payment_amount"
             type="number"
             value={formValues.payment_amount || ""}
-            onChange={(e) => onFormChange(e)}
+            onChange={onFormChange}
+            fullWidth
+            sx={styles.formField}
+          />
+
+          <TextField
+            label="Invoice Number"
+            name="payment_invoice_number"
+            value={formValues.payment_invoice_number || ""}
+            onChange={onFormChange}
             fullWidth
             sx={styles.formField}
           />
@@ -60,7 +93,7 @@ const PayCollectionFormModal = ({
               label="Payment Mode"
               name="payment_mode"
               value={paymentMode || ""}
-              onChange={(e) => onFormChange(e)}
+              onChange={onFormChange}
             >
               <MenuItem value="cash">Cash</MenuItem>
               <MenuItem value="cheque">Cheque</MenuItem>
@@ -75,17 +108,16 @@ const PayCollectionFormModal = ({
                 label="Cheque Number"
                 name="payment_cheque_number"
                 value={formValues.payment_cheque_number || ""}
-                onChange={(e) => onFormChange(e)}
+                onChange={onFormChange}
                 fullWidth
                 sx={styles.formField}
               />
-
               <TextField
                 label="Cheque Date"
                 name="payment_cheque_date"
                 type="date"
                 value={formValues.payment_cheque_date || ""}
-                onChange={(e) => onFormChange(e)}
+                onChange={onFormChange}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 sx={styles.formField}
@@ -99,17 +131,16 @@ const PayCollectionFormModal = ({
                 label="Online Transfer Ref No."
                 name="payment_online_transfer_reference_number"
                 value={formValues.payment_online_transfer_reference_number || ""}
-                onChange={(e) => onFormChange(e)}
+                onChange={onFormChange}
                 fullWidth
                 sx={styles.formField}
               />
-
               <TextField
                 label="Online Transfer Date"
                 name="payment_online_transfer_date"
                 type="date"
                 value={formValues.payment_online_transfer_date || ""}
-                onChange={(e) => onFormChange(e)}
+                onChange={onFormChange}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 sx={styles.formField}
@@ -123,39 +154,36 @@ const PayCollectionFormModal = ({
                 label="PDC Number"
                 name="payment_pdc_number"
                 value={formValues.payment_pdc_number || ""}
-                onChange={(e) => onFormChange(e)}
+                onChange={onFormChange}
                 fullWidth
                 sx={styles.formField}
               />
-
               <TextField
                 label="PDC Date"
                 name="payment_pdc_date"
                 type="date"
                 value={formValues.payment_pdc_date || ""}
-                onChange={(e) => onFormChange(e)}
+                onChange={onFormChange}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 sx={styles.formField}
               />
-
               <TextField
                 label="PDC Deposit Date"
                 name="payment_pdc_deposit_date"
                 type="date"
                 value={formValues.payment_pdc_deposit_date || ""}
-                onChange={(e) => onFormChange(e)}
+                onChange={onFormChange}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 sx={styles.formField}
               />
-
               <TextField
                 label="PDC Credit Date"
                 name="payment_pdc_credit_date"
                 type="date"
                 value={formValues.payment_pdc_credit_date || ""}
-                onChange={(e) => onFormChange(e)}
+                onChange={onFormChange}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 sx={styles.formField}
@@ -163,11 +191,43 @@ const PayCollectionFormModal = ({
             </>
           )}
 
+          <FormControl component="fieldset" sx={styles.fullWidthField}>
+            <Typography variant="subtitle2" sx={{ mb: 1 }}>
+              With Form 2307?
+            </Typography>
+            <RadioGroup
+              row
+              name="payment_has_2307"
+              value={formValues.payment_has_2307 ? "yes" : "no"}
+              onChange={(e) =>
+                onFormChange({
+                  target: {
+                    name: "payment_has_2307",
+                    value: e.target.value === "yes"
+                  }
+                })
+              }
+            >
+              <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+              <FormControlLabel value="no" control={<Radio />} label="No" />
+            </RadioGroup>
+          </FormControl>
+
+          <TextField
+            label="2307 Amount"
+            name="payment_2307_amount"
+            type="number"
+            value={formValues.payment_2307_amount || ""}
+            onChange={onFormChange}
+            fullWidth
+            sx={styles.formField}
+          />
+
           <TextField
             label="Remarks"
             name="payment_remarks"
             value={formValues.payment_remarks || ""}
-            onChange={(e) => onFormChange(e)}
+            onChange={onFormChange}
             fullWidth
             multiline
             rows={3}

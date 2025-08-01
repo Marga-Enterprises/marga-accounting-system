@@ -45,6 +45,17 @@ const styles = {
     flexWrap: "wrap",
     gap: 1,
   },
+  invoiceInfoLabel: {
+    fontWeight: 600,
+  },
+
+  invoiceInfoText: {
+    marginBottom: 1,
+  },
+
+  invoiceInfoTextLast: {
+    marginBottom: 2,
+  }
 };
 
 export default styles;

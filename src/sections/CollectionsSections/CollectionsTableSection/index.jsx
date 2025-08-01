@@ -76,7 +76,16 @@ const CollectionsTableSection = ({
                   </TableCell>
                   <TableCell>
                     <Box display="flex" gap={1}>
-                      <Button variant="contained" size="small" color="primary" onClick={() => onOpenPaymentModal(collection.id)}>
+                      <Button 
+                        variant="contained" 
+                        size="small" 
+                        color="primary" 
+                        onClick={() => onOpenPaymentModal(
+                          collection.id, 
+                          collection.collection_invoice_number, 
+                          collection.billing?.department?.client_department_name
+                        )}
+                      >
                         Pay
                       </Button>
                       <Button variant="outlined" size="small" color="primary">

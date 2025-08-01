@@ -21,6 +21,8 @@ export const useLogic = () => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [message, setMessage] = useState('');
     const [severity, setSeverity] = useState('success');
+    const [invoiceNumber, setInvoiceNumber] = useState('');
+    const [clientName, setClientName] = useState('');
     const [dateRange, setDateRange] = useState('');
     const [loading, setLoading] = useState(false);
     const [tableFormat, setTableFormat] = useState('all');
@@ -33,7 +35,10 @@ export const useLogic = () => {
     const [formValues, setFormValues] = useState({
         payment_collection_id: '',
         payment_or_number: '',
+        payment_invoice_number: '',
         payment_amount: '',
+        payment_2307_amount: '',
+        payment_has_2307: false,
         payment_mode: 'cash',
         payment_remarks: '',
         payment_cheque_number: '',
@@ -144,13 +149,17 @@ export const useLogic = () => {
                     setFormValues({
                         payment_collection_id: '',
                         payment_or_number: '',
+                        payment_invoice_number: '',
                         payment_amount: '',
+                        payment_2307_amount: '',
+                        payment_has_2307: false,
                         payment_mode: 'cash',
                         payment_remarks: '',
                         payment_cheque_number: '',
                         payment_cheque_date: '',
                         payment_pdc_number: '',
                         payment_pdc_date: '',
+                        payment_date: '',
                         payment_pdc_deposit_date: '',
                         payment_pdc_credit_date: '',
                         payment_online_transfer_reference_number: '',
@@ -178,7 +187,10 @@ export const useLogic = () => {
     }, [dispatch, formValues, handleFetchCollections, pageDetails.pageIndex, status, dateRange]);
 
     // handle open/close modal
-    const handleOpenPayCollectionModal = useCallback((id) => {
+    const handleOpenPayCollectionModal = useCallback((id, invoiceNumber, clientName) => {
+        setInvoiceNumber(invoiceNumber);
+        setClientName(clientName);
+
         setOpenPayCollectionModal(true);
         setFormValues((prev) => ({
             ...prev,
@@ -204,6 +216,8 @@ export const useLogic = () => {
         message,
         severity,
         totalCollectionsAmount,
+        invoiceNumber,
+        clientName,
         setOpenSnackbar,
         handleFetchCollections,
         handleChangeStatus,
