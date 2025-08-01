@@ -11,6 +11,8 @@ import * as XLSX from "xlsx";
 // print template
 import { generatePrintHTML } from "./printTemplate"; 
 
+// utils methods
+import { convertDate } from "@utils/methods";
 
 export const useLogic = () => {
   // hooks
@@ -177,7 +179,6 @@ export const useLogic = () => {
     dispatch(marga.billing.createBillingAction(finalPrintData))
       .then((res) => {
         if (res.success) {
-          console.log("Invoice saved successfully:", res.data);
           handleCloseInvoiceFormModal();
         } else {
           console.error("Failed to save invoice:", res.payload);
@@ -207,6 +208,7 @@ export const useLogic = () => {
         billing_total_amount: row["AMOUNT"],
         billing_month: row["INVOICE MONTH"],
         billing_year: year,
+        billing_date: convertDate(row["INVOICE DATE"]),
         billing_client_department_name: row["CLIENT"],
         billing_type: row["CATEGORY"],
       };

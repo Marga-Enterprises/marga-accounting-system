@@ -35,18 +35,20 @@ export const convertDate = (input) => {
 
   let date;
   if (typeof input === 'number') {
-    // Handle Excel serial date
-    date = new Date((input - 25569) * 86400 * 1000);
+    // Convert Excel serial to JS Date
+    const utcDays = input - 25569;
+    const utcValue = utcDays * 86400 * 1000;
+    date = new Date(utcValue);
   } else {
     date = new Date(input);
-    if (isNaN(date)) return ''; // invalid date
+    if (isNaN(date)) return '';
   }
 
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const year = date.getFullYear();
+  const day = date.getUTCDate().toString().padStart(2, '0');
+  const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+  const year = date.getUTCFullYear();
 
-  return `${month}/${day}/${year}`; // → e.g. 15/03/2025
+  return `${year}-${month}-${day}`; // safe for MySQL DATE field
 };
 
 

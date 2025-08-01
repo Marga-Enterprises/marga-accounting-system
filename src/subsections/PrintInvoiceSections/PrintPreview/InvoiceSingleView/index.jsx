@@ -17,6 +17,7 @@ const InvoiceSingleView = ({ row, invoiceDetails, values, convertDate, setFinalP
       billing_department_id: invoiceDetails.departmentId,
       billing_vat_amount: values[1],
       billing_discount: values[3],
+      billing_date: row["INVOICE DATE"],
       billing_type: row["CATEGORY"],
     });
   }, [invoiceDetails, row, values]);

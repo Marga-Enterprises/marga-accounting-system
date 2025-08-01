@@ -17,11 +17,10 @@ const InvoiceMultipleView = ({ summaryRow, invoiceDetails, values, convertDate, 
       billing_department_id: invoiceDetails.departmentId,
       billing_vat_amount: values[1],
       billing_discount: values[3],
+      billing_date: summaryRow["INVOICE DATE"],
       billing_type: summaryRow["CATEGORY"],
     });
   }, [invoiceDetails, summaryRow, values]);
-
-  console.log("Invoice Details:", invoiceDetails.clientId);
 
   return (
     <div className="invoice-preview">
