@@ -21,10 +21,17 @@ import {
 // styles
 import styles from "./styles";
 
+// utils 
+import { formatPeso } from '@utils/methods';
+
+
 const PayCollectionFormModal = ({
   open,
   invoiceNumber,
   clientName,
+  collectionToPay,
+  billingDate,
+  invoiceCategory,
   onClose,
   onSubmit,
   onFormChange,
@@ -35,17 +42,36 @@ const PayCollectionFormModal = ({
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={styles.modalWrapper}>
-      <Typography variant="h6" sx={styles.title}>
-        Save Payment
-      </Typography>
+        <Box sx={styles.header}>
+          <Typography variant="h6" sx={styles.title}>
+            Save Payment
+          </Typography>
 
-      <Typography variant="body2" sx={styles.invoiceInfoText}>
-        <span style={styles.invoiceInfoLabel}>Invoice #:</span> {invoiceNumber}
-      </Typography>
+          <Typography variant="body2" sx={styles.invoiceInfoText}>
+            <span style={styles.invoiceInfoLabel}>Invoice #:</span> {invoiceNumber}
+          </Typography>
 
-      <Typography variant="body2" sx={styles.invoiceInfoTextLast}>
-        <span style={styles.invoiceInfoLabel}>Client:</span> {clientName}
-      </Typography>
+          <Typography variant="body2" sx={styles.invoiceInfoText}>
+            <span style={styles.invoiceInfoLabel}>Client:</span> {clientName}
+          </Typography>
+
+          <Typography variant="body2" sx={styles.invoiceInfoText}>
+            <span style={styles.invoiceInfoLabel}>Collection to Pay:</span> {formatPeso(parseFloat(collectionToPay))}
+          </Typography>
+
+          <Typography variant="body2" sx={styles.invoiceInfoText}>
+            <span style={styles.invoiceInfoLabel}>Billing Date:</span>{" "}
+            {new Date(billingDate).toLocaleDateString("en-PH", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </Typography>
+
+          <Typography variant="body2" sx={styles.invoiceInfoTextLast}>
+            <span style={styles.invoiceInfoLabel}>Invoice Category:</span> {invoiceCategory}
+          </Typography>
+        </Box>
 
         <Box component="form" onSubmit={onSubmit} sx={styles.form}>
           <TextField

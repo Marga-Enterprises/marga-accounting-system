@@ -25,6 +25,14 @@ const styles = {
     flexDirection: "row",
     gap: 2,
   },
+  header: {
+    backgroundColor: "#f5f5f5",
+    borderRadius: 2,
+    padding: 2,
+    marginBottom: 3,
+    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+    border: "1px solid #e0e0e0",
+  },
   formField: {
     flex: {
       xs: "1 1 100%",         // Full width on small screens

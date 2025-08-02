@@ -45,6 +45,9 @@ const Page = () => {
         totalCollectionsAmount,
         invoiceNumber,
         clientName,
+        collectionToPay,
+        billingDate,
+        invoiceCategory,
         setOpenSnackbar,
         handleFetchCollections,
         handleChangeStatus,
@@ -140,6 +143,9 @@ const Page = () => {
                 formValues={formValues}
                 invoiceNumber={invoiceNumber}
                 clientName={clientName}
+                collectionToPay={collectionToPay}
+                invoiceCategory={invoiceCategory}
+                billingDate={billingDate}
             />
 
             {/* Snackbar Alert */}

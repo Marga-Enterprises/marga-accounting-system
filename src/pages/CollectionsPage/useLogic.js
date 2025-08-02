@@ -18,20 +18,28 @@ export const useLogic = () => {
     const [collections, setCollections] = useState([]);
     const [openPayCollectionModal, setOpenPayCollectionModal] = useState(false);
     const [status, setStatus] = useState('pending');
+
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [message, setMessage] = useState('');
     const [severity, setSeverity] = useState('success');
+
     const [invoiceNumber, setInvoiceNumber] = useState('');
     const [clientName, setClientName] = useState('');
+    const [invoiceCategory, setInvoiceCategory] = useState('');
+    const [collectionToPay, setCollectionToPay] = useState('');
+    const [billingDate, setBillingDate] = useState('');
+
     const [dateRange, setDateRange] = useState('');
     const [loading, setLoading] = useState(false);
     const [tableFormat, setTableFormat] = useState('all');
     const [totalCollectionsAmount, setTotalCollectionsAmount] = useState(0);
+
     const [pageDetails, setPageDetails] = useState({
         totalRecords: 0,
         pageIndex: 1,
         totalPages: 0,
     });
+
     const [formValues, setFormValues] = useState({
         payment_collection_id: '',
         payment_or_number: '',
@@ -187,9 +195,12 @@ export const useLogic = () => {
     }, [dispatch, formValues, handleFetchCollections, pageDetails.pageIndex, status, dateRange]);
 
     // handle open/close modal
-    const handleOpenPayCollectionModal = useCallback((id, invoiceNumber, clientName) => {
+    const handleOpenPayCollectionModal = useCallback((id, invoiceNumber, clientName, collectionToPay, billingDate, invoiceCategory) => {
         setInvoiceNumber(invoiceNumber);
         setClientName(clientName);
+        setCollectionToPay(collectionToPay);
+        setBillingDate(billingDate);
+        setInvoiceCategory(invoiceCategory);
 
         setOpenPayCollectionModal(true);
         setFormValues((prev) => ({
@@ -218,6 +229,9 @@ export const useLogic = () => {
         totalCollectionsAmount,
         invoiceNumber,
         clientName,
+        collectionToPay,
+        billingDate,
+        invoiceCategory,
         setOpenSnackbar,
         handleFetchCollections,
         handleChangeStatus,
