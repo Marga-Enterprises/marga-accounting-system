@@ -16,6 +16,9 @@ import styles from "./styles";
 // sections
 import PaymentsTableSection from "@sections/PaymentsSections/PaymentsTableSection";
 
+// components
+import SnackbarAlert from '@components/common/SnackbarAlert';
+
 
 const Page = () => {
   // hooks
@@ -26,10 +29,15 @@ const Page = () => {
   const {
     payments,
     loading,
-    pageDetails,
     type,
+    pageDetails,
+    openSnackbar,
+    message,
+    severity,
+    setOpenSnackbar,
     handleFetchPayments,
     handleChangePaymentType,
+    handleCancelPayment
   } = useLogic();
 
   // use effect
@@ -44,14 +52,25 @@ const Page = () => {
 
   return (
     <Box sx={styles.root}>
+      {/* Collections table */}
       <PaymentsTableSection
         payments={payments}
         loading={loading}
         page={pageDetails.pageIndex}
         totalPages={pageDetails.totalPages}
+        onCancelPayment={handleCancelPayment}
         onPageChange={(event, value) => {
           navigate(`?pageIndex=${value}&type=${type}`);
         }}
+      />
+
+      {/* Snackbar Alert */}
+      <SnackbarAlert
+          open={openSnackbar}
+          onClose={() => setOpenSnackbar(false)}
+          message={message}
+          severity={severity}
+          duration={3000}
       />
     </Box>
   );

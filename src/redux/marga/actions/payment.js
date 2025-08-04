@@ -3,7 +3,7 @@ import {
     createPaymentService,
     getAllPaymentsService,
     getPaymentService,
-    deletePaymentService
+    cancelPaymentService
 } from '@services/api/payment';
 
 
@@ -40,12 +40,12 @@ export const getPaymentAction = (payload) => async () => {
 };
 
 
-// delete payment action
-export const deletePaymentAction = (payload) => async () => {
+// cancel payment action
+export const cancelPaymentAction = (payload) => async () => {
     try {
-        const res = await deletePaymentService(payload);
+        const res = await cancelPaymentService(payload);
         return res;
     } catch (err) {
         return { error: err.response?.data?.msg };
     }
-};
+}

@@ -14,6 +14,12 @@ import {
   Pagination,
 } from '@mui/material';
 
+// mui icons
+import CancelIcon from '@mui/icons-material/Cancel';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+
+
 // styles
 import styles from './styles';
 
@@ -29,6 +35,7 @@ const PaymentsTableSection = ({
   page,
   totalPages,
   onPageChange,
+  onCancelPayment
 }) => {
   if (loading) return <LoadingScreen />;
 
@@ -44,18 +51,36 @@ const PaymentsTableSection = ({
               <TableCell sx={styles.tableHeadCell}>OR #</TableCell>
               <TableCell sx={styles.tableHeadCell}>Amount</TableCell>
               <TableCell sx={styles.tableHeadCell}>Payment Mode</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {payments.length > 0 ? (
               payments.map((payment) => (
                 <TableRow key={payment.id} hover>
-                  <TableCell>{payment.collection?.billing?.department?.client_department_name || '-'}</TableCell>
+                  <TableCell>
+                    { payment.payment_is_cancelled && `(CANCELLED) `}
+                    {payment.collection?.billing?.department?.client_department_name || '-'}
+                  </TableCell>
                   <TableCell>{payment.payment_invoice_number || '-'}</TableCell>
                   <TableCell>{payment.payment_date ? new Date(payment.payment_date).toLocaleDateString() : '-'}</TableCell>
                   <TableCell>{payment.payment_or_number || '-'}</TableCell>
                   <TableCell>{formatPeso(parseFloat(payment.payment_amount))}</TableCell>
                   <TableCell>{capitalizeWords(payment.payment_mode) || '-'}</TableCell>
+                  <TableCell>
+                    <Tooltip title={payment.payment_is_cancelled ? "Already Cancelled" : "Cancel Payment"}>
+                      <span>
+                        <IconButton
+                          color="error"
+                          size="small"
+                          onClick={() => onCancelPayment(payment.id)}
+                          disabled={payment.payment_is_cancelled}
+                        >
+                          <CancelIcon />
+                        </IconButton>
+                      </span>
+                    </Tooltip>
+                  </TableCell>
                 </TableRow>
               ))
             ) : (

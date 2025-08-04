@@ -19,6 +19,10 @@ export const useLogic = () => {
     const [loading, setLoading] = useState(false);
     const [type, setType] = useState('');
 
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [message, setMessage] = useState('');
+    const [severity, setSeverity] = useState('success');
+
     const [pageDetails, setPageDetails] = useState({
         totalRecords: 0,
         pageIndex: 1,
@@ -76,13 +80,49 @@ export const useLogic = () => {
         navigate(`?type=${type}&page=1`);
     }, [handleFetchPayments]);
 
+    // Function to cancel payment
+
+    const handleCancelPayment = useCallback((paymentId) => {
+        if (loadingRef.current) return;
+        loadingRef.current = true;
+        setLoading(true);
+
+        dispatch(marga.payment.cancelPaymentAction({ id: paymentId }))
+            .then((res) => {
+                if (res.success) {
+                    setOpenSnackbar(true);
+                    setMessage(res.msg);
+                    setSeverity('success');
+                    handleFetchPayments(pageDetails.pageIndex, type);
+                } else {
+                    setOpenSnackbar(true);
+                    setMessage(res.error || 'Failed to cancel payment');
+                    setSeverity('error');
+                }
+            })
+            .catch((err) => {
+                setOpenSnackbar(true);
+                setMessage(err.response?.data?.msg || 'Error cancelling payment');
+                setSeverity('error');
+            })
+            .finally(() => {
+                loadingRef.current = false;
+                setLoading(false);
+            });
+    }, [dispatch]);
+
     // Return the necessary states and functions for use in the component
     return {
         payments,
         loading,
         type,
         pageDetails,
+        openSnackbar,
+        message,
+        severity,
+        setOpenSnackbar,
         handleFetchPayments,
         handleChangePaymentType,
+        handleCancelPayment
     };
 };
