@@ -10,6 +10,8 @@ const styles = {
       md: 600,     // medium screens
       lg: 700,     // large screens
     },
+    maxHeight: "95vh", // Limit the height of the modal
+    overflowY: "auto", // Enable vertical scroll when content overflows
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
