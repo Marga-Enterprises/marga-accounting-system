@@ -80,7 +80,7 @@ const PayCollectionFormModal = ({
 
         <Box component="form" onSubmit={onSubmit} sx={styles.form}>
           <TextField
-            label="Payment Date"
+            label="Date paid"
             name="payment_date"
             type="date"
             value={formValues.payment_date || ""}
