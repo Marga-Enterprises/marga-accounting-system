@@ -46,6 +46,8 @@ const PaymentsTableSection = ({
           <TableHead>
             <TableRow>
               <TableCell sx={styles.tableHeadCell}>Client</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Client TIN</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Client Department Address</TableCell>
               <TableCell sx={styles.tableHeadCell}>Invoice #</TableCell>
               <TableCell sx={styles.tableHeadCell}>Payment Date</TableCell>
               <TableCell sx={styles.tableHeadCell}>OR #</TableCell>
@@ -62,6 +64,8 @@ const PaymentsTableSection = ({
                     { payment.payment_is_cancelled && `(CANCELLED) `}
                     {payment.collection?.billing?.department?.client_department_name || '-'}
                   </TableCell>
+                  <TableCell>{payment.collection?.billing?.department?.client?.client_tin || '-'}</TableCell>
+                  <TableCell>{payment.collection?.billing?.department?.client_department_address || '-'}</TableCell>
                   <TableCell>{payment.payment_invoice_number || '-'}</TableCell>
                   <TableCell>{payment.payment_date ? new Date(payment.payment_date).toLocaleDateString() : '-'}</TableCell>
                   <TableCell>{payment.payment_or_number || '-'}</TableCell>

@@ -81,12 +81,14 @@ const CollectionsTableSection = ({
                         size="small" 
                         color="primary" 
                         onClick={() => onOpenPaymentModal(
-                          collection.id, 
-                          collection.collection_invoice_number, 
+                          collection.id,
+                          collection.collection_invoice_number,
                           collection.billing?.department?.client_department_name,
                           collection.collection_amount,
                           collection.collection_date,
-                          collection.billing?.billing_type
+                          collection.billing?.billing_type,
+                          collection.billing?.department?.client?.client_tin,
+                          collection.billing?.department?.client_department_address
                         )}
                       >
                         Pay

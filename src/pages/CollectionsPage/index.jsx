@@ -48,6 +48,7 @@ const Page = () => {
         collectionToPay,
         billingDate,
         invoiceCategory,
+        clientDepartmentAddress,
         setOpenSnackbar,
         handleFetchCollections,
         handleChangeStatus,
@@ -145,6 +146,7 @@ const Page = () => {
                 clientName={clientName}
                 collectionToPay={collectionToPay}
                 invoiceCategory={invoiceCategory}
+                clientDepartmentAddress={clientDepartmentAddress}
                 billingDate={billingDate}
             />
 

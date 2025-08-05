@@ -36,6 +36,7 @@ const PayCollectionFormModal = ({
   onSubmit,
   onFormChange,
   formValues,
+  clientDepartmentAddress
 }) => {
   const paymentMode = formValues.payment_mode;
 
@@ -53,6 +54,10 @@ const PayCollectionFormModal = ({
 
           <Typography variant="body2" sx={styles.invoiceInfoText}>
             <span style={styles.invoiceInfoLabel}>Client:</span> {clientName}
+          </Typography>
+
+          <Typography variant="body2" sx={styles.invoiceInfoText}>
+            <span style={styles.invoiceInfoLabel}>Client Department Address:</span> {clientDepartmentAddress}
           </Typography>
 
           <Typography variant="body2" sx={styles.invoiceInfoText}>
@@ -127,6 +132,16 @@ const PayCollectionFormModal = ({
               <MenuItem value="online_transfer">Online Transfer</MenuItem>
             </Select>
           </FormControl>
+
+          <TextField
+            label="Client TIN #"
+            name="payment_client_tin"
+            type="text"
+            value={formValues.payment_client_tin || ""}
+            onChange={onFormChange}
+            fullWidth
+            sx={styles.formField}
+          />
 
           {paymentMode === "cheque" && (
             <>

@@ -28,6 +28,7 @@ export const useLogic = () => {
     const [invoiceCategory, setInvoiceCategory] = useState('');
     const [collectionToPay, setCollectionToPay] = useState('');
     const [billingDate, setBillingDate] = useState('');
+    const [clientDepartmentAddress, setClientDepartmentAddress] = useState('');
 
     const [dateRange, setDateRange] = useState('');
     const [loading, setLoading] = useState(false);
@@ -57,6 +58,7 @@ export const useLogic = () => {
         payment_pdc_credit_date: '',
         payment_online_transfer_reference_number: '',
         payment_online_transfer_date: '',
+        payment_client_tin: '',
     });
 
     // callback functions
@@ -171,13 +173,19 @@ export const useLogic = () => {
                         payment_pdc_deposit_date: '',
                         payment_pdc_credit_date: '',
                         payment_online_transfer_reference_number: '',
-                        payment_online_transfer_date: ''
+                        payment_online_transfer_date: '',
+                        payment_client_tin: '',
                     });
 
                     // return success message
                     setOpenSnackbar(true);
                     setMessage(res.msg);
                     setSeverity('success');
+
+                    // delay and refresh the page
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
                 } else {
                     // return error message
                     setOpenSnackbar(true);
@@ -195,17 +203,28 @@ export const useLogic = () => {
     }, [dispatch, formValues, handleFetchCollections, pageDetails.pageIndex, status, dateRange]);
 
     // handle open/close modal
-    const handleOpenPayCollectionModal = useCallback((id, invoiceNumber, clientName, collectionToPay, billingDate, invoiceCategory) => {
+    const handleOpenPayCollectionModal = useCallback((
+        id, 
+        invoiceNumber, 
+        clientName, 
+        collectionToPay, 
+        billingDate, 
+        invoiceCategory, 
+        clientTin,
+        clientDepartmentAddress
+    ) => {
         setInvoiceNumber(invoiceNumber);
         setClientName(clientName);
         setCollectionToPay(collectionToPay);
         setBillingDate(billingDate);
         setInvoiceCategory(invoiceCategory);
+        setClientDepartmentAddress(clientDepartmentAddress);
 
         setOpenPayCollectionModal(true);
         setFormValues((prev) => ({
             ...prev,
             payment_collection_id: id,
+            payment_client_tin: clientTin || '',
         }));
     }, []);
 
@@ -232,6 +251,7 @@ export const useLogic = () => {
         collectionToPay,
         billingDate,
         invoiceCategory,
+        clientDepartmentAddress,
         setOpenSnackbar,
         handleFetchCollections,
         handleChangeStatus,
