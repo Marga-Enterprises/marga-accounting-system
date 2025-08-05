@@ -8,6 +8,16 @@ import { marga } from '@redux/combineActions';
 // react-router
 import { useNavigate } from 'react-router-dom';
 
+// XLSX
+import * as XLSX from 'xlsx';
+
+// file saver
+import { saveAs } from 'file-saver';
+
+// utils
+import { capitalizeWords } from '@utils/methods';
+
+
 export const useLogic = () => {
     // hooks
     const dispatch = useDispatch();
@@ -111,6 +121,34 @@ export const useLogic = () => {
             });
     }, [dispatch]);
 
+    // Function to export payments to Excel (DONT INCLUDE CANCELLED PAYMENTS)
+    const handleExportToExcel = useCallback(() => {
+        // Filter for cancelled payments only (optional)
+        const filteredPayments = payments.filter(payment => !payment.payment_is_cancelled);
+
+        // Transform data to match table headers
+        const exportData = filteredPayments.map(payment => ({
+            'Client': `${payment.payment_is_cancelled ? '(CANCELLED) ' : ''}${payment.collection?.billing?.department?.client_department_name || '-'}`,
+            'Client TIN': payment.collection?.billing?.department?.client?.client_tin || '-',
+            'Client Department Address': payment.collection?.billing?.department?.client_department_address || '-',
+            'Invoice #': payment.payment_invoice_number || '-',
+            'Date Paid': payment.payment_date ? new Date(payment.payment_date).toLocaleDateString() : '-',
+            'Posting Date': payment.payment_posting_date ? new Date(payment.payment_posting_date).toLocaleDateString() : '-',
+            'Collection Date': payment.payment_collection_date ? new Date(payment.payment_collection_date).toLocaleDateString() : '-',
+            'OR #': payment.payment_or_number || '-',
+            'Amount': payment.payment_amount ? `₱${parseFloat(payment.payment_amount).toFixed(2)}` : '-',
+            'Payment Mode': payment.payment_mode ? capitalizeWords(payment.payment_mode) : '-',
+        }));
+
+        const worksheet = XLSX.utils.json_to_sheet(exportData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Payments');
+
+        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+        saveAs(blob, 'payments.xlsx');
+    }, [payments]);
+
     // Return the necessary states and functions for use in the component
     return {
         payments,
@@ -123,6 +161,7 @@ export const useLogic = () => {
         setOpenSnackbar,
         handleFetchPayments,
         handleChangePaymentType,
-        handleCancelPayment
+        handleCancelPayment,
+        handleExportToExcel
     };
 };

@@ -12,6 +12,7 @@ import {
   TableRow,
   Paper,
   Pagination,
+  Button,
 } from '@mui/material';
 
 // mui icons
@@ -35,12 +36,24 @@ const PaymentsTableSection = ({
   page,
   totalPages,
   onPageChange,
-  onCancelPayment
+  onCancelPayment,
+  onExportExcel
 }) => {
   if (loading) return <LoadingScreen />;
 
   return (
     <Box sx={styles.root}>
+      <Box sx={styles.exportButtonWrapper}>
+        <Button
+          variant="outlined"
+          color="success"
+          sx={styles.exportButton}
+          onClick={onExportExcel}
+        >
+          Export to Excel
+        </Button>
+      </Box>
+
       <TableContainer component={Paper} sx={styles.tableContainer}>
         <Table size="small">
           <TableHead>

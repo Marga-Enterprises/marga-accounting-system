@@ -65,6 +65,17 @@ const styles = {
       md: '16px',
     },
   },
+
+  exportButtonWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    mb: 2,
+  },
+
+  exportButton: {
+    fontWeight: 'bold',
+    textTransform: 'none',
+  },
 };
 
 export default styles;

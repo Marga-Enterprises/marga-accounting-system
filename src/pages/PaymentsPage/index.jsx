@@ -37,7 +37,8 @@ const Page = () => {
     setOpenSnackbar,
     handleFetchPayments,
     handleChangePaymentType,
-    handleCancelPayment
+    handleCancelPayment,
+    handleExportToExcel
   } = useLogic();
 
   // use effect
@@ -57,6 +58,7 @@ const Page = () => {
         payments={payments}
         loading={loading}
         page={pageDetails.pageIndex}
+        onExportExcel={handleExportToExcel}
         totalPages={pageDetails.totalPages}
         onCancelPayment={handleCancelPayment}
         onPageChange={(event, value) => {
