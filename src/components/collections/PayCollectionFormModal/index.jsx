@@ -91,6 +91,28 @@ const PayCollectionFormModal = ({
           />
 
           <TextField
+            label="Posting Date"
+            name="payment_posting_date"
+            type="date"
+            value={formValues.payment_posting_date || ""}
+            onChange={onFormChange}
+            fullWidth
+            InputLabelProps={{ shrink: true }}
+            sx={styles.formField}
+          />
+
+          <TextField
+            label="Collection Date"
+            name="payment_collection_date"
+            type="date"
+            value={formValues.payment_collection_date || ""}
+            onChange={onFormChange}
+            fullWidth
+            InputLabelProps={{ shrink: true }}
+            sx={styles.formField}
+          />
+
+          <TextField
             label="OR Number"
             name="payment_or_number"
             value={formValues.payment_or_number || ""}

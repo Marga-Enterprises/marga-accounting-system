@@ -50,6 +50,8 @@ const PaymentsTableSection = ({
               <TableCell sx={styles.tableHeadCell}>Client Department Address</TableCell>
               <TableCell sx={styles.tableHeadCell}>Invoice #</TableCell>
               <TableCell sx={styles.tableHeadCell}>Payment Date</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Posting Date</TableCell>
+              <TableCell sx={styles.tableHeadCell}>Collection Date</TableCell>
               <TableCell sx={styles.tableHeadCell}>OR #</TableCell>
               <TableCell sx={styles.tableHeadCell}>Amount</TableCell>
               <TableCell sx={styles.tableHeadCell}>Payment Mode</TableCell>
@@ -68,6 +70,8 @@ const PaymentsTableSection = ({
                   <TableCell>{payment.collection?.billing?.department?.client_department_address || '-'}</TableCell>
                   <TableCell>{payment.payment_invoice_number || '-'}</TableCell>
                   <TableCell>{payment.payment_date ? new Date(payment.payment_date).toLocaleDateString() : '-'}</TableCell>
+                  <TableCell>{payment.payment_posting_date ? new Date(payment.payment_posting_date).toLocaleDateString() : '-'}</TableCell>
+                  <TableCell>{payment.payment_collection_date ? new Date(payment.payment_collection_date).toLocaleDateString() : '-'}</TableCell>
                   <TableCell>{payment.payment_or_number || '-'}</TableCell>
                   <TableCell>{formatPeso(parseFloat(payment.payment_amount))}</TableCell>
                   <TableCell>{capitalizeWords(payment.payment_mode) || '-'}</TableCell>

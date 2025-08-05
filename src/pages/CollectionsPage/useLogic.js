@@ -58,6 +58,8 @@ export const useLogic = () => {
         payment_pdc_credit_date: '',
         payment_online_transfer_reference_number: '',
         payment_online_transfer_date: '',
+        payment_posting_date: '',
+        payment_collection_date: '',
         payment_client_tin: '',
     });
 
@@ -170,6 +172,8 @@ export const useLogic = () => {
                         payment_pdc_number: '',
                         payment_pdc_date: '',
                         payment_date: '',
+                        payment_posting_date: '',
+                        payment_collection_date: '',
                         payment_pdc_deposit_date: '',
                         payment_pdc_credit_date: '',
                         payment_online_transfer_reference_number: '',
