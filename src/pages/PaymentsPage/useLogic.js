@@ -51,7 +51,7 @@ export const useLogic = () => {
         // Dispatch the action to fetch payments
         dispatch(marga.payment.getAllPaymentsAction({
             pageIndex,
-            pageSize: 10,
+            pageSize: 5,
             type: type || '',
             search: search || ''
         }))

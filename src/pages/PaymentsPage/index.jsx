@@ -44,7 +44,7 @@ const Page = () => {
   // use effect
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
-    const currentPage = parseInt(queryParams.get("pageIndex")) || 1;
+    const currentPage = parseInt(queryParams.get("page")) || 1;
     const search = queryParams.get("search") || "";
     const type = queryParams.get("type") || "";
 
@@ -61,8 +61,10 @@ const Page = () => {
         onExportExcel={handleExportToExcel}
         totalPages={pageDetails.totalPages}
         onCancelPayment={handleCancelPayment}
-        onPageChange={(event, value) => {
-          navigate(`?pageIndex=${value}&type=${type}`);
+        onPageChange={(newPage) => {
+            const params = new URLSearchParams(location.search);
+            params.set('page', newPage);
+            navigate(`?${params.toString()}`);
         }}
       />
 
