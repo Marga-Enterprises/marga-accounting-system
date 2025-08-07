@@ -10,7 +10,6 @@ import LoginPage from '@pages/LoginPage';
 import HomePage from '@pages/HomePage';
 import DefaultPage from '@pages/DefaultPage';
 import ClientsPage from '@pages/ClientsPage';
-import ClientBranchesPage from '@pages/ClientBranchesPage';
 import ClientDepartmentsPage from '@pages/ClientDepartmentsPage';
 import PrintInvoicePage from '@pages/PrintInvoicePage';
 import BillingsPage from '@pages/BillingsPage';
@@ -58,18 +57,6 @@ function AppRoutes() {
         }
       >
         <Route index element={<ClientsPage />} />
-      </Route>
-
-      {/* ClientBranchesPage Route */}
-      <Route
-        path="/client/branches/:id"
-        element={
-          <AuthRouter>
-            <MainLayout />
-          </AuthRouter>
-        }
-      >
-        <Route index element={<ClientBranchesPage />} />
       </Route>
 
       {/* ClientDepartmentsPage Route */}

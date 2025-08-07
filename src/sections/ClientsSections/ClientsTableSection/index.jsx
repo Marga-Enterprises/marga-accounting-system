@@ -83,22 +83,13 @@ const ClientsTableSection = ({
                   <TableCell>
                     <Stack direction="row" spacing={1}>
                       <Button
-                        variant="outlined"
-                        size="small"
-                        color="primary"
-                        component={RouterLink}
-                        to={`/client/branches/${client.id}`}
-                      >
-                        View Branches
-                      </Button>
-                      <Button
                         variant="contained"
                         size="small"
                         color="primary"
                         component={RouterLink}
                         to={`/client/departments/${client.id}`}
                       >
-                        View Departments
+                        View Departments/Branches
                       </Button>
                     </Stack>
                   </TableCell>

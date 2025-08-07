@@ -1,6 +1,6 @@
 const styles = {
   root: {
-    p: { xs: 2, sm: 3 },
+    p: { xs: 2, sm: 3 }, // Responsive padding
   },
 
   header: {
@@ -11,30 +11,42 @@ const styles = {
   },
 
   tableContainer: {
+    border: '1px solid #e0e0e0', // Subtle border
     borderRadius: 2,
     overflow: 'hidden',
     boxShadow: 2,
+    width: '100%',
+    backgroundColor: '#fff',
+    '@media (max-width: 600px)': {
+      boxShadow: 'none', // Clean mobile look
+    },
   },
 
   tableHeadCell: {
     fontWeight: 'bold',
     backgroundColor: '#f4f6f8',
-    fontSize: 14,
+    fontSize: {
+      xs: 12,
+      sm: 13,
+      md: 14,
+    },
+    borderBottom: '1px solid #ddd',
   },
 
   selectStatus: {
     minWidth: 120,
     textTransform: 'capitalize',
+    fontSize: {
+      xs: 12,
+      sm: 13,
+      md: 14,
+    },
   },
 
   pagination: {
     mt: 3,
     display: 'flex',
     justifyContent: 'center',
-  },
-  selectStatus: {
-    minWidth: 120,
-    textTransform: 'capitalize',
   },
 
   statusDot: {

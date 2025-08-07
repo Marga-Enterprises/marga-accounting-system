@@ -15,6 +15,8 @@ import styles from "./styles";
 
 // sections
 import PaymentsTableSection from "@sections/PaymentsSections/PaymentsTableSection";
+import PaymentsFilterForm from "@sections/PaymentsSections/PaymentsFilterForm";
+import PaymentsSearchForm from "@sections/PaymentsSections/PaymentSearchForm";
 
 // components
 import SnackbarAlert from '@components/common/SnackbarAlert';
@@ -34,10 +36,12 @@ const Page = () => {
     openSnackbar,
     message,
     severity,
+    dateRange,
     setOpenSnackbar,
     handleFetchPayments,
     handleChangePaymentType,
     handleCancelPayment,
+    handleChangeDateRange,
     handleExportToExcel
   } = useLogic();
 
@@ -47,12 +51,36 @@ const Page = () => {
     const currentPage = parseInt(queryParams.get("page")) || 1;
     const search = queryParams.get("search") || "";
     const type = queryParams.get("type") || "";
+    const startDate = queryParams.get("startDate") || '';
+    const endDate = queryParams.get("endDate") || '';
 
-    handleFetchPayments(currentPage, type, search); 
-  }, [location.search, handleChangePaymentType]);
+    handleFetchPayments(currentPage, type, search, startDate, endDate);
+  }, [location.search, handleFetchPayments]);
 
   return (
     <Box sx={styles.root}>
+      <Box sx={styles.headerSection}>
+        {/* Payments Filter Form */}
+        <PaymentsFilterForm
+          type={type}
+          dateRange={dateRange}
+          onChangeType={handleChangePaymentType}
+          onChangeDateRange={handleChangeDateRange}
+        />
+
+        {/* Payments Search Form */}
+        <PaymentsSearchForm
+          searched={new URLSearchParams(location.search).get("search") || ''}
+          onSubmitSearch={(searchText) => {
+              searchText ? navigate(`?search=${searchText}&page=1`) : navigate('?page=1');
+          }}
+          onClearSearch={() => {
+              navigate('?page=1');
+          }}
+        />
+      </Box>
+
+
       {/* Collections table */}
       <PaymentsTableSection
         payments={payments}

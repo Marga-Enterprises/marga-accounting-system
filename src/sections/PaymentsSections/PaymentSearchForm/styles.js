@@ -7,49 +7,34 @@ const styles = {
     direction: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    mb: 2,
   },
 
+  // ✅ Add scroll support and mobile-friendly boxShadow
   tableContainer: {
     borderRadius: 2,
-    overflow: 'hidden',
+    overflowX: 'auto', // horizontal scroll on small screens
     boxShadow: 2,
+    width: '100%',
+    '@media (max-width: 600px)': {
+      boxShadow: 'none',
+    },
   },
 
+  // ✅ Make table header text responsive
   tableHeadCell: {
     fontWeight: 'bold',
     backgroundColor: '#f4f6f8',
-    fontSize: 14,
-  },
-
-  selectStatus: {
-    minWidth: 120,
-    textTransform: 'capitalize',
+    fontSize: {
+      xs: '12px',  // Mobile
+      sm: '13px',  // Tablet
+      md: '14px',  // Desktop
+    },
   },
 
   pagination: {
     mt: 3,
     display: 'flex',
     justifyContent: 'center',
-  },
-  
-  selectStatus: {
-    minWidth: 120,
-    textTransform: 'capitalize',
-  },
-
-  statusDot: {
-    width: 10,
-    height: 10,
-    borderRadius: '50%',
-  },
-
-  statusDotActive: {
-    backgroundColor: 'success.main',
-  },
-
-  statusDotInactive: {
-    backgroundColor: 'error.main',
   },
 };
 

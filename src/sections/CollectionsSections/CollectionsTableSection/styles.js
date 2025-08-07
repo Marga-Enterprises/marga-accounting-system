@@ -10,26 +10,39 @@ const styles = {
     mb: 2,
   },
 
-  // ✅ Add scroll support and mobile-friendly boxShadow
   tableContainer: {
     borderRadius: 2,
-    overflowX: 'auto', // horizontal scroll on small screens
+    overflowX: 'auto',
     boxShadow: 2,
+    border: '1px solid #e0e0e0', // Add light border to table container
     width: '100%',
     '@media (max-width: 600px)': {
       boxShadow: 'none',
     },
   },
 
-  // ✅ Make table header text responsive
+  // Header cell styles
   tableHeadCell: {
     fontWeight: 'bold',
     backgroundColor: '#f4f6f8',
+    border: '1px solid #e0e0e0',
     fontSize: {
-      xs: '12px',  // Mobile
-      sm: '13px',  // Tablet
-      md: '14px',  // Desktop
+      xs: '11px',
+      sm: '12px',
+      md: '13px',
     },
+    whiteSpace: 'nowrap',
+  },
+
+  // Body cell styles
+  tableBodyCell: {
+    fontSize: {
+      xs: '11px',
+      sm: '12px',
+      md: '13px',
+    },
+    border: '1px solid #e0e0e0',
+    whiteSpace: 'nowrap',
   },
 
   pagination: {
@@ -38,7 +51,7 @@ const styles = {
     justifyContent: 'center',
   },
 
-    totalCollectionsBox: {
+  totalCollectionsBox: {
     mb: 2,
     display: 'flex',
     justifyContent: 'flex-end',

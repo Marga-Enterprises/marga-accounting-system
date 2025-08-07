@@ -11,10 +11,12 @@ const styles = {
   },
 
   tableContainer: {
+    border: '1px solid #e0e0e0', // Add subtle border
     borderRadius: 2,
     overflowX: 'auto', // Enable horizontal scroll on small screens
     boxShadow: 2,
     width: '100%',
+    backgroundColor: '#fff',
     '@media (max-width: 600px)': {
       boxShadow: 'none', // Cleaner UI on mobile
     },
@@ -28,6 +30,7 @@ const styles = {
       sm: '13px', // Tablet
       md: '14px', // Desktop
     },
+    borderBottom: '1px solid #ddd', // Optional: separates header visually
   },
 
   pagination: {

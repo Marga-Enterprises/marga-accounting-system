@@ -15,7 +15,8 @@ const styles = {
     overflow: 'hidden',
     boxShadow: 2,
     width: '100%',
-    overflowX: 'auto', // Optional: for scroll support
+    overflowX: 'auto',
+    border: '1px solid #e0e0e0',
     '@media (max-width: 600px)': {
       boxShadow: 'none',
     },
@@ -24,11 +25,23 @@ const styles = {
   tableHeadCell: {
     fontWeight: 'bold',
     backgroundColor: '#f4f6f8',
+    border: '1px solid #e0e0e0',
     fontSize: {
-      xs: '12px',
-      sm: '13px',
-      md: '14px',
+      xs: '11px',
+      sm: '12px',
+      md: '13px',
     },
+    whiteSpace: 'nowrap',
+  },
+
+  tableBodyCell: {
+    fontSize: {
+      xs: '11px',
+      sm: '12px',
+      md: '13px',
+    },
+    border: '1px solid #e0e0e0',
+    whiteSpace: 'nowrap',
   },
 
   selectStatus: {

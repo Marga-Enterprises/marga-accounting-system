@@ -1,16 +1,23 @@
 const styles = {
   tableContainer: {
     mb: 4,
-    p: { xs: 1, sm: 2 }, // Responsive padding: smaller on mobile
+    p: { xs: 1, sm: 2 },
     width: '100%',
-    overflowX: 'auto', // Enable horizontal scroll on small screens
+    overflowX: 'auto',
+    border: '1px solid #e0e0e0',
+    borderRadius: 2,
+    boxShadow: 2,
+    backgroundColor: '#fff',
+    '@media (max-width: 600px)': {
+      boxShadow: 'none',
+    },
   },
 
   buttonContainer: {
     display: 'flex',
     justifyContent: 'flex-end',
-    mb: { xs: 1, sm: 2 }, // Responsive bottom margin
-    gap: { xs: 1, sm: 2 }, // Optional: spacing between buttons if there are multiple
+    mb: { xs: 1, sm: 2 },
+    gap: { xs: 1, sm: 2 },
   },
 };
 

@@ -15,7 +15,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 // utils
-import { capitalizeWords } from '@utils/methods';
+import { capitalizeWords, convertDate } from '@utils/methods';
 
 
 export const useLogic = () => {
@@ -39,11 +39,16 @@ export const useLogic = () => {
         totalPages: 0,
     });
 
+    const [dateRange, setDateRange] = useState({
+        startDate: '',
+        endDate: '',
+    });
+
     // callback functions
 
 
     // Function to fetch payments based on the page index and type
-    const handleFetchPayments = useCallback((pageIndex, type, search) => {
+    const handleFetchPayments = useCallback((pageIndex, type, search, startDate, endDate) => {
         if (loadingRef.current) return;
         loadingRef.current = true;
         setLoading(true);
@@ -51,9 +56,11 @@ export const useLogic = () => {
         // Dispatch the action to fetch payments
         dispatch(marga.payment.getAllPaymentsAction({
             pageIndex,
-            pageSize: 5,
+            pageSize: 100,
             type: type || '',
-            search: search || ''
+            search: search || '',
+            startDate: startDate || '',
+            endDate: endDate || '',
         }))
             .then((res) => {
                 if (res.success) {
@@ -149,6 +156,37 @@ export const useLogic = () => {
         saveAs(blob, 'payments.xlsx');
     }, [payments]);
 
+    // handle date range change
+    const handleChangeDateRange = useCallback((startDate, endDate) => {
+        // Always update UI state immediately
+        setDateRange({
+            startDate,
+            endDate,
+        });
+
+        // Skip fetch logic unless both dates are filled
+        if (!startDate || !endDate) return;
+
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+
+        // Prevent invalid ranges (start after end)
+        if (start > end) {
+            console.warn("Start date is after end date. Aborting fetch.");
+            return;
+        }
+
+        // Reset pagination and trigger fetch
+        setPageDetails((prev) => ({
+            ...prev,
+            pageIndex: 1,
+        }));
+
+        navigate(`?startDate=${startDate}&endDate=${endDate}&page=1`);
+        handleFetchPayments(1, type, '', startDate, endDate);
+    }, [handleFetchPayments, type, navigate]);
+
+
     // Return the necessary states and functions for use in the component
     return {
         payments,
@@ -158,10 +196,12 @@ export const useLogic = () => {
         openSnackbar,
         message,
         severity,
+        dateRange,
         setOpenSnackbar,
         handleFetchPayments,
         handleChangePaymentType,
         handleCancelPayment,
+        handleChangeDateRange,
         handleExportToExcel
     };
 };
