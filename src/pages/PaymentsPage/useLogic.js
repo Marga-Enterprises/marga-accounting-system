@@ -15,7 +15,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 // utils
-import { capitalizeWords, convertDate } from '@utils/methods';
+import { capitalizeWords } from '@utils/methods';
 
 
 export const useLogic = () => {
@@ -23,6 +23,14 @@ export const useLogic = () => {
     const dispatch = useDispatch();
     const loadingRef = useRef(null);
     const navigate = useNavigate();
+
+    // constants
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // months are 0-indexed
+    const dd = String(today.getDate()).padStart(2, '0');
+    const filename = `payments_report_${yyyy}${mm}${dd}.xlsx`;
+
 
     // states
     const [payments, setPayments] = useState([]);
@@ -153,7 +161,7 @@ export const useLogic = () => {
 
         const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-        saveAs(blob, 'payments.xlsx');
+        saveAs(blob, filename);
     }, [payments]);
 
     // handle date range change
