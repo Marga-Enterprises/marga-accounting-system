@@ -19,7 +19,7 @@ import {
 import CancelIcon from '@mui/icons-material/Cancel';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-
+import EditIcon from '@mui/icons-material/Edit';
 
 // styles
 import styles from './styles';
@@ -37,7 +37,8 @@ const PaymentsTableSection = ({
   totalPages,
   onPageChange,
   onCancelPayment,
-  onExportExcel
+  onExportExcel,
+  onOpenUpdatePaymentModal
 }) => {
   if (loading) return <LoadingScreen />;
 
@@ -75,22 +76,51 @@ const PaymentsTableSection = ({
             {payments.length > 0 ? (
               payments.map((payment) => (
                 <TableRow key={payment.id} hover>
-                  <TableCell>
-                    { payment.payment_is_cancelled && `(CANCELLED) `}
+                  <TableCell sx={styles.tableBodyCell}>
+                    {payment.payment_is_cancelled && `(CANCELLED) `}
                     {payment.collection?.billing?.department?.client_department_name || '-'}
                   </TableCell>
-                  <TableCell>{payment.collection?.billing?.department?.client?.client_tin || '-'}</TableCell>
-                  <TableCell>{payment.collection?.billing?.department?.client_department_address || '-'}</TableCell>
-                  <TableCell>{payment.payment_invoice_number || '-'}</TableCell>
-                  <TableCell>{payment.payment_date ? new Date(payment.payment_date).toLocaleDateString() : '-'}</TableCell>
-                  <TableCell>{payment.payment_posting_date ? new Date(payment.payment_posting_date).toLocaleDateString() : '-'}</TableCell>
-                  <TableCell>{payment.payment_collection_date ? new Date(payment.payment_collection_date).toLocaleDateString() : '-'}</TableCell>
-                  <TableCell>{payment.payment_or_number || '-'}</TableCell>
-                  <TableCell>{formatPeso(parseFloat(payment.payment_amount))}</TableCell>
-                  <TableCell>{capitalizeWords(payment.payment_mode) || '-'}</TableCell>
-                  <TableCell>
-                    <Tooltip title={payment.payment_is_cancelled ? "Already Cancelled" : "Cancel Payment"}>
-                      <span>
+                  <TableCell sx={styles.tableBodyCell}>
+                    {payment.collection?.billing?.department?.client?.client_tin || '-'}
+                  </TableCell>
+                  <TableCell sx={styles.tableBodyCell}>
+                    {payment.collection?.billing?.department?.client_department_address || '-'}
+                  </TableCell>
+                  <TableCell sx={styles.tableBodyCell}>
+                    {payment.payment_invoice_number || '-'}
+                  </TableCell>
+                  <TableCell sx={styles.tableBodyCell}>
+                    {payment.payment_date ? new Date(payment.payment_date).toLocaleDateString() : '-'}
+                  </TableCell>
+                  <TableCell sx={styles.tableBodyCell}>
+                    {payment.payment_posting_date ? new Date(payment.payment_posting_date).toLocaleDateString() : '-'}
+                  </TableCell>
+                  <TableCell sx={styles.tableBodyCell}>
+                    {payment.payment_collection_date ? new Date(payment.payment_collection_date).toLocaleDateString() : '-'}
+                  </TableCell>
+                  <TableCell sx={styles.tableBodyCell}>
+                    {payment.payment_or_number || '-'}
+                  </TableCell>
+                  <TableCell sx={styles.tableBodyCell}>
+                    {formatPeso(parseFloat(payment.payment_amount))}
+                  </TableCell>
+                  <TableCell sx={styles.tableBodyCell}>
+                    {capitalizeWords(payment.payment_mode) || '-'}
+                  </TableCell>
+                  <TableCell sx={styles.tableBodyCell}>
+                    <Box sx={styles.actionBox}>
+                      <Tooltip title="Edit Payment">
+                        <IconButton
+                          color="primary"
+                          size="small"
+                          onClick={() => onOpenUpdatePaymentModal(payment.id)}
+                          disabled={payment.payment_is_cancelled}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      </Tooltip>
+
+                      <Tooltip title={payment.payment_is_cancelled ? "Already Cancelled" : "Cancel Payment"}>
                         <IconButton
                           color="error"
                           size="small"
@@ -99,14 +129,14 @@ const PaymentsTableSection = ({
                         >
                           <CancelIcon />
                         </IconButton>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={3} align="center">
+                <TableCell colSpan={11} align="center" sx={styles.tableBodyCell}>
                   No payments found.
                 </TableCell>
               </TableRow>

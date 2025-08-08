@@ -33,41 +33,12 @@ const styles = {
       md: '13px',
     },
     border: '1px solid #e0e0e0',
-    whiteSpace: 'nowrap',
   },
 
   pagination: {
     mt: 3,
     display: 'flex',
     justifyContent: 'center',
-  },
-
-  totalCollectionsBox: {
-    mb: 2,
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    gap: 1,
-  },
-
-  totalCollectionsLabel: {
-    fontWeight: 500,
-    color: 'text.secondary',
-    fontSize: {
-      xs: '12px',
-      sm: '13px',
-      md: '14px',
-    },
-  },
-
-  totalCollectionsValue: {
-    fontWeight: 'bold',
-    color: 'success.main',
-    fontSize: {
-      xs: '13px',
-      sm: '15px',
-      md: '16px',
-    },
   },
 
   exportButtonWrapper: {
@@ -80,6 +51,11 @@ const styles = {
     fontWeight: 'bold',
     textTransform: 'none',
   },
+
+  actionBox: {
+    display: 'flex',
+    height: '100%',
+  }
 };
 
 export default styles;

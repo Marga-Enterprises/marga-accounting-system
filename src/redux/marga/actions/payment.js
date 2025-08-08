@@ -3,6 +3,7 @@ import {
     createPaymentService,
     getAllPaymentsService,
     getPaymentService,
+    updatePaymentService,
     cancelPaymentService
 } from '@services/api/payment';
 
@@ -38,6 +39,17 @@ export const getPaymentAction = (payload) => async () => {
         return { error: err.response?.data?.msg };
     }
 };
+
+
+// update payment action
+export const updatePaymentAction = (payload) => async () => {
+    try {
+        const res = await updatePaymentService(payload);
+        return res;
+    } catch (err) {
+        return { error: err.response?.data?.msg };
+    }
+}
 
 
 // cancel payment action

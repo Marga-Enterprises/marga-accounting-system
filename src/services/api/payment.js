@@ -2,7 +2,7 @@
 import * as methods from '@utils/methods';
 
 // requests
-import { POST, GET } from '@services/request';
+import { POST, GET, PUT } from '@services/request';
 
 export async function createPaymentService(payload) {
     return POST('/payment', payload);
@@ -17,6 +17,9 @@ export async function getPaymentService(payload) {
     return GET(`/payment/${payload.id}`);
 };
 
+export async function updatePaymentService(payload) {
+    return PUT(`/payment/${payload.id}`, payload);
+};
 
 export async function cancelPaymentService(payload) {
     return POST(`/payment/cancel/${payload.id}`, payload);

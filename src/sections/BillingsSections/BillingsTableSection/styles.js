@@ -60,11 +60,12 @@ const styles = {
   },
 
   totalBillingsBox: {
-    mb: 2,
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 1,
+    flexWrap: 'wrap',
+    gap: 2,
+    mb: 2,
   },
 
   totalBillingsLabel: {

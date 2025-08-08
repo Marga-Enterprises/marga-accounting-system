@@ -20,6 +20,7 @@ import PaymentsSearchForm from "@sections/PaymentsSections/PaymentSearchForm";
 
 // components
 import SnackbarAlert from '@components/common/SnackbarAlert';
+import UpdatePaymentFormModal from '@components/payments/UpdatePaymentFormModal';
 
 
 const Page = () => {
@@ -32,17 +33,22 @@ const Page = () => {
     payments,
     loading,
     type,
-    pageDetails,
+    showUpdatePaymentModal,
     openSnackbar,
     message,
     severity,
+    paymentDetails,
+    pageDetails,
     dateRange,
-    setOpenSnackbar,
     handleFetchPayments,
     handleChangePaymentType,
     handleCancelPayment,
+    handleExportToExcel,
     handleChangeDateRange,
-    handleExportToExcel
+    handleChangePaymentDetails,
+    handleSavePaymentDetails,
+    handleOpenUpdatePaymentModal,
+    handleCloseUpdatePaymentModal
   } = useLogic();
 
   // use effect
@@ -56,6 +62,7 @@ const Page = () => {
 
     handleFetchPayments(currentPage, type, search, startDate, endDate);
   }, [location.search, handleFetchPayments]);
+
 
   return (
     <Box sx={styles.root}>
@@ -89,6 +96,7 @@ const Page = () => {
         onExportExcel={handleExportToExcel}
         totalPages={pageDetails.totalPages}
         onCancelPayment={handleCancelPayment}
+        onOpenUpdatePaymentModal={handleOpenUpdatePaymentModal}
         onPageChange={(newPage) => {
             const params = new URLSearchParams(location.search);
             params.set('page', newPage);
@@ -103,6 +111,21 @@ const Page = () => {
           message={message}
           severity={severity}
           duration={3000}
+      />
+
+      {/* Update Payment Form Modal */}
+      <UpdatePaymentFormModal
+        open={showUpdatePaymentModal}
+        onClose={handleCloseUpdatePaymentModal}
+        invoiceNumber={paymentDetails?.payment_invoice_number}
+        clientName={paymentDetails?.payment_client_name}
+        collectionToPay={paymentDetails?.payment_collection_amount}
+        billingDate={paymentDetails?.payment_billing_date}
+        invoiceCategory={paymentDetails?.payment_billing_cateogory}
+        clientDepartmentAddress={paymentDetails?.payment_client_department_address}
+        formValues={paymentDetails}
+        onFormChange={handleChangePaymentDetails}
+        onSubmit={handleSavePaymentDetails}
       />
     </Box>
   );

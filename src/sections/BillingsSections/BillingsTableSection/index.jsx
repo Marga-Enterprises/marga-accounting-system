@@ -31,6 +31,8 @@ import { formatPeso } from '@utils/methods';
 const BillingsTableSection = ({
   billings,
   totalBillings,
+  totalBilledDepartments,
+  totalDepartments,
   loading,
   page,
   totalPages,
@@ -41,15 +43,26 @@ const BillingsTableSection = ({
   return (
     <Box sx={styles.root}>
       <Box sx={styles.totalBillingsBox}>
-        <Typography variant="subtitle1" sx={styles.totalBillingsLabel}>
-          Billing Total For This Month:
-        </Typography>
-        <Typography variant="h6" sx={styles.totalBillingsValue}>
-          ₱{Number(totalBillings).toLocaleString('en-PH', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
-        </Typography>
+        <Box>
+          <Typography variant="subtitle1" sx={styles.totalBillingsLabel}>
+            Billing Total For This Month:
+          </Typography>
+          <Typography variant="h6" sx={styles.totalBillingsValue}>
+            ₱{Number(totalBillings).toLocaleString('en-PH', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </Typography>
+        </Box>
+
+        <Box sx={{ textAlign: 'right' }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 500, color: 'text.secondary' }}>
+            Billed Departments This Month:
+          </Typography>
+          <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+            {totalBilledDepartments} / {totalDepartments}
+          </Typography>
+        </Box>
       </Box>
 
       <TableContainer component={Paper} sx={styles.tableContainer}>

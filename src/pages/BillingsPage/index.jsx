@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useLogic } from './useLogic';
 
 // mui
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 // styles
 import styles from './styles';
@@ -32,6 +32,8 @@ const Page = () => {
         month,
         year,
         totalBillings,
+        totalBilledDepartments,
+        totalDepartments,
         handleFetchBillings,
         handleMonthChange,
         handleYearChange,
@@ -79,6 +81,8 @@ const Page = () => {
                 billings={billings}
                 page={pageDetails.pageIndex}
                 totalBillings={totalBillings}
+                totalBilledDepartments={totalBilledDepartments}
+                totalDepartments={totalDepartments}
                 totalPages={pageDetails.totalPages}
                 onPageChange={(newPage) => {
                     const params = new URLSearchParams(location.search);

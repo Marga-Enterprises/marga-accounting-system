@@ -2,6 +2,7 @@
 import {
     createBillingService,
     getBillingsService,
+    getUnbilledDepartmentsService,
     getBillingService,
     updateBillingService,
     deleteBillingService,
@@ -35,6 +36,17 @@ export const createBulkBillingsAction = (payload) => async () => {
 export const getBillingsAction = (payload) => async () => {
     try {
         const res = await getBillingsService(payload);
+        return res;
+    } catch (err) {
+        return { error: err.response?.data?.msg };
+    }
+};
+
+
+// get unbilled departments action
+export const getUnbilledDepartmentsAction = (payload) => async () => {
+    try {
+        const res = await getUnbilledDepartmentsService(payload);
         return res;
     } catch (err) {
         return { error: err.response?.data?.msg };

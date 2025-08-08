@@ -17,6 +17,11 @@ export async function getBillingsService(payload) {
     return GET(`/billing?${params}`);
 }
 
+export async function getUnbilledDepartmentsService(payload) {
+    const params = methods.convertQueryString(payload);
+    return GET(`/billing/unbilled-departments?${params}`);
+}
+
 export async function getBillingService(payload) {
     return GET(`/billing/${payload.id}`);
 }
