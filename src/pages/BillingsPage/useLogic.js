@@ -27,6 +27,8 @@ export const useLogic = () => {
     const [month, setMonth] = useState(monthNow);
     const [year, setYear] = useState(yearNow);
     const [totalBillings, setTotalBillings] = useState(0);
+    const [openUnbilledDepartmentsModal, setOpenUnbilledDepartmentsModal] = useState(false);
+    const [unbilledDepartments, setUnbilledDepartments] = useState([]);
     const [totalBilledDepartments, setTotalBilledDepartments] = useState(0);
     const [totalDepartments, setTotalDepartments] = useState(0);
     const [pageDetails, setPageDetails] = useState({
@@ -103,6 +105,43 @@ export const useLogic = () => {
         handleFetchBillings(1, month, newYear);
     }, [handleFetchBillings, month]);
 
+    const handleFetchUnbilledDeparments = useCallback((month, year) => {
+        if (loadingRef.current) return;
+        loadingRef.current = true;
+        setLoading(true);
+
+        // Dispatch the action to fetch unbilled departments
+        dispatch(marga.billing.getUnbilledDepartmentsAction({
+            billingMonth: convertMonthToName(month),
+            billingYear: year
+        }))
+            .then((res) => {
+                if (res.success) {
+                    setUnbilledDepartments(res.data.unbilledDepartments || []);
+                } else {
+                    console.error('Failed to fetch unbilled departments:', res.payload);
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching unbilled departments:', error);
+            })
+            .finally(() => {
+                setLoading(false);
+                loadingRef.current = false;
+            });
+    }, [dispatch]);
+
+    const handleShowUnbilledDepartmentsModal = useCallback((month, year) => {
+        // Fetch unbilled departments before opening the modal
+        handleFetchUnbilledDeparments(month, year);
+
+        setOpenUnbilledDepartmentsModal(true);
+    }, [handleFetchUnbilledDeparments]);
+
+    const handleCloseUnbilledDepartmentsModal = useCallback(() => {
+        setOpenUnbilledDepartmentsModal(false);
+    }, [handleFetchUnbilledDeparments]);
+
     // Return the necessary states and functions for use in the component
     return {
         billings,
@@ -113,9 +152,14 @@ export const useLogic = () => {
         totalBillings,
         totalBilledDepartments,
         totalDepartments,
+        unbilledDepartments,
+        openUnbilledDepartmentsModal,
         handleFetchBillings,
         handleMonthChange,
         handleYearChange,
+        handleFetchUnbilledDeparments,
+        handleShowUnbilledDepartmentsModal,
+        handleCloseUnbilledDepartmentsModal
     };
 };
 

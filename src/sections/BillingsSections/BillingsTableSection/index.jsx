@@ -30,6 +30,8 @@ import { formatPeso } from '@utils/methods';
 
 const BillingsTableSection = ({
   billings,
+  month,
+  year,
   totalBillings,
   totalBilledDepartments,
   totalDepartments,
@@ -37,6 +39,7 @@ const BillingsTableSection = ({
   page,
   totalPages,
   onPageChange,
+  onOpenUnbilledDepartmentsModal,
 }) => {
   if (loading) return <LoadingScreen />;
 
@@ -55,7 +58,7 @@ const BillingsTableSection = ({
           </Typography>
         </Box>
 
-        <Box sx={{ textAlign: 'right' }}>
+        <Box sx={{ textAlign: 'right', cursor: 'pointer' }} onClick={() => onOpenUnbilledDepartmentsModal(month, year)}>
           <Typography variant="subtitle2" sx={{ fontWeight: 500, color: 'text.secondary' }}>
             Billed Departments This Month:
           </Typography>

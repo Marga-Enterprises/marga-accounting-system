@@ -18,6 +18,9 @@ import BillingsTableSection from '@sections/BillingsSections/BillingsTableSectio
 import BillingsMonthAndYearForm from '@sections/BillingsSections/BillingsMonthAndYearForm';
 import BillingSearchForm from '@sections/BillingsSections/BillingSearchForm';
 
+// components
+import UnbilledDepartmentsModal from '@components/billing/UnbilledDepartmentsModal';
+
 
 const Page = () => {
     // hooks
@@ -34,9 +37,13 @@ const Page = () => {
         totalBillings,
         totalBilledDepartments,
         totalDepartments,
+        unbilledDepartments,
+        openUnbilledDepartmentsModal,
         handleFetchBillings,
         handleMonthChange,
         handleYearChange,
+        handleShowUnbilledDepartmentsModal,
+        handleCloseUnbilledDepartmentsModal
     } = useLogic();
 
     // use effect
@@ -78,6 +85,9 @@ const Page = () => {
             {/* Billings Table Section */}
             <BillingsTableSection
                 loading={loading}
+                month={month}
+                year={year}
+                onOpenUnbilledDepartmentsModal={handleShowUnbilledDepartmentsModal}
                 billings={billings}
                 page={pageDetails.pageIndex}
                 totalBillings={totalBillings}
@@ -89,6 +99,13 @@ const Page = () => {
                     params.set('page', newPage);
                     navigate(`?${params.toString()}`);
                 }}
+            />
+
+            {/* Unbilled Departments Modal */}
+            <UnbilledDepartmentsModal
+                open={openUnbilledDepartmentsModal}
+                onClose={handleCloseUnbilledDepartmentsModal}
+                unbilledDepartments={unbilledDepartments}
             />
         </>
     );
